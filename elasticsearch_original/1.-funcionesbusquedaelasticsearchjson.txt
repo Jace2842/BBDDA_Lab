@@ -1,0 +1,46 @@
+#1.  Visualizar todo lo que hizo un usuario:
+
+
+GET logs_usuarios/_search
+{
+  "query": {
+    "term": {
+      "usuario_id": "u123"
+    }
+  },
+  "sort": [{"timestamp": "asc"}]
+}
+
+
+#2.-Ver funciones más usadas
+
+GET logs_usuarios/_search
+{
+  "size": 0,
+  "aggs": {
+    "funciones_populares": {
+      "terms": {
+        "field": "funcion.keyword",
+        "size": 10
+      }
+    }
+  }
+}
+
+#3.- Tiempo promedio por función:
+
+GET logs_usuarios/_search
+{
+  "size": 0,
+  "aggs": {
+    "funcion_stats": {
+      "terms": {"field": "funcion.keyword"},
+      "aggs": {
+        "tiempo_promedio": {
+          "avg": {"field": "tiempo_respuesta_ms"}
+        }
+      }
+    }
+  }
+}
+

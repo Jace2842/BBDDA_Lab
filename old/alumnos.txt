@@ -1,0 +1,555 @@
+@app.route('/alumnos_url', methods=['GET', 'POST'])
+
+def alumnos():
+
+    config = load_config()
+
+
+
+    # 🔹 POST: Verificar contraseña y devolver nota sin hacer render
+
+    if request.method == 'POST' and request.is_json:
+
+        alumno_id = request.json.get("id_alumno")
+
+        password = request.json.get("nota_password")
+
+
+
+        if not alumno_id or not password:
+
+            return jsonify({"error": "Faltan datos"}), 400
+
+
+
+        with psycopg2.connect(**config) as conn:
+
+            with conn.cursor() as cur:
+
+                valido, mensaje = validar_contraseña(cur, alumno_id, password)
+
+                if not valido:
+
+                    return jsonify({"error": mensaje}), 403
+
+
+
+                cur.execute("SELECT pgp_sym_decrypt(nota::bytea, %s) FROM alumn WHERE id = %s",
+
+                            (password, alumno_id))
+
+                nota_descifrada = cur.fetchone()[0]
+
+
+
+                # Retorna la nota desencriptada en formato JSON
+
+                return jsonify({"nota": nota_descifrada}), 200
+
+
+
+    # 🔹 GET: Mostrar alumnos con un filtro de búsqueda
+
+    page = request.args.get('page', 1, type=int)
+
+    limit = 30
+
+    offset = (page - 1) * limit
+
+    search_nombre = request.args.get('search_nombre', '')
+
+    search_apellido = request.args.get('search_apellido', '')
+
+    search_direccion = request.args.get('search_direccion', '')
+
+    search_saldo = request.args.get('search_saldo', '')
+
+    search_fecha_inicio = request.args.get('search_fecha_inicio', '')
+
+    search_fecha_fin = request.args.get('search_fecha_fin', '')
+
+    search_birthday_inicio = request.args.get('search_birthday_inicio', '')
+
+    search_birthday_fin = request.args.get('search_birthday_fin', '')
+
+
+
+    alumnos_dict = []
+
+    total_alumnos = 0
+
+    has_next = False
+
+
+
+    try:
+
+        with psycopg2.connect(**config) as conn:
+
+            with conn.cursor() as cur:
+
+                query_conditions = []
+
+                query_params = []
+
+
+
+                # 🔍 Aplicar filtros
+
+                if search_nombre:
+
+                    query_conditions.append("first_name ILIKE %s")
+
+                    query_params.append(f"%{search_nombre}%")
+
+                if search_apellido:
+
+                    query_conditions.append("last_name ILIKE %s")
+
+                    query_params.append(f"%{search_apellido}%")
+
+                if search_direccion:
+
+                    query_conditions.append("street_address ILIKE %s")
+
+                    query_params.append(f"%{search_direccion}%")
+
+                if search_saldo:
+
+                    query_conditions.append("saldo = %s")
+
+                    query_params.append(search_saldo)
+
+                if search_birthday_inicio and search_birthday_fin:
+
+                    query_conditions.append("birthday BETWEEN %s AND %s")
+
+                    query_params.extend([search_birthday_inicio, search_birthday_fin])
+
+                elif search_birthday_inicio:
+
+                    query_conditions.append("birthday >= %s")
+
+                    query_params.append(search_birthday_inicio)
+
+                elif search_birthday_fin:
+
+                    query_conditions.append("birthday <= %s")
+
+                    query_params.append(search_birthday_fin)
+
+                if search_fecha_inicio and search_fecha_fin:
+
+                    query_conditions.append("lastmodified BETWEEN %s AND %s")
+
+                    query_params.extend([search_fecha_inicio, search_fecha_fin])
+
+                elif search_fecha_inicio:
+
+                    query_conditions.append("lastmodified >= %s")
+
+                    query_params.append(search_fecha_inicio)
+
+                elif search_fecha_fin:
+
+                    query_conditions.append("lastmodified <= %s")
+
+                    query_params.append(search_fecha_fin)
+
+
+
+                where_clause = " AND ".join(query_conditions) if query_conditions else "1=1"
+
+
+
+                # 🔹 Consulta de alumnos
+
+                query = f'''
+
+                    SELECT id, first_name, last_name, street_address,
+
+                           TO_CHAR(birthday, 'YYYY-MM-DD') AS birthday,
+
+                           lastmodified, saldo, nota, hash_password
+
+                    FROM alumn
+
+                    WHERE {where_clause}
+
+                    ORDER BY id
+
+                    LIMIT %s OFFSET %s;
+
+                '''
+
+                query_params.extend([limit, offset])
+
+
+
+                cur.execute(query, tuple(query_params))
+
+                rows = cur.fetchall()
+
+
+
+                # 🔹 Contar alumnos
+
+                count_query = f"SELECT COUNT(*) FROM alumn WHERE {where_clause};"
+
+                cur.execute(count_query, tuple(query_params[:-2]))
+
+                total_alumnos = cur.fetchone()[0]
+
+
+
+                # 🔹 Procesar resultados
+
+                for u in rows:
+
+                    id_alumno, first_name, last_name, street_address, birthday, lastmodified, saldo, encrypted_nota, hash_password = u
+
+                   
+
+                    nota_descifrada = '********'  # 🔒 Ocultar por defecto
+
+
+
+                    alumnos_dict.append({
+
+                        "id": id_alumno,
+
+                        "first_name": first_name,
+
+                        "last_name": last_name,
+
+                        "street_address": street_address,
+
+                        "birthday": birthday,
+
+                        "lastmodified": lastmodified,
+
+                        "saldo": saldo,
+
+                        "nota": nota_descifrada
+
+                    })
+
+
+
+                has_next = len(alumnos_dict) == limit
+
+    except Exception as error:
+
+        print("❌ Error en la consulta:", error)
+
+
+
+    return render_template('menu.html', alumnos_data=alumnos_dict, page=page, has_next=has_next,
+
+                           total_alumnos=total_alumnos, search_nombre=search_nombre,
+
+                           search_apellido=search_apellido, search_direccion=search_direccion,
+
+                           search_fecha_inicio=search_fecha_inicio, search_fecha_fin=search_fecha_fin,
+
+                           search_birthday_inicio=search_birthday_inicio, search_birthday_fin=search_birthday_fin,
+
+                           search_saldo=search_saldo)
+
+
+
+
+
+html 
+
+
+
+{% if alumnos_data %}
+
+<p>Total de registros: {{ total_alumnos }}</p>
+
+<div class="table-container">
+
+    <table>
+
+        <tr>
+
+            <th>ID</th>
+
+            <th>Nombre</th>
+
+            <th>Apellido</th>
+
+            <th>Dirección</th>
+
+            <th>Cumpleaños</th>
+
+            <th>Última Modificación</th>
+
+            <th>Saldo</th>
+
+            <th>Nota</th>
+
+        </tr>
+
+        {% for alumno in alumnos_data %}
+
+        <tr>
+
+            <td>{{ alumno.id }}</td>
+
+            <td>{{ alumno.first_name }}</td>
+
+            <td>{{ alumno.last_name }}</td>
+
+            <td>{{ alumno.street_address }}</td>
+
+            <td>{{ alumno.birthday }}</td>
+
+            <td>{{ alumno.lastmodified }}</td>
+
+            <td>{{ alumno.saldo }}</td>
+
+            <td>
+
+                <form method="POST" class="nota-form" data-alumno-id="{{ alumno.id }}">
+
+                    <input type="password" name="nota_password" placeholder="Contraseña">
+
+                    <button type="submit">Ver Nota</button>
+
+                </form>
+
+                <p id="nota-{{ alumno.id }}">**********</p>
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+{% endif %}
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+
+    $(document).ready(function(){
+
+        $(".nota-form").submit(function(event){
+
+            event.preventDefault();
+
+            var form = $(this);
+
+            var alumnoId = form.data("alumno-id");
+
+            var password = form.find("input[name='nota_password']").val();
+
+
+
+            $.ajax({
+
+                url: "/alumnos_url",
+
+                method: "POST",
+
+                contentType: "application/json",
+
+                data: JSON.stringify({
+
+                    "id_alumno": alumnoId,
+
+                    "nota_password": password
+
+                }),
+
+                success: function(response) {
+
+                    // Mostrar la nota desencriptada en el campo correspondiente
+
+                    $("#nota-" + alumnoId).text("Nota: " + response.nota);
+
+                },
+
+                error: function(error) {
+
+                    alert("Error al verificar la contraseña: " + error.responseJSON.error);
+
+                }
+
+            });
+
+        });
+
+    });
+
+</script> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route('/alumnos_url', methods=['GET', 'POST'])
+def alumnos():
+    """
+    Endpoint para gestionar alumnos.
+    ---
+    get:
+      description: Obtener lista de alumnos con filtros opcionales
+      parameters:
+        - name: search_nombre
+          in: query
+          type: string
+          required: false
+        - name: search_apellido
+          in: query
+          type: string
+          required: false
+        - name: search_direccion
+          in: query
+          type: string
+          required: false
+        - name: search_fecha_inicio
+          in: query
+          type: string
+          required: false
+        - name: search_fecha_fin
+          in: query
+          type: string
+          required: false
+        - name: search_birthday_inicio
+          in: query
+          type: string
+          required: false
+        - name: search_birthday_fin
+          in: query
+          type: string
+          required: false
+        - name: search_saldo
+          in: query
+          type: string
+          required: false
+        - name: page
+          in: query
+          type: integer
+          default: 1
+      responses:
+        200:
+          description: Lista de alumnos obtenida con éxito
+    post:
+      description: Verificar contraseña y obtener nota cifrada
+      parameters:
+        - name: id_alumno
+          in: body
+          type: integer
+          required: true
+        - name: nota_password
+          in: body
+          type: string
+          required: true
+      responses:
+        200:
+          description: Nota obtenida correctamente
+    """
+    config = load_config()
+    
+    if request.method == 'POST' and request.is_json:
+        data = request.get_json()
+        alumno_id = data.get("id_alumno")
+        password = data.get("nota_password")
+
+        if not alumno_id or not password:
+            return jsonify({"error": "Faltan datos"}), 400
+
+        with psycopg2.connect(**config) as conn:
+            with conn.cursor() as cur:
+                valido, mensaje = validar_contraseña(cur, alumno_id, password)
+                if not valido:
+                    return jsonify({"error": mensaje}), 403
+                
+                cur.execute("SELECT pgp_sym_decrypt(nota::bytea, %s) FROM alumn WHERE id = %s", (password, alumno_id))
+                nota_descifrada = cur.fetchone()[0]
+                return jsonify({"nota": nota_descifrada}), 200
+
+    # GET para listar alumnos
+    page = request.args.get('page', 1, type=int)
+    limit = 30
+    offset = (page - 1) * limit
+    search_nombre = request.args.get('search_nombre', '')
+    search_apellido = request.args.get('search_apellido', '')
+    search_direccion = request.args.get('search_direccion', '')
+    search_fecha_inicio = request.args.get('search_fecha_inicio', '')
+    search_fecha_fin = request.args.get('search_fecha_fin', '')
+    search_birthday_inicio = request.args.get('search_birthday_inicio', '')
+    search_birthday_fin = request.args.get('search_birthday_fin', '')
+    search_saldo = request.args.get('search_saldo', '')
+    
+    alumnos_dict = []
+    total_alumnos = 0
+    has_next = False
+
+    with psycopg2.connect(**config) as conn:
+        with conn.cursor() as cur:
+            query = """
+                SELECT id, first_name, last_name, street_address, 
+                       TO_CHAR(birthday, 'YYYY-MM-DD') AS birthday, lastmodified, saldo 
+                FROM alumn
+                WHERE first_name ILIKE %s AND last_name ILIKE %s AND street_address ILIKE %s
+                ORDER BY id LIMIT %s OFFSET %s;
+            """
+            cur.execute(query, (f"%{search_nombre}%", f"%{search_apellido}%", f"%{search_direccion}%", limit, offset))
+            rows = cur.fetchall()
+            
+            for u in rows:
+                alumnos_dict.append({
+                    "id": u[0], "first_name": u[1], "last_name": u[2], "street_address": u[3],
+                    "birthday": u[4], "lastmodified": u[5], "saldo": u[6]
+                })
+            
+            cur.execute("SELECT COUNT(*) FROM alumn WHERE first_name ILIKE %s AND last_name ILIKE %s AND street_address ILIKE %s", 
+                        (f"%{search_nombre}%", f"%{search_apellido}%", f"%{search_direccion}%"))
+            total_alumnos = cur.fetchone()[0]
+
+    has_next = len(alumnos_dict) == limit
+    return render_template('menu.html', alumnos_data=alumnos_dict, page=page, has_next=has_next,
+                           total_alumnos=total_alumnos, search_nombre=search_nombre,
+                           search_apellido=search_apellido, search_direccion=search_direccion,
+                           search_fecha_inicio=search_fecha_inicio, search_fecha_fin=search_fecha_fin,
+                           search_birthday_inicio=search_birthday_inicio, search_birthday_fin=search_birthday_fin,
+                           search_saldo=search_saldo) 
+
+

@@ -1,0 +1,45 @@
+<!-- templates/tendencias.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analizar Tendencias</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Análisis de Tendencias de Logs</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('index') }}">Página Principal</a></li>
+        </ul>
+    </nav>
+
+    <section class="content">
+        <h2>Operaciones por Tipo</h2>
+        <div id="operaciones_por_tipo">
+            <!-- Gráfica o análisis generado en el backend -->
+            <p>Aquí irán los datos de operaciones por tipo.</p>
+        </div>
+
+        <h2>Operaciones por Usuario</h2>
+        <div id="operaciones_por_usuario">
+            <!-- Gráfica o análisis generado en el backend -->
+            <p>Aquí irán los datos de operaciones por usuario.</p>
+        </div>
+
+        <h2>Operaciones por Fecha</h2>
+        <div id="operaciones_por_fecha">
+            <!-- Gráfica o análisis generado en el backend -->
+            <p>Aquí irán los datos de operaciones por fecha.</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Logs de Actividad</p>
+    </footer>
+</body>
+</html>

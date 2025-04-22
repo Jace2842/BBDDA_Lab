@@ -1,0 +1,9 @@
+{
+  "timestamp": "2025-03-31T12:34:56",
+  "usuario_id": "u123",
+  "sesion_id": "sess456",
+  "ruta": "/api/datos",
+  "funcion": "consultar_datos",
+  "parametros": {"id": 42, "filtro": "activo"},
+  "tiempo_respuesta_ms": 120
+}

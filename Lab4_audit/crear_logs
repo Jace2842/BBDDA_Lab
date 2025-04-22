@@ -1,0 +1,30 @@
+from elasticsearch import Elasticsearch
+
+# Conexión a Elasticsearch
+es = Elasticsearch("http://localhost:9200")
+
+# Definir el índice y su mapeo
+INDEX_NAME = "logs_actividad"
+
+# Crear un índice si no existe
+def crear_indice():
+    mapping = {
+        "mappings": {
+            "properties": {
+                "timestamp": {"type": "date"},
+                "usuario": {"type": "keyword"},
+                "operacion": {"type": "keyword"},
+                "detalle": {"type": "text"},  # campo para búsqueda de texto libre
+                "ip": {"type": "ip"}
+            }
+        }
+    }
+    # Crear el índice si no existe
+    if not es.indices.exists(index=INDEX_NAME):
+        es.indices.create(index=INDEX_NAME, body=mapping)
+        print("Índice creado:", INDEX_NAME)
+    else:
+        print("El índice ya existe:", INDEX_NAME)
+
+# Ejecutar la creación del índice
+crear_indice()

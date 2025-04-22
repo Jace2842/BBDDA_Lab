@@ -1,0 +1,74 @@
+<!-- templates/logs.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Logs</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Buscar Logs de Actividad</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('index') }}">Página Principal</a></li>
+        </ul>
+    </nav>
+
+    <section class="content">
+        <form method="get" action="{{ url_for('buscar_logs_ruta') }}">
+            <label for="usuario">Usuario:</label>
+            <input type="text" id="usuario" name="usuario">
+
+            <label for="operacion">Operación:</label>
+            <input type="text" id="operacion" name="operacion">
+
+            <label for="fecha_inicio">Fecha Inicio:</label>
+            <input type="date" id="fecha_inicio" name="fecha_inicio">
+
+            <label for="fecha_fin">Fecha Fin:</label>
+            <input type="date" id="fecha_fin" name="fecha_fin">
+
+            <label for="texto_libre">Texto libre:</label>
+            <input type="text" id="texto_libre" name="texto_libre">
+
+            <button type="submit">Buscar Logs</button>
+        </form>
+
+        {% if logs %}
+        <h2>Resultados de Búsqueda</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Usuario</th>
+                    <th>Operación</th>
+                    <th>Detalle</th>
+                    <th>IP</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                <tr>
+                    <td>{{ log._source.timestamp }}</td>
+                    <td>{{ log._source.usuario }}</td>
+                    <td>{{ log._source.operacion }}</td>
+                    <td>{{ log._source.detalle }}</td>
+                    <td>{{ log._source.ip }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No se encontraron resultados.</p>
+        {% endif %}
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Logs de Actividad</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Análisis de Logs</title><style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f4f4f4;
+        }
+        nav {
+            background-color: #007bff; 
+            padding: 10px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: background-color 0.3s ease;
+        }
+        nav a:hover {
+            background-color: #5a6268; /* Gris más claro al pasar el ratón */
+        }
+        .table-container {
+            width: 95%; /* Aumenta el ancho para llenar más la página */
+            overflow-x: auto;
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+        }
+        table {
+            width: 100%;
+            max-width: 1200px;
+            border-collapse: collapse;
+            border-radius: 15px;
+            overflow: hidden; /* Para que los bordes redondeados funcionen */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 50%;
+            margin: 20px auto;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+        .form-container label,
+        .form-container input,
+        .form-container select {
+            
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        .form-container button {
+            width: 90%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .form-container button:hover {
+            background-color: #007bff;
+        }
+        p {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Análisis de Logs</h1>
+
+    <h2>Funciones más usadas</h2>
+    <img src="data:image/png;base64,{{ img_func }}" alt="Funciones más usadas">
+
+    <h2>Tiempo promedio por función (ms)</h2>
+    <img src="data:image/png;base64,{{ img_tiempo }}" alt="Tiempo promedio por función">
+
+    <h2>Número de peticiones por día</h2>
+    <img src="data:image/png;base64,{{ img_diario }}" alt="Peticiones por día">
+</body>
+</html>

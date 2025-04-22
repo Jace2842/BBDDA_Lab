@@ -1,0 +1,270 @@
+
+# ==============================
+# FUNCIONALIDAD: TRANSFERENCIA DE FONDOS ENTRE ALUMNOS
+# ==============================
+@app.route('/transferir_fondos', methods=['POST'])
+def transferir_fondos():
+    data = request.json
+    origen = data.get("origen")
+    destino = data.get("destino")
+    monto = data.get("monto")
+
+    if not all([origen, destino, monto]):
+        return jsonify({"error": "Datos incompletos"}), 400
+
+    try:
+        with psycopg2.connect(**DB_CONFIG) as conn:
+            with conn.cursor() as cursor:
+                # Verificar saldo de la cuenta origen
+                cursor.execute("SELECT saldo FROM alumnos WHERE id = %s", (origen,))
+                saldo_origen = cursor.fetchone()
+
+                if saldo_origen is None:
+                    return jsonify({"error": "Cuenta de origen no encontrada"}), 404
+                if saldo_origen[0] < monto:
+                    return jsonify({"error": "Saldo insuficiente"}), 400
+
+                # Realizar la transferencia
+                cursor.execute("UPDATE alumnos SET saldo = saldo - %s WHERE id = %s", (monto, origen))
+                cursor.execute("UPDATE alumnos SET saldo = saldo + %s WHERE id = %s", (monto, destino))
+
+                return jsonify({"message": f"Transferencia de ${monto} de {origen} a {destino} completada."}), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+# ==============================
+# FUNCIONALIDAD: MATRICULAR ALUMNO EN UN CURSO
+# ==============================
+@app.route('/matricular', methods=['POST'])
+def matricular_alumno():
+
+
+    data = request.json
+    alumno_id = data.get('alumno_id')
+    curso_id = data.get('curso_id')
+
+    if not alumno_id or not curso_id:
+        return jsonify({"error": "Faltan datos"}), 400
+
+    try:
+        with psycopg2.connect(**DB_CONFIG) as conn:
+            with conn.cursor() as cursor:
+                # Obtener saldo del alumno
+                cursor.execute("SELECT saldo FROM alumnos WHERE id = %s", (alumno_id,))
+                alumno = cursor.fetchone()
+                if not alumno:
+                    return jsonify({"error": "Alumno no encontrado"}), 404
+
+                saldo_actual = alumno[0]
+
+                # Obtener precio del curso
+                cursor.execute("SELECT precio FROM cursos WHERE id = %s", (curso_id,))
+                curso = cursor.fetchone()
+                if not curso:
+                    return jsonify({"error": "Curso no encontrado"}), 404
+
+                precio_curso = curso[0]
+
+                # Verificar saldo suficiente
+                if saldo_actual < precio_curso:
+                    return jsonify({"error": "Saldo insuficiente"}), 400
+
+                # Verificar si ya está matriculado
+                cursor.execute("SELECT 1 FROM course_alumn_rel WHERE alumno_id = %s AND curso_id = %s", (alumno_id, curso_id))
+                if cursor.fetchone():
+                    return jsonify({"error": "El alumno ya está matriculado en este curso"}), 400
+
+                # Descontar saldo y matricular
+                cursor.execute("UPDATE alumnos SET saldo = saldo - %s WHERE id = %s", (precio_curso, alumno_id))
+                cursor.execute("INSERT INTO course_alumn_rel (alumno_id, curso_id) VALUES (%s, %s)", (alumno_id, curso_id))
+
+                return jsonify({"message": "Matrícula realizada con éxito"}), 201
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
+import psycopg2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route('/alumnos_url')
+def alumnos():
+    password = request.args.get('password', '')
+
+    # Convertir la contraseña en MD5
+    password_md5 = hashlib.md5(password.encode()).hexdigest()
+
+    with get_db_connection() as conn:
+        with conn.cursor() as cur:
+            query = """
+                SELECT id, first_name, last_name, street_address, birthday, lastmodified, saldo, nota, 
+                       CASE WHEN hash_password = %s THEN info_privada ELSE '*****' END AS info_privada
+                FROM alumnos;
+            """
+            cur.execute(query, (password_md5,))
+            alumnos_data = cur.fetchall()
+    
+    return render_template('alumnos.html', alumnos_data=alumnos_data)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#!/bin/bash
+DATE=$(date +"%Y%m%d_%H%M%S")
+BACKUP_DIR="/backups"
+FILENAME="$BACKUP_DIR/backup_$DATE.sql"
+
+mkdir -p $BACKUP_DIR
+pg_dump -U postgres -d mi_base_de_datos -F c -f $FILENAME
+
+echo "Backup guardado en $FILENAME"
+
+
+
+
+
+pg_dump -U postgres -h localhost -p 5432 -F c -b -v -f "C:\backups\backup_alumnos.backup" mi_base_de_datos
+
+
+
+@app.route('/alumnos_url', methods=['GET', 'POST'])
+def alumnos():
+    page = request.args.get('page', 1, type=int)
+    limit = 30
+    offset = (page - 1) * limit
+    search_nombre = request.args.get('search_nombre', '')
+    search_apellido = request.args.get('search_apellido', '')
+    search_direccion = request.args.get('search_direccion', '')
+    search_cumpleanos = request.args.get('search_cumpleanos', '')
+    search_saldo = request.args.get('search_saldo', '')
+    
+    nota_password = request.form.get('nota_password', '')  # Captura la clave para desencriptar la nota
+    config = load_config()
+
+    try:
+        with psycopg2.connect(**config) as conn:
+            with conn.cursor() as cur:
+                query_conditions = []
+                query_params = []
+
+                if search_nombre:
+                    query_conditions.append("first_name ILIKE %s")
+                    query_params.append(f"%{search_nombre}%")
+                if search_apellido:
+                    query_conditions.append("last_name ILIKE %s")
+                    query_params.append(f"%{search_apellido}%")
+                if search_direccion:
+                    query_conditions.append("street_address ILIKE %s")
+                    query_params.append(f"%{search_direccion}%")
+                if search_cumpleanos:
+                    query_conditions.append("TO_CHAR(birthday, 'YYYY-MM-DD') ILIKE %s")
+                    query_params.append(f"%{search_cumpleanos}%")
+
+                where_clause = " AND ".join(query_conditions) if query_conditions else "1=1"
+
+                query = f"""
+                    SELECT id, first_name, last_name, street_address, 
+                           TO_CHAR(birthday, 'YYYY-MM-DD'), lastmodified, saldo, 
+                           pgp_sym_decrypt(nota::bytea, %s) AS nota_descifrada, hash_password
+                    FROM alumn
+                    WHERE {where_clause}
+                    ORDER BY id
+                    LIMIT %s OFFSET %s;
+                """
+                
+                query_params = [nota_password] + query_params + [limit, offset]
+                cur.execute(query, tuple(query_params))
+                rows = cur.fetchall()
+
+                count_query = f"SELECT COUNT(*) FROM alumn WHERE {where_clause};"
+                cur.execute(count_query, tuple(query_params[1:-2]))  # Evita pasar el password en el count
+                total_alumnos = cur.fetchone()[0]
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+
+    alumnos_dict = [
+        {
+            "id": u[0],
+            "first_name": u[1],
+            "last_name": u[2],
+            "street_address": u[3],
+            "birthday": u[4],
+            "lastmodified": u[5],
+            "saldo": u[6],
+            "nota": u[7] if nota_password else "🔒 (Protegido)",  # Si no se ingresa clave, muestra 🔒
+            "hash_password": u[8]
+        } for u in rows
+    ]
+    
+    has_next = len(alumnos_dict) == limit
+    return render_template('menu.html', alumnos_data=alumnos_dict, page=page, has_next=has_next,
+                           total_alumnos=total_alumnos, search_nombre=search_nombre,
+                           search_apellido=search_apellido, search_direccion=search_direccion,
+                           search_cumpleanos=search_cumpleanos, search_saldo=search_saldo)
+
+En el archivo menu.html, agregamos un campo para ingresar la clave:
+
+html
+Copy
+Edit
+<form method="POST" action="/alumnos_url">
+    <input type="text" name="search_nombre" placeholder="Buscar por nombre">
+    <input type="password" name="nota_password" placeholder="Clave para ver notas">
+    <button type="submit">Buscar</button>
+</form>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Dirección</th>
+        <th>Cumpleaños</th>
+        <th>Saldo</th>
+        <th>Nota</th>
+        <th>Contraseña (MD5)</th>
+    </tr>
+    {% for alumno in alumnos_data %}
+    <tr>
+        <td>{{ alumno.id }}</td>
+        <td>{{ alumno.first_name }}</td>
+        <td>{{ alumno.last_name }}</td>
+        <td>{{ alumno.street_address }}</td>
+        <td>{{ alumno.birthday }}</td>
+        <td>{{ alumno.saldo }}</td>
+        <td>{{ alumno.nota }}</td>
+        <td>{{ alumno.hash_password }}</td>
+    </tr>
+    {% endfor %}
+</table>

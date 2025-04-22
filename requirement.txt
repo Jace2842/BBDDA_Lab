@@ -1,0 +1,8 @@
+Flask==2.2.5
+Flask-SQLAlchemy==3.0.3
+psycopg2-binary==2.9.6
+pandas==1.5.3
+xlsxwriter==3.0.3
+pdfkit==1.0.0
+openpyxl
+
