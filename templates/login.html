@@ -1,166 +1,139 @@
-<html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
-        }
-        nav {
-            background-color: #007bff;
-            padding: 10px;
-            border-radius: 8px;
-        }
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 15px;
-            font-size: 18px;
-        }
-        nav a:hover {
-            text-decoration: underline;
-        }
-        .table-container {
-            width: 100%;
-            overflow-x: auto;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
-        }
-        table {
-            width: 90%;
-            max-width: 1000px;
-            margin: 20px auto;
-            border-collapse: collapse;
-            min-width: 400px;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #007bff;
-            color: white;
-        }
-        .pagination {
-            margin-top: 20px;
-        }
-        @media screen and (max-width: 600px) {
-            table {
-                width: 100%;
-            }
-            th, td {
-                padding: 6px;
-                font-size: 14px;
-            }
-        }
-        .form-container {
-            display: flex;
-            flex-direction: column;
             align-items: center;
-            width: 50%;
-            margin: auto;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-            background-color: #f9f9f9;
+            height: 100vh;
         }
-    
-        .form-container label,
-        .form-container input,
-        .form-container select {
+        .login-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            padding: 30px;
+        }
+        h1 {
+            text-align: center;
+            color: #34495e;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        input {
             width: 100%;
-            margin-bottom: 10px;
-            padding: 10px 12px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
             font-size: 16px;
             box-sizing: border-box;
         }
-    
-        .form-container input:focus,
-        .form-container select:focus {
+        input:focus {
+            border-color: #34495e;
             outline: none;
-            border-color: #007bff;
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
         }
-    
         button {
-            padding: 16px 24px;
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            line-height: 1;
-            letter-spacing: .8px;
-            text-decoration: none !important;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background-color: #007bff;
+            background-color: #34495e;
             color: white;
             border: none;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            font-weight: 600;
-            font-size: 18px;
-            margin: 20px auto;
+            border-radius: 5px;
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
         }
-    
         button:hover {
-            background-color: #0056b3;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            background-color: #2a83dd;
         }
-    
-        input[type="text"] {
-            background: rgba(0, 0, 0, 0);
-            color: black;
-            
-            height: 40px;
-            border-radius: 8px;
-           
-            padding-left: 12px;
-           
-            box-sizing: border-box;
+        .links {
+            text-align: center;
+            margin-top: 20px;
         }
-    
-        input[type="date"] {
-            background: rgba(0, 0, 0, 0);
-            color: black;
-            
-            height: 40px;
-            border-radius: 8px;
-            
-            padding-left: 12px;
-           
-            box-sizing: border-box;
+        .links a {
+            color: #34495e;
+            text-decoration: none;
         }
-    
-        @media (max-width: 1787px) {
-            input[type="search"] {
-                width: 260px;
-            }
+        .links a:hover {
+            text-decoration: underline;
         }
-    
-        /* Aplicar overflow-clip a inputs excepto ciertos tipos */
-        input:not([type="image" i], [type="range" i], [type="checkbox" i], [type="radio" i]) {
-            overflow-clip-margin: 0px !important;
-            overflow: clip !important;
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
         }
     </style>
-<head>
-    <title>Iniciar Sesión</title>
 </head>
 <body>
-    <h1>Iniciar Sesión</h1>
-    <form action="/login" method="post">
-        <label>Usuario:</label>
-        <input type="text" name="usuario" required>
-        <br>
-        <label>Contraseña:</label>
-        <input type="password" name="password" required>
-        <br>
-        <button type="submit">Ingresar</button>
-    </form>
+    <div class="login-container">
+        <h1>Iniciar Sesión</h1>
+        
+        <div class="error-message" id="errorMessage">
+            <!-- Mensajes de error dinámicos -->
+        </div>
+        
+        <form method="POST" action="/login" id="loginForm">
+            <div class="form-group">
+                <label for="usuario">Usuario:</label>
+                <input type="text" id="usuario" name="usuario" required autocomplete="username">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" required autocomplete="current-password">
+            </div>
+            
+            <button type="submit">Iniciar Sesión</button>
+        </form>
+        
+        <div class="links">
+            <p>¿No tienes cuenta? <a href="/register">Regístrate aquí</a></p>
+            <p><a href="/">Volver al inicio</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Mostrar errores si los hay en la URL
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const error = urlParams.get('error');
+            
+            if (error) {
+                const errorMessageElement = document.getElementById('errorMessage');
+                errorMessageElement.style.display = 'block';
+                
+                switch(error) {
+                    case 'credentials':
+                        errorMessageElement.textContent = 'Credenciales inválidas. Inténtalo de nuevo.';
+                        break;
+                    case 'blocked':
+                        errorMessageElement.textContent = 'La cuenta está temporalmente bloqueada por demasiados intentos fallidos.';
+                        break;
+                    default:
+                        errorMessageElement.textContent = 'Ha ocurrido un error. Inténtalo de nuevo.';
+                }
+            }
+        });
+    </script>
 </body>
 </html>

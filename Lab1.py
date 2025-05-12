@@ -1,3 +1,5 @@
+import base64
+import logging
 from time import time
 from flask import Flask, request, jsonify, g, render_template, session, redirect, url_for, send_file, make_response,Response
 import sqlite3
@@ -9,6 +11,7 @@ from config import load_config
 import hashlib
 from sqlalchemy import extract, func
 import io
+from tkinter import Tk, filedialog
 import pandas as pd
 import pdfkit
 from psycopg2.extras import RealDictCursor
@@ -19,8 +22,16 @@ from elasticsearch import Elasticsearch
 import uuid
 from threading import Thread
 import queue
+import pickle
+
+# Configuración de logging
+logging.basicConfig(level=logging.INFO, 
+                   format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                   filename='app.log')
+logger = logging.getLogger(__name__)
 
 
+db_config = load_config()
 log_queue = queue.Queue()
 app = Flask(__name__)
 app.secret_key = 'supersecretkey'
@@ -175,6 +186,21 @@ def home():
     if 'usuario' in session:
         return f'Bienvenido {session["usuario"]} | <a href="/logout">Cerrar sesión</a>'
     return render_template('home.html')
+
+@app.route('/test')
+def test():
+    if 'usuario' in session:
+     return render_template('test.html')
+    return f'Bienvenido {session["usuario"]} | <a href="/logout">Cerrar sesión</a>'
+
+
+@app.route('/mapa')
+def mapa():
+    if 'usuario' in session:
+     return render_template('mapa.html')
+    return f'Bienvenido {session["usuario"]} | <a href="/logout">Cerrar sesión</a>'
+
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -345,57 +371,72 @@ def profesores():
     page = request.args.get('page', 1, type=int)
     limit = 30
     offset = (page - 1) * limit
+
+    search_id = request.args.get('search_id', '')
     search_nombre = request.args.get('search_nombre', '')
+    search_fecha_inicio = request.args.get('search_fecha_inicio', '')
+    search_fecha_fin = request.args.get('search_fecha_fin', '')
+
     config = load_config()
+
+    profesores_dict = []
+    total_profesores = 0
+    has_next = False
+
     try:
         with psycopg2.connect(**config) as conn:
             with conn.cursor() as cur:
-                #condiciones de búsqueda dinámicamente
                 query_conditions = []
                 query_params = []
 
-                #condición para el nombre solo si no está vacío
+                if search_id:
+                    query_conditions.append("id = %s")
+                    query_params.append(search_id)
                 if search_nombre:
                     query_conditions.append("name ILIKE %s")
                     query_params.append(f"%{search_nombre}%")
+                if search_fecha_inicio and search_fecha_fin:
+                    query_conditions.append("lastmodified BETWEEN %s AND %s")
+                    query_params.extend([search_fecha_inicio, search_fecha_fin])
 
+                where_clause = " AND ".join(query_conditions) if query_conditions else "1=1"
 
-
-                where_clause = " AND ".join(
-                    query_conditions) if query_conditions else "1=1"  # "1=1" siempre es verdadero
-
-                # Consulta SQL con condiciones de búsqueda dinámicas
                 query = f"""
-                                    SELECT id, name,lastmodified, nota
-                                    FROM teacher
-                                    WHERE {where_clause}
-                                    ORDER BY id
-                                    LIMIT %s OFFSET %s;
-                                """
-
-                # Añadir los parámetros de búsqueda y de paginación
+                    SELECT id, name, lastmodified, nota
+                    FROM teacher
+                    WHERE {where_clause}
+                    ORDER BY id
+                    LIMIT %s OFFSET %s;
+                """
                 query_params.extend([limit, offset])
-
-                # Ejecutar la consulta
                 cur.execute(query, tuple(query_params))
                 rows = cur.fetchall()
 
-                # Ejecutar la consulta de conteo total de alumnos con las mismas condiciones de búsqueda
                 count_query = f"SELECT COUNT(*) FROM teacher WHERE {where_clause};"
-                cur.execute(count_query, tuple(query_params[:-2]))  # Sin los parámetros de paginación
+                cur.execute(count_query, tuple(query_params[:-2]))  # sin paginación
                 total_profesores = cur.fetchone()[0]
 
+                for u in rows:
+                    profesores_dict.append({
+                        "id": u[0],
+                        "name": u[1],
+                        "lastmodified": u[2],
+                        "nota": u[3]
+                    })
+                has_next = len(profesores_dict) == limit
+
     except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
+        print("Error:", error)
 
-    profesores_dict = [{"id": u[0], "name": u[1], "lastmodified": u[2],"nota": u[3]} for u in rows]
-    has_next = len(profesores_dict) == limit
-    return render_template('menu.html', profesores_data=profesores_dict, page=page, has_next=has_next,
+    return render_template('menu.html',
+                           profesores_data=profesores_dict,
+                           page=page,
+                           has_next=has_next,
                            total_profesores=total_profesores,
+                           search_id=search_id,
                            search_nombre=search_nombre,
-                           
-                           )
-
+                           search_fecha_inicio=search_fecha_inicio,
+                           search_fecha_fin=search_fecha_fin)
 
 @app.route('/matriculados_url')
 def matriculados():
@@ -405,7 +446,8 @@ def matriculados():
     search_alumn_id = request.args.get('search_alumn_id', '').strip()
     search_course_id = request.args.get('search_course_id', '').strip()
     search_lastmodified = request.args.get('search_lastmodified', '').strip()
-    
+    search_calificacion = request.args.get('search_calificacion', '').strip()
+
     config = load_config()
     matriculados_dict = []
     total_matriculados = 0
@@ -428,12 +470,16 @@ def matriculados():
                 if search_lastmodified:
                     query_conditions.append("course_alumn_rel.lastmodified::text ILIKE %s")
                     query_params.append(f"%{search_lastmodified}%")
+                
+                if search_calificacion:
+                    query_conditions.append("course_alumn_rel.calificacion = %s")
+                    query_params.append(f"%{search_calificacion}%")
 
                 where_clause = " AND ".join(query_conditions) if query_conditions else "1=1"
 
                 # Consulta SQL con JOIN para obtener el nombre del profesor
                 query = f"""
-                    SELECT course_alumn_rel.alumn_id, course_alumn_rel.course_id, course_alumn_rel.lastmodified
+                    SELECT course_alumn_rel.alumn_id, course_alumn_rel.course_id, course_alumn_rel.lastmodified, course_alumn_rel.calificacion
                     FROM course_alumn_rel
                     WHERE {where_clause}
                     ORDER BY course_alumn_rel.alumn_id
@@ -456,6 +502,7 @@ def matriculados():
                         "alumn_id": row[0],
                         "course_id": row[1],
                         "lastmodified": row[2],
+                        "calificacion": row[3],
                     }
                     for row in rows
                 ]
@@ -474,6 +521,7 @@ def matriculados():
         search_alumn_id=search_alumn_id,
         search_course_id=search_course_id,
         search_lastmodified=search_lastmodified,
+        search_calificacion=search_calificacion,
     )
 
 
@@ -482,77 +530,89 @@ def clases():
     page = request.args.get('page', 1, type=int)
     limit = 30
     offset = (page - 1) * limit
+
     search_nombre = request.args.get('search_nombre', '')
     search_teacher_name = request.args.get('search_teacher_name', '')
     search_precio = request.args.get('search_precio', '')
     search_cupo_disponible = request.args.get('search_cupo_disponible', '')
-    search_nombre2 = request.args.get('search_nombre2', 'esp')  # Default to 'esp' if not selected
-    config = load_config()
+    search_nombre2 = request.args.get('search_nombre2', 'esp')
 
+    config = load_config()
     course_dict = []
     total_cursos = 0
 
     try:
         with psycopg2.connect(**config) as conn:
             with conn.cursor() as cur:
-                # Construcción dinámica de condiciones
                 query_conditions = []
                 query_params = []
 
                 if search_nombre:
                     query_conditions.append("course.name ILIKE %s")
                     query_params.append(f"%{search_nombre}%")
-
                 if search_teacher_name:
                     query_conditions.append("teacher.name ILIKE %s")
                     query_params.append(f"%{search_teacher_name}%")
+                if search_precio:
+                    query_conditions.append("course.precio = %s")
+                    query_params.append(search_precio)
+                if search_cupo_disponible:
+                    query_conditions.append("course.cupo_disponible = %s")
+                    query_params.append(search_cupo_disponible)
 
                 where_clause = " AND ".join(query_conditions) if query_conditions else "1=1"
+                nombre_field = f"course.nombre->>'{search_nombre2}'"
 
-                # Selección dinámica de idioma
-                nombre_field = f"course.nombre->'{search_nombre2}'"  # 'esp' or 'eng'
-
-                
+                # Consulta principal con promedio de calificaciones
                 query = f"""
-                    SELECT course.id, course.name, teacher.name, course.precio, course.cupo_disponible, {nombre_field}
+                    SELECT 
+                        course.id, 
+                        course.name, 
+                        teacher.name, 
+                        course.precio, 
+                        course.cupo_disponible, 
+                        {nombre_field} AS nombre_traducido,
+                        AVG(course_alumn_rel.calificacion) AS media
                     FROM course
                     JOIN teacher ON course.teacher_id = teacher.id
+                    LEFT JOIN course_alumn_rel ON course.id = course_alumn_rel.course_id
                     WHERE {where_clause}
+                    GROUP BY course.id, teacher.name, course.name, course.precio, course.cupo_disponible, {nombre_field}
                     ORDER BY course.id
                     LIMIT %s OFFSET %s;
                 """
 
-                query_params.extend([limit, offset])
-
-                # Ejecutar consulta principal
-                cur.execute(query, tuple(query_params))
+                query_params_full = query_params + [limit, offset]
+                cur.execute(query, query_params_full)
                 rows = cur.fetchall()
 
-                # Contar el total de cursos con los filtros aplicados
-                count_query = f"SELECT COUNT(*) FROM course JOIN teacher ON course.teacher_id = teacher.id WHERE {where_clause};"
-                cur.execute(count_query, tuple(query_params[:-2]))  # Sin los parámetros de paginación
+                # Conteo total de cursos (sin JOIN para evitar duplicados)
+                count_query = f"""
+                    SELECT COUNT(*)
+                    FROM course
+                    JOIN teacher ON course.teacher_id = teacher.id
+                    WHERE {where_clause};
+                """
+                cur.execute(count_query, query_params)
                 total_cursos = cur.fetchone()[0]
 
-                # Convertir resultados en diccionario
                 course_dict = [
                     {
                         "id": row[0],
                         "name": row[1],
                         "teacher_name": row[2],
-                        "precio": row[3],
+                        "precio": float(row[3]) if row[3] is not None else None,
                         "cupo_disponible": row[4],
-                        "nombre": row[5]
+                        "nombre": row[5],
+                        "media": float(row[6]) if row[6] is not None else None
                     }
                     for row in rows
                 ]
 
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(f"Error al obtener clases: {error}")
+    except Exception as e:
+        print(f"Error al obtener clases: {e}")
 
     has_next = len(course_dict) == limit
-
-
-    
 
     return render_template(
         'menu.html',
@@ -564,9 +624,8 @@ def clases():
         search_teacher_name=search_teacher_name,
         search_precio=search_precio,
         search_cupo_disponible=search_cupo_disponible,
-        search_nombre2=search_nombre2  # Pasar el valor de la selección al HTML
+        search_nombre2=search_nombre2
     )
-    
 
 @app.route('/alumnos_audit_url')
 def alumnos_audit():
@@ -909,16 +968,133 @@ def matriculados_audit():
     )
 
 
+# Función para exportar alumnos a Excel
+@app.route('/export/alumnos/excel', methods=['GET'])
+def export_alumnos_excel():
+    config = load_config()
+    search_params = {key: request.args.get(key, '') for key in [
+        'search_nombre', 'search_apellido', 'search_direccion',
+        'search_saldo', 'search_fecha_inicio', 'search_fecha_fin',
+        'search_birthday_inicio', 'search_birthday_fin'
+    ]}
+    
+    try:
+        with psycopg2.connect(**config) as conn:
+            with conn.cursor(cursor_factory=RealDictCursor) as cur:
+                query_conditions = []
+                query_params = []
 
+                if search_params['search_nombre']:
+                    query_conditions.append("first_name ILIKE %s")
+                    query_params.append(f"%{search_params['search_nombre']}%")
+                if search_params['search_apellido']:
+                    query_conditions.append("last_name ILIKE %s")
+                    query_params.append(f"%{search_params['search_apellido']}%")
+                if search_params['search_direccion']:
+                    query_conditions.append("street_address ILIKE %s")
+                    query_params.append(f"%{search_params['search_direccion']}%")
+                if search_params['search_saldo']:
+                    query_conditions.append("saldo = %s")
+                    query_params.append(search_params['search_saldo'])
+                if search_params['search_birthday_inicio'] and search_params['search_birthday_fin']:
+                    query_conditions.append("birthday BETWEEN %s AND %s")
+                    query_params.extend([search_params['search_birthday_inicio'], search_params['search_birthday_fin']])
+                if search_params['search_fecha_inicio'] and search_params['search_fecha_fin']:
+                    query_conditions.append("lastmodified BETWEEN %s AND %s")
+                    query_params.extend([search_params['search_fecha_inicio'], search_params['search_fecha_fin']])
 
+                where_clause = " AND ".join(query_conditions) if query_conditions else "1=1"
+                
+                query = f"""
+                    SELECT id, first_name, last_name, street_address, 
+                           TO_CHAR(birthday, 'YYYY-MM-DD') as birthday, 
+                           TO_CHAR(lastmodified, 'YYYY-MM-DD HH24:MI:SS') as lastmodified, 
+                           saldo
+                    FROM alumn
+                    WHERE {where_clause}
+                    ORDER BY id
+                    LIMIT 1000;
+                """
+                
+                cur.execute(query, tuple(query_params))
+                alumnos = cur.fetchall()
+                
+                df = pd.DataFrame(alumnos)
+                output = io.BytesIO()
+                with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+                    df.to_excel(writer, index=False, sheet_name='Alumnos')
+                output.seek(0)
+                
+                return send_file(
+                    output,
+                    as_attachment=True,
+                    download_name="alumnos.xlsx",
+                    mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                )
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
-@app.route('/export/excel', methods=['GET'])
-def export_excel():
+# Función para exportar profesores a Excel
+@app.route('/export/profesores/excel', methods=['GET'])
+def export_profesores_excel():
+    config = load_config()
+    search_id = request.args.get('search_id', '')
+    search_nombre = request.args.get('search_nombre', '')
+    search_fecha_inicio = request.args.get('search_fecha_inicio', '')
+    search_fecha_fin = request.args.get('search_fecha_fin', '')
+    
+    try:
+        with psycopg2.connect(**config) as conn:
+            with conn.cursor(cursor_factory=RealDictCursor) as cur:
+                query_conditions = []
+                query_params = []
+
+                if search_id:
+                    query_conditions.append("id = %s")
+                    query_params.append(search_id)
+                if search_nombre:
+                    query_conditions.append("name ILIKE %s")
+                    query_params.append(f"%{search_nombre}%")
+                if search_fecha_inicio and search_fecha_fin:
+                    query_conditions.append("lastmodified BETWEEN %s AND %s")
+                    query_params.extend([search_fecha_inicio, search_fecha_fin])
+
+                where_clause = " AND ".join(query_conditions) if query_conditions else "1=1"
+                
+                query = f"""
+                    SELECT id, name, TO_CHAR(lastmodified, 'YYYY-MM-DD HH24:MI:SS') as lastmodified, nota
+                    FROM teacher
+                    WHERE {where_clause}
+                    ORDER BY id
+                    LIMIT 1000;
+                """
+                
+                cur.execute(query, tuple(query_params))
+                profesores = cur.fetchall()
+                
+                df = pd.DataFrame(profesores)
+                output = io.BytesIO()
+                with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+                    df.to_excel(writer, index=False, sheet_name='Profesores')
+                output.seek(0)
+                
+                return send_file(
+                    output,
+                    as_attachment=True,
+                    download_name="profesores.xlsx",
+                    mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                )
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+# Función para exportar cursos a Excel (la original mejorada)
+@app.route('/export/cursos/excel', methods=['GET'])
+def export_cursos_excel():
     config = load_config()
     try:
         with psycopg2.connect(**config) as conn:
             with conn.cursor(cursor_factory=RealDictCursor) as cur:
-                cur.execute("SELECT id, name, precio, cupo_disponible FROM course")
+                cur.execute("SELECT id, name, precio, cupo_disponible FROM course ORDER BY id LIMIT 1000")
                 cursos = cur.fetchall()
                 df = pd.DataFrame(cursos)
                 output = io.BytesIO()
@@ -934,19 +1110,208 @@ def export_excel():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+# Función para exportar alumnos a PDF
+@app.route('/export/alumnos/pdf', methods=['GET'])
+def export_alumnos_pdf():
+    config = load_config()
+    search_params = {key: request.args.get(key, '') for key in [
+        'search_nombre', 'search_apellido', 'search_direccion',
+        'search_saldo', 'search_fecha_inicio', 'search_fecha_fin',
+        'search_birthday_inicio', 'search_birthday_fin'
+    ]}
+    
+    try:
+        with psycopg2.connect(**config) as conn:
+            with conn.cursor(cursor_factory=RealDictCursor) as cur:
+                query_conditions = []
+                query_params = []
 
+                if search_params['search_nombre']:
+                    query_conditions.append("first_name ILIKE %s")
+                    query_params.append(f"%{search_params['search_nombre']}%")
+                if search_params['search_apellido']:
+                    query_conditions.append("last_name ILIKE %s")
+                    query_params.append(f"%{search_params['search_apellido']}%")
+                if search_params['search_direccion']:
+                    query_conditions.append("street_address ILIKE %s")
+                    query_params.append(f"%{search_params['search_direccion']}%")
+                if search_params['search_saldo']:
+                    query_conditions.append("saldo = %s")
+                    query_params.append(search_params['search_saldo'])
+                if search_params['search_birthday_inicio'] and search_params['search_birthday_fin']:
+                    query_conditions.append("birthday BETWEEN %s AND %s")
+                    query_params.extend([search_params['search_birthday_inicio'], search_params['search_birthday_fin']])
+                if search_params['search_fecha_inicio'] and search_params['search_fecha_fin']:
+                    query_conditions.append("lastmodified BETWEEN %s AND %s")
+                    query_params.extend([search_params['search_fecha_inicio'], search_params['search_fecha_fin']])
 
+                where_clause = " AND ".join(query_conditions) if query_conditions else "1=1"
+                
+                query = f"""
+                    SELECT id, first_name, last_name, street_address, 
+                           TO_CHAR(birthday, 'YYYY-MM-DD') as birthday, 
+                           TO_CHAR(lastmodified, 'YYYY-MM-DD HH24:MI:SS') as lastmodified, 
+                           saldo
+                    FROM alumn
+                    WHERE {where_clause}
+                    ORDER BY id
+                    LIMIT 1000;
+                """
+                
+                cur.execute(query, tuple(query_params))
+                alumnos = cur.fetchall()
+                
+                # Construcción del HTML
+                html = """
+                <html>
+                <head>
+                    <style>
+                        body { font-family: Arial, sans-serif; margin: 20px; }
+                        h1 { text-align: center; }
+                        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                        th, td { border: 1px solid black; padding: 8px; text-align: left; }
+                        th { background-color: #007bff; color: white; }
+                    </style>
+                </head>
+                <body>
+                    <h1>Lista de Alumnos</h1>
+                    <table>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Dirección</th>
+                            <th>Cumpleaños</th>
+                            <th>Últ. modificación</th>
+                            <th>Saldo</th>
+                        </tr>"""
+                
+                for alumno in alumnos:
+                    html += f"""
+                        <tr>
+                            <td>{alumno['id']}</td>
+                            <td>{alumno['first_name']}</td>
+                            <td>{alumno['last_name']}</td>
+                            <td>{alumno['street_address']}</td>
+                            <td>{alumno['birthday']}</td>
+                            <td>{alumno['lastmodified']}</td>
+                            <td>{alumno['saldo']}</td>
+                        </tr>"""
 
-@app.route('/export/pdf', methods=['GET'])
-def export_pdf():
+                html += """
+                    </table>
+                </body>
+                </html>
+                """
+
+                # Configurar la ruta manual de wkhtmltopdf
+                pdfkit_config = pdfkit.configuration(wkhtmltopdf="C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe")
+                pdf = pdfkit.from_string(html, False, configuration=pdfkit_config)
+                
+                response = make_response(pdf)
+                response.headers['Content-Type'] = 'application/pdf'
+                response.headers['Content-Disposition'] = 'attachment; filename=alumnos.pdf'
+                return response
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+# Función para exportar profesores a PDF
+@app.route('/export/profesores/pdf', methods=['GET'])
+def export_profesores_pdf():
+    config = load_config()
+    search_id = request.args.get('search_id', '')
+    search_nombre = request.args.get('search_nombre', '')
+    search_fecha_inicio = request.args.get('search_fecha_inicio', '')
+    search_fecha_fin = request.args.get('search_fecha_fin', '')
+    
+    try:
+        with psycopg2.connect(**config) as conn:
+            with conn.cursor(cursor_factory=RealDictCursor) as cur:
+                query_conditions = []
+                query_params = []
+
+                if search_id:
+                    query_conditions.append("id = %s")
+                    query_params.append(search_id)
+                if search_nombre:
+                    query_conditions.append("name ILIKE %s")
+                    query_params.append(f"%{search_nombre}%")
+                if search_fecha_inicio and search_fecha_fin:
+                    query_conditions.append("lastmodified BETWEEN %s AND %s")
+                    query_params.extend([search_fecha_inicio, search_fecha_fin])
+
+                where_clause = " AND ".join(query_conditions) if query_conditions else "1=1"
+                
+                query = f"""
+                    SELECT id, name, TO_CHAR(lastmodified, 'YYYY-MM-DD HH24:MI:SS') as lastmodified, nota
+                    FROM teacher
+                    WHERE {where_clause}
+                    ORDER BY id
+                    LIMIT 1000;
+                """
+                
+                cur.execute(query, tuple(query_params))
+                profesores = cur.fetchall()
+                
+                # Construcción del HTML
+                html = """
+                <html>
+                <head>
+                    <style>
+                        body { font-family: Arial, sans-serif; margin: 20px; }
+                        h1 { text-align: center; }
+                        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                        th, td { border: 1px solid black; padding: 8px; text-align: left; }
+                        th { background-color: #007bff; color: white; }
+                    </style>
+                </head>
+                <body>
+                    <h1>Lista de Profesores</h1>
+                    <table>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Última modificación</th>
+                            <th>Nota</th>
+                        </tr>"""
+                
+                for profesor in profesores:
+                    html += f"""
+                        <tr>
+                            <td>{profesor['id']}</td>
+                            <td>{profesor['name']}</td>
+                            <td>{profesor['lastmodified']}</td>
+                            <td>{profesor['nota']}</td>
+                        </tr>"""
+
+                html += """
+                    </table>
+                </body>
+                </html>
+                """
+
+                # Configurar la ruta manual de wkhtmltopdf
+                pdfkit_config = pdfkit.configuration(wkhtmltopdf="C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe")
+                pdf = pdfkit.from_string(html, False, configuration=pdfkit_config)
+                
+                response = make_response(pdf)
+                response.headers['Content-Type'] = 'application/pdf'
+                response.headers['Content-Disposition'] = 'attachment; filename=profesores.pdf'
+                return response
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+# Función para exportar cursos a PDF (la original mejorada)
+@app.route('/export/cursos/pdf', methods=['GET'])
+def export_cursos_pdf():
     config = load_config()
     try:
         with psycopg2.connect(**config) as conn:
             with conn.cursor(cursor_factory=RealDictCursor) as cur:
-                cur.execute("SELECT id, name, precio, cupo_disponible FROM course order by id limit 2500")
+                cur.execute("SELECT id, name, precio, cupo_disponible FROM course ORDER BY id LIMIT 1000")
                 cursos = cur.fetchall()
                 
-                # Construcción del HTML manualmente
+                # Construcción del HTML
                 html = """
                 <html>
                 <head>
@@ -994,9 +1359,183 @@ def export_pdf():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+# Función para exportar datos a CSV (genérica)
+@app.route('/export/csv', methods=['GET'])
+def export_csv():
+    tipo = request.args.get('tipo', '')
+    config = load_config()
+    
+    try:
+        with psycopg2.connect(**config) as conn:
+            with conn.cursor(cursor_factory=RealDictCursor) as cur:
+                if tipo == 'alumnos':
+                    # Usar los mismos filtros que en la exportación a Excel
+                    search_params = {key: request.args.get(key, '') for key in [
+                        'search_nombre', 'search_apellido', 'search_direccion',
+                        'search_saldo', 'search_fecha_inicio', 'search_fecha_fin',
+                        'search_birthday_inicio', 'search_birthday_fin'
+                    ]}
+                    
+                    query_conditions = []
+                    query_params = []
+
+                    if search_params['search_nombre']:
+                        query_conditions.append("first_name ILIKE %s")
+                        query_params.append(f"%{search_params['search_nombre']}%")
+                    if search_params['search_apellido']:
+                        query_conditions.append("last_name ILIKE %s")
+                        query_params.append(f"%{search_params['search_apellido']}%")
+                    if search_params['search_direccion']:
+                        query_conditions.append("street_address ILIKE %s")
+                        query_params.append(f"%{search_params['search_direccion']}%")
+                    if search_params['search_saldo']:
+                        query_conditions.append("saldo = %s")
+                        query_params.append(search_params['search_saldo'])
+                    if search_params['search_birthday_inicio'] and search_params['search_birthday_fin']:
+                        query_conditions.append("birthday BETWEEN %s AND %s")
+                        query_params.extend([search_params['search_birthday_inicio'], search_params['search_birthday_fin']])
+                    if search_params['search_fecha_inicio'] and search_params['search_fecha_fin']:
+                        query_conditions.append("lastmodified BETWEEN %s AND %s")
+                        query_params.extend([search_params['search_fecha_inicio'], search_params['search_fecha_fin']])
+
+                    where_clause = " AND ".join(query_conditions) if query_conditions else "1=1"
+                    
+                    query = f"""
+                        SELECT id, first_name, last_name, street_address, 
+                               TO_CHAR(birthday, 'YYYY-MM-DD') as birthday, 
+                               TO_CHAR(lastmodified, 'YYYY-MM-DD HH24:MI:SS') as lastmodified, 
+                               saldo
+                        FROM alumn
+                        WHERE {where_clause}
+                        ORDER BY id
+                        LIMIT 1000;
+                    """
+                    
+                    cur.execute(query, tuple(query_params))
+                    data = cur.fetchall()
+                    filename = "alumnos.csv"
+                
+                elif tipo == 'profesores':
+                    search_id = request.args.get('search_id', '')
+                    search_nombre = request.args.get('search_nombre', '')
+                    search_fecha_inicio = request.args.get('search_fecha_inicio', '')
+                    search_fecha_fin = request.args.get('search_fecha_fin', '')
+                    
+                    query_conditions = []
+                    query_params = []
+
+                    if search_id:
+                        query_conditions.append("id = %s")
+                        query_params.append(search_id)
+                    if search_nombre:
+                        query_conditions.append("name ILIKE %s")
+                        query_params.append(f"%{search_nombre}%")
+                    if search_fecha_inicio and search_fecha_fin:
+                        query_conditions.append("lastmodified BETWEEN %s AND %s")
+                        query_params.extend([search_fecha_inicio, search_fecha_fin])
+
+                    where_clause = " AND ".join(query_conditions) if query_conditions else "1=1"
+                    
+                    query = f"""
+                        SELECT id, name, TO_CHAR(lastmodified, 'YYYY-MM-DD HH24:MI:SS') as lastmodified, nota
+                        FROM teacher
+                        WHERE {where_clause}
+                        ORDER BY id
+                        LIMIT 1000;
+                    """
+                    
+                    cur.execute(query, tuple(query_params))
+                    data = cur.fetchall()
+                    filename = "profesores.csv"
+                
+                elif tipo == 'cursos':
+                    cur.execute("SELECT id, name, precio, cupo_disponible FROM course ORDER BY id LIMIT 1000")
+                    data = cur.fetchall()
+                    filename = "cursos.csv"
+                
+                else:
+                    return jsonify({'error': 'Tipo de datos no válido'}), 400
+                
+                # Crear un dataframe con los datos
+                df = pd.DataFrame(data)
+                
+                # Crear un buffer para guardar el CSV
+                csv_buffer = io.StringIO()
+                df.to_csv(csv_buffer, index=False)
+                
+                # Preparar la respuesta
+                response = make_response(csv_buffer.getvalue())
+                response.headers['Content-Disposition'] = f'attachment; filename={filename}'
+                response.headers['Content-type'] = 'text/csv'
+                
+                return response
+                
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 
 
+@app.route('/import/alumnos/excel', methods=['GET', 'POST'])
+def import_alumnos_excel():
+    if request.method == 'GET':
+
+        return render_template('importar_excel.html')
+
+    if 'file' not in request.files:
+        return jsonify({'error': 'No se encontró el archivo.'}), 400
+
+    file = request.files['file']
+    if file.filename == '':
+        return jsonify({'error': 'No se seleccionó ningún archivo.'}), 400
+
+    if not file.filename.endswith(('.xlsx', '.xls')):
+        return jsonify({'error': 'El archivo debe ser un Excel (.xlsx o .xls).'}), 400
+
+    config = load_config()
+    try:
+        df = pd.read_excel(file)
+
+        required_columns = ['first_name', 'last_name', 'street_address', 'birthday', 'saldo']
+        missing_columns = [col for col in required_columns if col not in df.columns]
+
+        if missing_columns:
+            return jsonify({'error': f'Faltan columnas requeridas: {", ".join(missing_columns)}'}), 400
+
+        with psycopg2.connect(**config) as conn:
+            with conn.cursor() as cur:
+                insert_query = """
+                    INSERT INTO alumn (first_name, last_name, street_address, birthday, saldo)
+                    VALUES (%s, %s, %s, %s, %s)
+                    ON CONFLICT (id) DO UPDATE 
+                    SET first_name = EXCLUDED.first_name,
+                        last_name = EXCLUDED.last_name,
+                        street_address = EXCLUDED.street_address,
+                        birthday = EXCLUDED.birthday,
+                        saldo = EXCLUDED.saldo;
+                """
+
+                rows_inserted = 0
+                for _, row in df.iterrows():
+                    try:
+                        cur.execute(insert_query, (
+                            row['first_name'],
+                            row['last_name'],
+                            row['street_address'],
+                            row['birthday'],
+                            row['saldo']
+                        ))
+                        rows_inserted += 1
+                    except Exception as e:
+                        print(f"Error en fila: {e}")
+
+                conn.commit()
+
+        return jsonify({'message': f'Importación exitosa. {rows_inserted} registros procesados.'}), 200
+
+    except pd.errors.EmptyDataError:
+        return jsonify({'error': 'El archivo Excel está vacío.'}), 400
+    except Exception as e:
+        return jsonify({'error': f'Error durante la importación: {str(e)}'}), 500
 
 @app.route('/import/excel', methods=['POST'])
 def import_excel():
@@ -1022,8 +1561,412 @@ def import_excel():
         return jsonify({'error': str(e)}), 500
 
 
+@app.route('/ver_redis')
+def ver_redis():
+    if not redis_client:
+        return "Redis no está disponible", 503
+
+    claves = []
+    for key in redis_client.scan_iter("*"):
+        try:
+            key_str = key.decode("utf-8")
+            raw_value = redis_client.get(key)
+            ttl = redis_client.ttl(key)
+
+            value_str = None
+            is_binary = False
+
+            # Intenta como texto
+            try:
+                value_str = raw_value.decode('utf-8')
+                try:
+                    value_json = json.loads(value_str)
+                    value_str = json.dumps(value_json, indent=2, ensure_ascii=False)
+                except json.JSONDecodeError:
+                    pass
+            except UnicodeDecodeError:
+                is_binary = True
+                if key_str.startswith("session:"):
+                    value_str = "Valor binario no legible (pickle/session)"
+                else:
+                    value_str = base64.b64encode(raw_value).decode("ascii")
+
+            claves.append({
+                "clave": key_str,
+                "valor": value_str,
+                "ttl": ttl
+            })
+        except Exception as e:
+            claves.append({
+                "clave": key.decode('utf-8'),
+                "valor": f"Error al obtener valor: {str(e)}",
+                "ttl": "?"
+            })
+
+    return render_template('ver_redis.html', claves=claves)
+
+@app.route('/ejecutar_sql', methods=['POST'])
+def ejecutar_sql():
+    if 'usuario' not in session:
+        return jsonify({'error': 'Acceso no autorizado'}), 401
+        
+    data = request.get_json()
+    consulta = data.get('consulta')
+    
+    # Lista de palabras prohibidas para evitar operaciones peligrosas
+    palabras_prohibidas = ['DROP', 'TRUNCATE', 'DELETE FROM', 'ALTER ', 'CREATE ']
+    for palabra in palabras_prohibidas:
+        if palabra in consulta.upper() and not consulta.upper().startswith('DELETE FROM course_alumn_rel') and not consulta.upper().startswith('DELETE FROM alumn WHERE'):
+            return jsonify({'error': 'Operación no permitida'}), 403
+    
+    config = load_config()
+    resultados = []
+    
+    try:
+        with psycopg2.connect(**config) as conn:
+            with conn.cursor(cursor_factory=RealDictCursor) as cur:
+                cur.execute(consulta)
+                
+                # Si la consulta es un SELECT, devolver resultados
+                if consulta.strip().upper().startswith('SELECT'):
+                    rows = cur.fetchall()
+                    for row in rows:
+                        resultados.append(dict(row))
+                    return jsonify(resultados)
+                    
+                # Si es una operación que modifica datos
+                else:
+                    conn.commit()
+                    return jsonify({'message': 'Operación completada', 'rowcount': cur.rowcount})
+                    
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 
+@app.route('/consultar_elasticsearch', methods=['POST'])
+def consultar_elasticsearch():
+    if 'usuario' not in session:
+        return jsonify({'error': 'Acceso no autorizado'}), 401
+        
+    data = request.get_json()
+    usuario_id = data.get('usuario_id')
+    
+    try:
+        # Construir consulta para Elasticsearch
+        query = {
+            "query": {
+                "match": {
+                    "usuario_id": usuario_id
+                }
+            },
+            "size": 10,
+            "sort": [
+                {
+                    "timestamp": {
+                        "order": "desc"
+                    }
+                }
+            ]
+        }
+        
+        # Realizar consulta a Elasticsearch
+        resultados = es.search(index=INDEX_LOGS, body=query)
+        
+        # Formatear resultados
+        logs = []
+        for hit in resultados['hits']['hits']:
+            logs.append(hit['_source'])
+            
+        return jsonify(logs)
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/geolocalizacion')
+def geolocalizacion():
+    """Página principal de geolocalización"""
+    if 'usuario' not in session:
+        return redirect(url_for('home'))
+    return render_template('geolocalizacion.html')
+
+@app.route('/api/ubicaciones')
+def api_ubicaciones():
+    """API para obtener todas las ubicaciones"""
+    config = load_config()
+    ubicaciones = []
+    
+    try:
+        with psycopg2.connect(**config) as conn:
+            with conn.cursor(cursor_factory=RealDictCursor) as cur:
+                cur.execute("""
+                    SELECT id, nombre, tipo, direccion, descripcion, 
+                           ST_X(geom) as longitud, ST_Y(geom) as latitud 
+                    FROM ubicaciones
+                """)
+                ubicaciones = cur.fetchall()
+    except Exception as e:
+        logging.error(f"Error al obtener ubicaciones: {e}")
+        return jsonify({"error": str(e)}), 500
+        
+    return jsonify(ubicaciones)
+
+@app.route('/api/alumnos/ubicaciones')
+def api_alumnos_ubicaciones():
+    """API para obtener ubicaciones de alumnos"""
+    config = load_config()
+    alumnos = []
+    
+    try:
+        with psycopg2.connect(**config) as conn:
+            with conn.cursor(cursor_factory=RealDictCursor) as cur:
+                cur.execute("""
+                    SELECT id, first_name, last_name, 
+                           ST_X(geom) as longitud, ST_Y(geom) as latitud 
+                    FROM alumn
+                    WHERE geom IS NOT NULL
+                """)
+                alumnos = cur.fetchall()
+    except Exception as e:
+        logging.error(f"Error al obtener ubicaciones de alumnos: {e}")
+        return jsonify({"error": str(e)}), 500
+        
+    return jsonify(alumnos)
+
+@app.route('/api/profesores/ubicaciones')
+def api_profesores_ubicaciones():
+    """API para obtener ubicaciones de profesores"""
+    config = load_config()
+    profesores = []
+    
+    try:
+        with psycopg2.connect(**config) as conn:
+            with conn.cursor(cursor_factory=RealDictCursor) as cur:
+                cur.execute("""
+                    SELECT id, name, 
+                           ST_X(geom) as longitud, ST_Y(geom) as latitud 
+                    FROM teacher
+                    WHERE geom IS NOT NULL
+                """)
+                profesores = cur.fetchall()
+    except Exception as e:
+        logging.error(f"Error al obtener ubicaciones de profesores: {e}")
+        return jsonify({"error": str(e)}), 500
+        
+    return jsonify(profesores)
+
+@app.route('/api/clases/ubicaciones')
+def api_clases_ubicaciones():
+    """API para obtener ubicaciones de clases"""
+    config = load_config()
+    clases = []
+    
+    try:
+        with psycopg2.connect(**config) as conn:
+            with conn.cursor(cursor_factory=RealDictCursor) as cur:
+                cur.execute("""
+                    SELECT c.id, c.name, t.name as teacher_name, 
+                           ST_X(c.geom) as longitud, ST_Y(c.geom) as latitud 
+                    FROM course c
+                    JOIN teacher t ON c.teacher_id = t.id
+                    WHERE c.geom IS NOT NULL
+                """)
+                clases = cur.fetchall()
+    except Exception as e:
+        logging.error(f"Error al obtener ubicaciones de clases: {e}")
+        return jsonify({"error": str(e)}), 500
+        
+    return jsonify(clases)
+
+@app.route('/api/ubicaciones/cercanas')
+def api_ubicaciones_cercanas():
+    """API para obtener ubicaciones cercanas a un punto"""
+    lat = request.args.get('lat', type=float)
+    lon = request.args.get('lon', type=float)
+    radio = request.args.get('radio', default=1000, type=float)
+    
+    if lat is None or lon is None:
+        return jsonify({"error": "Latitud y longitud son obligatorias"}), 400
+    
+    config = load_config()
+    cercanas = []
+    
+    try:
+        with psycopg2.connect(**config) as conn:
+            with conn.cursor(cursor_factory=RealDictCursor) as cur:
+                cur.execute("""
+                    SELECT id, nombre, tipo, distancia 
+                    FROM find_nearby_locations(%s, %s, %s)
+                """, (lat, lon, radio))
+                cercanas = cur.fetchall()
+    except Exception as e:
+        logging.error(f"Error al obtener ubicaciones cercanas: {e}")
+        return jsonify({"error": str(e)}), 500
+        
+    return jsonify(cercanas)
+
+@app.route('/api/actualizar_ubicacion', methods=['POST'])
+def api_actualizar_ubicacion():
+    """API para actualizar la ubicación de un usuario"""
+    if 'usuario' not in session:
+        return jsonify({"error": "No autorizado"}), 401
+    
+    data = request.get_json()
+    
+    if not data:
+        return jsonify({"error": "Datos no proporcionados"}), 400
+    
+    lat = data.get('lat')
+    lon = data.get('lon')
+    tipo = data.get('tipo', 'alumno')  # alumno, profesor, clase
+    id = data.get('id')
+    
+    if not all([lat, lon, id]):
+        return jsonify({"error": "Faltan datos obligatorios"}), 400
+    
+    config = load_config()
+    
+    try:
+        with psycopg2.connect(**config) as conn:
+            with conn.cursor() as cur:
+                if tipo == 'alumno':
+                    cur.execute("""
+                        UPDATE alumn 
+                        SET geom = ST_SetSRID(ST_MakePoint(%s, %s), 4326)
+                        WHERE id = %s
+                    """, (lon, lat, id))
+                elif tipo == 'profesor':
+                    cur.execute("""
+                        UPDATE teacher 
+                        SET geom = ST_SetSRID(ST_MakePoint(%s, %s), 4326)
+                        WHERE id = %s
+                    """, (lon, lat, id))
+                elif tipo == 'clase':
+                    cur.execute("""
+                        UPDATE course 
+                        SET geom = ST_SetSRID(ST_MakePoint(%s, %s), 4326)
+                        WHERE id = %s
+                    """, (lon, lat, id))
+                else:
+                    return jsonify({"error": "Tipo no válido"}), 400
+                
+                conn.commit()
+                
+                if cur.rowcount == 0:
+                    return jsonify({"error": "No se encontró el registro"}), 404
+                
+                return jsonify({"mensaje": "Ubicación actualizada correctamente"})
+    except Exception as e:
+        logging.error(f"Error al actualizar ubicación: {e}")
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/ruta', methods=['GET', 'POST'])
+def api_ruta():
+    """API para obtener la ruta entre dos puntos"""
+    origen_id = request.args.get('origen_id', type=int)
+    destino_id = request.args.get('destino_id', type=int)
+    tipo_origen = request.args.get('tipo_origen', default='alumno')
+    tipo_destino = request.args.get('tipo_destino', default='ubicacion')
+    
+    if origen_id is None or destino_id is None:
+        return jsonify({"error": "Origen y destino son obligatorios"}), 400
+    
+    config = load_config()
+    
+    try:
+        with psycopg2.connect(**config) as conn:
+            with conn.cursor(cursor_factory=RealDictCursor) as cur:
+                # Primero obtenemos las coordenadas del origen
+                if tipo_origen == 'alumno':
+                    cur.execute("SELECT ST_X(geom) as lon, ST_Y(geom) as lat FROM alumn WHERE id = %s", (origen_id,))
+                elif tipo_origen == 'profesor':
+                    cur.execute("SELECT ST_X(geom) as lon, ST_Y(geom) as lat FROM teacher WHERE id = %s", (origen_id,))
+                else:
+                    return jsonify({"error": "Tipo de origen no válido"}), 400
+                
+                origen = cur.fetchone()
+                if not origen:
+                    return jsonify({"error": "Origen no encontrado"}), 404
+                
+                # Luego obtenemos las coordenadas del destino
+                if tipo_destino == 'ubicacion':
+                    cur.execute("SELECT ST_X(geom) as lon, ST_Y(geom) as lat FROM ubicaciones WHERE id = %s", (destino_id,))
+                elif tipo_destino == 'clase':
+                    cur.execute("SELECT ST_X(geom) as lon, ST_Y(geom) as lat FROM course WHERE id = %s", (destino_id,))
+                else:
+                    return jsonify({"error": "Tipo de destino no válido"}), 400
+                
+                destino = cur.fetchone()
+                if not destino:
+                    return jsonify({"error": "Destino no encontrado"}), 404
+                
+                # Encontramos los nodos más cercanos en la red
+                cur.execute("""
+                    SELECT id FROM ways_vertices_pgr 
+                    ORDER BY the_geom <-> ST_SetSRID(ST_MakePoint(%s, %s), 4326) 
+                    LIMIT 1
+                """, (origen['lon'], origen['lat']))
+                nodo_origen = cur.fetchone()
+                
+                cur.execute("""
+                    SELECT id FROM ways_vertices_pgr 
+                    ORDER BY the_geom <-> ST_SetSRID(ST_MakePoint(%s, %s), 4326) 
+                    LIMIT 1
+                """, (destino['lon'], destino['lat']))
+                nodo_destino = cur.fetchone()
+                
+                # Calculamos la ruta
+                cur.execute("""
+                    SELECT seq, node, edge, cost, agg_cost, 
+                           ST_AsGeoJSON(geom) as geometry
+                    FROM pgr_dijkstra(
+                        'SELECT id, source, target, cost, reverse_cost FROM ways',
+                        %s, %s, directed := false
+                    ) AS di
+                    JOIN ways ON di.edge = ways.id
+                    ORDER BY seq
+                """, (nodo_origen['id'], nodo_destino['id']))
+                
+                ruta = cur.fetchall()
+                
+                return jsonify(ruta)
+    except Exception as e:
+        logging.error(f"Error al obtener ruta: {e}")
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/resumen_olap")
+def resumen_olap():
+    conn = psycopg2.connect(**config)
+    df = pd.read_sql("SELECT * FROM resumen_olap", conn)
+    conn.close()
+    return render_template("resumen_olap.html", data=df.to_dict(orient='records'))
+
+# Función para agregar un proceso en segundo plano que procese la cola de logs
+def worker_log_queue():
+    """
+    Proceso en segundo plano que toma logs de la cola y los guarda en Elasticsearch
+    """
+    while True:
+        try:
+            # Obtener un log de la cola
+            log = log_queue.get(block=True, timeout=1)
+            
+            # Guardar en Elasticsearch
+            es.index(index=INDEX_LOGS, body=log)
+            
+            # Marcar la tarea como completada
+            log_queue.task_done()
+            
+        except queue.Empty:
+            # Si la cola está vacía, esperar un momento
+            time.sleep(0.1)
+        except Exception as e:
+            print(f"Error al procesar log: {e}")
+
+
+# Iniciar hilo para procesamiento de logs
+log_thread = Thread(target=worker_log_queue, daemon=True)
+log_thread.start()
 
 
 
@@ -1037,6 +1980,6 @@ import psycopg2
 
 
 
-DB_CONFIG = load_config()
+
 
 

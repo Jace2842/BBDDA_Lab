@@ -7,9 +7,9 @@ st.title("Resumen de Calificaciones")
 
 # Conexión PostgreSQL
 conn = psycopg2.connect(
-    dbname="mi_base_de_datos",
-    user="mi_usuario",
-    password="mi_contraseña",
+    dbname="BBDDA",
+    user="jesus",
+    password="28425531",
     host="localhost"
 )
 

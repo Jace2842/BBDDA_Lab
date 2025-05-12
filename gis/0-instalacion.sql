@@ -1,0 +1,4 @@
+CREATE DATABASE gisdb;
+\c gisdb
+CREATE EXTENSION postgis;
+CREATE EXTENSION pgrouting;

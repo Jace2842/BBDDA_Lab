@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GIS Sistema Avanzado</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+</head>
+<body>
+<div id="map" style="height: 600px;"></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+var map = L.map('map').setView([40.41678, -3.70379], 14);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+fetch('/servicios?lat=40.41678&lon=-3.70379&radio=3000')
+.then(response => response.json())
+.then(data => {
+    data.forEach(servicio => {
+        var geojson = JSON.parse(servicio[2]);
+        L.marker([geojson.coordinates[1], geojson.coordinates[0]]).addTo(map)
+         .bindPopup(servicio[0] + " (" + servicio[1] + ")");
+    });
+});
+
+fetch('/ruta?usuario_id=1&localizacion_id=1')
+.then(response => response.json())
+.then(data => {
+    var puntos = data.map(p => JSON.parse(p[4]).coordinates.reverse());
+    L.polyline(puntos, {color: 'blue'}).addTo(map);
+});
+</script>
+</body>
+</html>

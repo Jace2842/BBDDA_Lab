@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Contenido de Redis</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            color: #34495e;
+            margin-bottom: 30px;
+        }
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 80%;
+            max-width: 900px;
+        }
+        .key-block {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .key-block strong {
+            font-weight: 500;
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .key-block pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 14px;
+            color: #333;
+        }
+        p {
+            color: #777;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Contenido de Redis</h1>
+        {% for item in claves %}
+            <div class="key-block">
+                <strong>Clave:</strong> {{ item.clave }}<br>
+                <strong>TTL:</strong> {{ item.ttl }}<br>
+                <strong>Valor:</strong>
+                <pre>{{ item.valor | safe }}</pre>
+            </div>
+        {% else %}
+            <p>No hay claves en Redis.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>

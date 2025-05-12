@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú Flask</title>
+
+
+<!-- ========================================================================================================= -->
+
+<style>
+        /* Estilos básicos para mejorar la visualización */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem;
+        }
+        .container {
+            width: 95%;
+            margin: 0 auto;
+        }
+        .nav-tabs {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            background-color: #34495e;
+        }
+        .nav-tabs li {
+            margin: 0;
+        }
+        .tab-link {
+            padding: 10px 15px;
+            border: none;
+            background: none;
+            color: white;
+            cursor: pointer;
+        }
+        .tab-link.active {
+            background-color: #3498db;
+        }
+        .tab-content {
+            display: none;
+            padding: 20px 0;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .card-header {
+            background-color: #f5f5f5;
+            padding: 10px 15px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .card-body {
+            padding: 15px;
+        }
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-bottom: 20px;
+        }
+        .search-form {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+        .search-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+        .search-group {
+            margin-right: 15px;
+            margin-bottom: 10px;
+            flex: 1;
+            min-width: 200px;
+        }
+        .search-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .search-group input, .search-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .search-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table th, table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        table th {
+            background-color: #f5f5f5;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+        .btn-primary {
+            background-color: #3498db;
+            color: white;
+        }
+        .btn-secondary {
+            background-color: #95a5a6;
+            color: white;
+        }
+        .btn-danger {
+            background-color: #e74c3c;
+            color: white;
+        }
+        .export-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+    </style>
+
+
+
+
+</head>
+<body>
+    <nav>
+        <a href="/alumnos_url">alumnos</a>
+        <a href="/profesores_url">Profesores</a>
+        <a href="/clases_url">clases</a>
+        <a href="/matriculados_url">matriculados</a>
+        <a href="/alumnos_audit_url">alumnos_audit</a>
+        <a href="/teacher_audit_url">Profesores_audit</a>
+        <a href="/course_audit_url">clases_audit</a>
+        <a href="/matriculados_audit_url">matriculados_audit</a>
+        <a href="/ver_redis">ver_redis</a>
+        <a href="/import/alumnos/excel">import/alumnos/excel</a>
+        
+        
+    </nav>
+    <h1>Bienvenido al Sistema</h1>
+
+
+
+
+<!-- ========================================================================================================= -->
+
+
+
+
+{% if alumnos_data %}
+<form method="GET" action="/alumnos_url">
+    <div class="form-container">
+        <input type="text" name="search_nombre" placeholder="Buscar por nombre" value="{{ search_nombre }}">
+        <input type="text" name="search_apellido" placeholder="Buscar por apellido" value="{{ search_apellido }}">
+        <input type="text" name="search_direccion" placeholder="Buscar por dirección" value="{{ search_direccion }}">
+        
+        <label>Desde Cumpleaños:</label>
+        <input type="date" name="search_birthday_inicio" value="{{ search_birthday_inicio }}">
+        
+        <label>Hasta Cumpleaños:</label>
+        <input type="date" name="search_birthday_fin" value="{{ search_birthday_fin }}">
+        
+        <label>Desde Última Modificación:</label>
+        <input type="date" name="search_fecha_inicio" value="{{ search_fecha_inicio }}">
+        
+        <label>Hasta Última Modificación:</label>
+        <input type="date" name="search_fecha_fin" value="{{ search_fecha_fin }}">
+        
+        <button type="submit">Buscar</button>
+    </div>
+</form>
+{% endif %}
+
+{% if alumnos_data %}
+      <div class="table-section">
+        <p>Total de registros: {{ total_alumnos }}</p>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th><th>Nombre</th><th>Apellido</th>
+                <th>Dirección</th><th>Cumpleaños</th><th>Últ. Mod.</th>
+                <th>Saldo</th><th>Nota</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for a in alumnos_data %}
+              <tr>
+                <td>{{ a.id }}</td><td>{{ a.first_name }}</td><td>{{ a.last_name }}</td>
+                <td>{{ a.street_address }}</td><td>{{ a.birthday }}</td><td>{{ a.lastmodified }}</td>
+                <td>{{ a.saldo }}</td>
+                <td>
+                  <form class="search-form nota-form" data-alumno-id="{{ a.id }}">
+                    <input type="password" name="nota_password" placeholder="Contraseña">
+                    <button type="submit">Ver Nota</button>
+                  </form>
+                  <p id="nota-{{ a.id }}">**********</p>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination">
+          {% if page>1 %}<a href="?page={{ page-1 }}">Anterior</a>{% endif %}
+          {% if has_next %}<a href="?page={{ page+1 }}">Siguiente</a>{% endif %}
+        </div>
+      </div>
+      {% endif %}
+
+
+
+
+
+
+<!-- ========================================================================================================= -->
+
+{% if profesores_data %}
+<form method="GET" action="/profesores_url">
+    <input type="text" name="search_id" placeholder="Buscar por ID" value="{{ search_id }}">
+    <input type="text" name="search_nombre" placeholder="Buscar por nombre" value="{{ search_nombre }}">
+    <input type="date" name="search_fecha_inicio" value="{{ search_fecha_inicio }}">
+    <input type="date" name="search_fecha_fin" value="{{ search_fecha_fin }}">
+    <button type="submit">Buscar</button>
+</form>
+{% endif %}
+
+{% if profesores_data %}
+    <p>Total de registros: {{ total_profesores }}</p>
+    <div class="table-container">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Última modificación</th>
+                <th>Nota</th>
+            </tr>
+            {% for profe in profesores_data %}
+            <tr>
+                <td>{{ profe.id }}</td>
+                <td>{{ profe.name }}</td>
+                <td>{{ profe.lastmodified }}</td>
+                <td>{{ profe.nota }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="pagination">
+        {% if page > 1 %}
+        <a href="/profesores_url?page={{ page - 1 }}&search_id={{ search_id }}&search_nombre={{ search_nombre }}&search_fecha_inicio={{ search_fecha_inicio }}&search_fecha_fin={{ search_fecha_fin }}">Anterior</a>
+        {% endif %}
+        {% if has_next %}
+        <a href="/profesores_url?page={{ page + 1 }}&search_id={{ search_id }}&search_nombre={{ search_nombre }}&search_fecha_inicio={{ search_fecha_inicio }}&search_fecha_fin={{ search_fecha_fin }}">Siguiente</a>
+        {% endif %}
+    </div>
+{% endif %}
+
+<!-- ========================================================================================================= -->
+
+{% if course_data %}
+<form method="GET" action="/clases_url">
+    <input type="text" name="search_nombre" placeholder="Buscar por nombre" value="{{ search_nombre }}">
+    <input type="text" name="search_teacher_name" placeholder="Buscar por nombre profesor" value="{{ search_teacher_name }}">
+    
+    <!-- Campo para seleccionar el idioma -->
+    <select name="search_nombre2">
+        <option value="esp" {% if search_nombre2 == 'esp' %}selected{% endif %}>Español</option>
+        <option value="eng" {% if search_nombre2 == 'eng' %}selected{% endif %}>Inglés</option>
+    </select>
+    
+    <button type="submit">Buscar</button>
+</form>
+
+
+    <p>Total de registros: {{ total_cursos }}</p>
+    <div class="table-container">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Nombre del Curso</th>
+                <th>Profesor</th>
+                <th>Precio</th>
+                <th>Cupo Disponible</th>
+                <th>Nombre</th>
+            </tr>
+            {% for curso in course_data %}
+            <tr>
+                <td>{{ curso.id }}</td>
+                <td>{{ curso.name }}</td>
+                <td>{{ curso.teacher_name }}</td> 
+                <td>{{ curso.precio }}</td> 
+                <td>{{ curso.cupo_disponible }}</td>
+                <td>{{ curso.nombre }}</td> 
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <!-- Botones para exportar en Excel y PDF -->
+    <div class="export-buttons">
+        <a href="/export/excel" class="btn-export">Exportar Cursos a Excel</a>
+        <a href="/export/pdf" class="btn-export">Exportar Cursos a PDF</a>
+        <a href="/import/excel" class="btn-export">importar Profesores a Excel</a>
+      
+    </div>
+
+    <div class="pagination">
+        {% if page > 1 %}
+        <a href="/clases_url?page={{ page - 1 }}">Anterior</a>
+        {% endif %}
+        {% if has_next %}
+        <a href="/clases_url?page={{ page + 1 }}">Siguiente</a>
+        {% endif %}
+    </div>
+{% endif %}
+
+    
+
+
+<!-- ========================================================================================================= -->
+
+    {% if matriculados_data %}
+    <form method="GET" action="/matriculados_url">
+        <input type="text" name="search_alumn_id" placeholder="Buscar por alumn_id" value="{{ search_alumn_id }}">
+        <input type="text" name="search_course_id" placeholder="Buscar por course_id" value="{{ search_course_id }}">
+        <button type="submit">Buscar</button>
+    </form>
+    {% endif %}
+       {% if matriculados_data %}
+    <p>Total de registros: {{ total_matriculados }}</p>
+    <div class="table-container">
+        <table>
+            <tr>
+                <th>alumn_id</th>
+                <th>course_id</th>
+                <th>ultima modificacion</th>
+                <th>calificacion</th>
+            </tr>
+            {% for matriculados in matriculados_data %}
+            <tr>
+                <td>{{ matriculados.alumn_id }}</td>
+                <td>{{ matriculados.course_id}}</td>
+                <td>{{ matriculados.lastmodified }}</td> 
+                <td>{{ matriculados.calificacion }}</td> 
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="pagination">
+        {% if page > 1 %}
+        <a href="/matriculados_url?page={{ page - 1 }}">Anterior</a>
+        {% endif %}
+        {% if has_next %}
+        <a href="/matriculados_url?page={{ page + 1 }}">Siguiente</a>
+        {% endif %}
+    </div>
+    {% endif %}
+
+
+
+<!-- ========================================================================================================= -->
+
+    {% if alumnos_audit_data %}
+    <form method="GET" action="/alumnos_audit_url">
+        <input type="text" name="search_nombre" placeholder="Buscar por nombre" value="{{ search_nombre }}">
+        <input type="text" name="search_apellido" placeholder="Buscar por apellido" value="{{ search_apellido }}">
+        <input type="text" name="search_direccion" placeholder="Buscar por dirección" value="{{ search_direccion }}">
+        <input type="text" name="search_operation" placeholder="Buscar por operación" value="{{ search_operation }}">
+        <button type="submit">Buscar</button>
+    </form>
+    {% endif %}
+    {% if alumnos_audit_data %}
+    <p>Total de registros: {{ total_audit_alumnos }}</p>
+    <div class="table-container">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>userid</th>
+                <th>Dirección</th>
+                <th>Cumpleaños</th>
+                <th>Última Modificación</th>
+                <th>Operación</th>
+                <th>Marca de Tiempo</th>
+            </tr>
+            {% for audit in alumnos_audit_data %}
+            <tr>
+                <td>{{ audit.id }}</td>
+                <td>{{ audit.first_name }}</td>
+                <td>{{ audit.last_name }}</td>
+                <td>{{ audit.userid }}</td>
+                <td>{{ audit.street_address }}</td>
+                <td>{{ audit.birthday }}</td>
+                <td>{{ audit.lastmodified }}</td>
+                <td>{{ audit.operation }}</td>
+                <td>{{ audit.stamp }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <p>No hay registros para mostrar.</p>
+{% endif %}
+
+<!-- ========================================================================================================= -->
+
+
+
+{% if courses_audit_data %}
+    <form method="GET" action="/course_audit_url">
+        <input type="text" name="search_operation" placeholder="Buscar por operación" value="{{ search_operation }}">
+        <input type="text" name="search_course_id" placeholder="Buscar por ID de curso" value="{{ search_course_id }}">
+        <input type="text" name="search_teacher_id" placeholder="Buscar por ID de profesor" value="{{ search_teacher_id }}">
+        <input type="text" name="search_name" placeholder="Buscar por nombre de curso" value="{{ search_name }}">
+        <input type="date" name="search_stamp" placeholder="Buscar por marca de tiempo" value="{{ search_stamp }}">
+        <button type="submit">Buscar</button>
+    </form>
+{% endif %}
+
+{% if courses_audit_data %}
+    <p>Total de registros: {{ total_audit_courses }}</p>
+    <div class="table-container">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Operación</th>
+                <th>ID Curso</th>
+                <th>ID Profesor</th>
+                <th>Nombre</th>
+                <th>Última modificación</th>
+                <th>Precio</th>
+                <th>Cupo Disponible</th>
+                <th>Marca de tiempo</th>
+            </tr>
+            {% for audit in courses_audit_data %}
+            <tr>
+                <td>{{ audit.id }}</td>
+                <td>{{ audit.operation }}</td>
+                <td>{{ audit.course_id }}</td>
+                <td>{{ audit.teacher_id }}</td>
+                <td>{{ audit.name }}</td>
+                <td>{{ audit.lastmodified }}</td>
+                <td>{{ audit.precio }}</td>
+                <td>{{ audit.cupo_disponible }}</td>
+                <td>{{ audit.stamp }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="pagination">
+        {% if page > 1 %}
+        <a href="/course_audit_url?page={{ page - 1 }}">Anterior</a>
+        {% endif %}
+        {% if has_next %}
+        <a href="/course_audit_url?page={{ page + 1 }}">Siguiente</a>
+        {% endif %}
+    </div>
+{% endif %}
+
+
+<!-- ========================================================================================================= -->
+
+
+
+{% if teachers_audit_data %}
+    <form method="GET" action="/teacher_audit_url">
+        <input type="text" name="search_operation" placeholder="Buscar por operación" value="{{ search_operation }}">
+        <input type="text" name="search_userid" placeholder="Buscar por ID de usuario" value="{{ search_userid }}">
+        <input type="text" name="search_name" placeholder="Buscar por nombre" value="{{ search_name }}">
+        <input type="date" name="search_stamp" placeholder="Buscar por marca de tiempo" value="{{ search_stamp }}">
+        <button type="submit">Buscar</button>
+    </form>
+{% endif %}
+
+{% if teachers_audit_data %}
+    <p>Total de registros: {{ total_audit_teachers }}</p>
+    <div class="table-container">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Operación</th>
+                <th>ID Usuario</th>
+                <th>Nombre</th>
+                <th>Última modificación</th>
+                <th>Marca de tiempo</th>
+            </tr>
+            {% for audit in teachers_audit_data %}
+            <tr>
+                <td>{{ audit.id }}</td>
+                <td>{{ audit.operation }}</td>
+                <td>{{ audit.userid }}</td>
+                <td>{{ audit.name }}</td>
+                <td>{{ audit.lastmodified }}</td>
+                <td>{{ audit.stamp }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="pagination">
+        {% if page > 1 %}
+        <a href="/teacher_audit_url?page={{ page - 1 }}">Anterior</a>
+        {% endif %}
+        {% if has_next %}
+        <a href="/teacher_audit_url?page={{ page + 1 }}">Siguiente</a>
+        {% endif %}
+    </div>
+{% endif %}
+
+<!-- ========================================================================================================= -->
+
+
+
+{% if matriculados_audit_data %}
+    <form method="GET" action="/matriculados_audit_url">
+        <input type="text" name="search_operation" placeholder="Buscar por operación" value="{{ search_operation }}">
+        <input type="text" name="search_userid" placeholder="Buscar por usuario" value="{{ search_userid }}">
+        <input type="text" name="search_alumn_id" placeholder="Buscar por alumno" value="{{ search_alumn_id }}">
+        <input type="text" name="search_course_id" placeholder="Buscar por curso" value="{{ search_course_id }}">
+        <input type="date" name="search_stamp" placeholder="Buscar por marca de tiempo" value="{{ search_stamp }}">
+        <button type="submit">Buscar</button>
+    </form>
+{% endif %}
+
+{% if matriculados_audit_data %}
+    <p>Total de registros: {{ total_matriculados_audit }}</p>
+    <div class="table-container">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Operación</th>
+                <th>Usuario</th>
+                <th>ID del alumno</th>
+                <th>ID del curso</th>
+                <th>Última modificación</th>
+                <th>Marca de tiempo</th>
+            </tr>
+            {% for audit in matriculados_audit_data %}
+            <tr>
+                <td>{{ audit.id }}</td>
+                <td>{{ audit.operation }}</td>
+                <td>{{ audit.userid }}</td>
+                <td>{{ audit.alumn_id }}</td>
+                <td>{{ audit.course_id }}</td>
+                <td>{{ audit.lastmodified }}</td>
+                <td>{{ audit.stamp }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="pagination">
+        {% if page > 1 %}
+        <a href="/matriculados_audit_url?page={{ page - 1 }}">Anterior</a>
+        {% endif %}
+        {% if has_next %}
+        <a href="/matriculados_audit_url?page={{ page + 1 }}">Siguiente</a>
+        {% endif %}
+    </div>
+{% endif %}
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(".nota-form").submit(function(e){
+  e.preventDefault();
+  const f = $(this), id = f.data("alumno-id"), pw = f.find("input").val();
+  $.ajax({
+    url: "/alumnos_url",
+    method: "POST",
+    contentType: "application/json",
+    data: JSON.stringify({id_alumno:id, nota_password:pw}),
+    success(res){ $("#nota-"+id).text("Nota: "+res.nota) },
+    error(err){ alert("Error: "+err.responseJSON.error) }
+  });
+});
+</script>
+
+<!-- ========================================================================================================= -->
+
+   
+</body>
+</html>

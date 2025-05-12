@@ -3,9 +3,9 @@ import pandas as pd
 
 # Conexión
 conn = psycopg2.connect(
-    dbname="mi_base_de_datos",
-    user="mi_usuario",
-    password="mi_clave",
+    dbname="BBDDA",
+    user="jesus",
+    password="28425531",
     host="localhost"
 )
 

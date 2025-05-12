@@ -57,7 +57,8 @@ def create_tables():
                     ON UPDATE CASCADE ON DELETE CASCADE,
                 FOREIGN KEY (course_id)
                     REFERENCES course (id)
-                    ON UPDATE CASCADE ON DELETE CASCADE
+                    ON UPDATE CASCADE ON DELETE CASCADE,
+                    calificacion numeric(10,2)
         )
         """,
         """CREATE INDEX course_alumn_rel_alumn_id_idx  ON course_alumn_rel (alumn_id);""",

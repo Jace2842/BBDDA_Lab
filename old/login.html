@@ -1,0 +1,309 @@
+<html>
+    <style>
+        /* ==== Copiado íntegro desde el primer archivo ==== */
+    
+        @import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+    
+        :root {
+          --dark-color: #191f1d;
+          --mid-dark: #555a57;
+          --light-color: #ece0c8;
+          --mid-light: #949993;
+          --shadow: #0005;
+          --linear-rainbow: linear-gradient(
+            to right, #ede6bf, #ecc947, #cb5a31, #6f5d79, #4e779a
+          );
+          --circle-rainbow: radial-gradient(
+            circle at left top, #ede6bf, #ecc947, #cb5a31, #6f5d79, #4e779a
+          );
+          --noise-texture: url(https://i.gyazo.com/a26366e538851a5c569ff648e99b7fd4.png);
+          --gif-texture: url(https://64.media.tumblr.com/da60c13b478dda09ab90c27e880983b8/tumblr_nd4pwdPKdc1tun3l0o1_1280.gifv);
+          --mulish: "Mulish", sans-serif;
+          --playfair: "Playfair Display", serif;
+          --dm: "DM Serif Display", serif;
+          --main-transition: all 0.2s ease-in-out;
+        }
+    
+        html, body {
+          margin: 0;
+          height: 100vh;
+        }
+        body {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          background: var(--dark-color);
+          background-image: var(--noise-texture);
+          background-blend-mode: overlay;
+          color: var(--light-color);
+        }
+    
+        nav {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          padding: 20px 40px;
+          box-sizing: border-box;
+          font-size: 16px;
+          z-index: 10;
+        }
+        nav a {
+          margin: 0 16px;
+          font-size: 14px;
+          font-family: var(--mulish);
+          color: var(--mid-light);
+          font-weight: 400;
+          text-decoration: none;
+          transition: var(--main-transition);
+        }
+        nav a:hover {
+          font-weight: 900;
+          text-shadow: 0 0 8px var(--light-color);
+          transition: var(--main-transition);
+        }
+    
+        .scotch-container {
+          margin: 0;
+          padding: 0;
+          display: grid;
+          min-height: 90vh;
+          width: 95vw;
+          position: relative;
+          background-image: linear-gradient(
+            150deg,
+            var(--dark-color) 60.2%,
+            var(--mid-dark) 60.28%,
+            var(--mid-dark) 60.7%,
+            var(--dark-color) 60.78%,
+            var(--dark-color) 61.4%,
+            var(--mid-dark) 61.48%,
+            var(--mid-dark) 62.6%,
+            var(--dark-color) 62.68%,
+            var(--dark-color) 63.4%,
+            var(--mid-dark) 63.48%,
+            var(--mid-dark) 64.6%,
+            var(--dark-color) 64.68%,
+            var(--dark-color) 65.4%,
+            var(--mid-dark) 65.48%,
+            var(--mid-dark) 67.4%,
+            var(--dark-color) 67.48%,
+            var(--dark-color) 68.4%,
+            var(--mid-dark) 68.48%,
+            var(--mid-dark) 71.4%,
+            var(--dark-color) 71.48%,
+            var(--dark-color) 72.4%,
+            var(--mid-dark) 72.48%,
+            var(--mid-dark) 76.4%,
+            var(--dark-color) 76.48%,
+            var(--dark-color) 77.4%,
+            var(--mid-dark) 77.48%,
+            var(--mid-dark) 81.4%,
+            var(--dark-color) 81.48%,
+            var(--dark-color) 82.4%,
+            var(--mid-dark) 82.48%,
+            var(--mid-dark) 87.4%,
+            var(--dark-color) 87.48%
+          );
+          box-sizing: border-box;
+          animation: spawn 1.5s ease-in-out forwards;
+        }
+        .scotch-container:before {
+          content: "";
+          position: absolute;
+          height: 100%;
+          width: 100%;
+          background-image: var(--noise-texture);
+          mix-blend-mode: overlay;
+          pointer-events: none;
+          z-index: 2;
+        }
+        .scotch-container:hover:after {
+          content: "";
+          position: absolute;
+          height: 100%;
+          width: 100%;
+          background-image: var(--gif-texture);
+          background-repeat: no-repeat;
+          background-position-y: -20px;
+          background-size: cover;
+          mix-blend-mode: screen;
+          pointer-events: none;
+          opacity: 64%;
+          z-index: 3;
+        }
+    
+        @keyframes spawn {
+          0% {
+            box-shadow: 0 0 0 var(--shadow);
+            opacity: 0;
+          }
+          100% {
+            box-shadow: 0 0 32px var(--shadow);
+            opacity: 1;
+          }
+        }
+    
+        .main-container {
+          padding: 0;
+          margin: auto;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          min-height: 80vh;
+          box-sizing: border-box;
+          position: relative;
+          z-index: 10;
+        }
+    
+        .top-content {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 90%;
+          max-width: 1200px;
+          margin-bottom: 30px;
+        }
+    
+        .text-container {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          max-width: 500px;
+          text-align: center;
+        }
+        .text-container h1 {
+          margin: 0;
+          font-family: var(--mulish);
+          font-weight: 800;
+          font-size: 48px;
+          color: var(--light-color);
+          text-shadow: 0 0 5px #000;
+        }
+    
+        .search-form {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 10px;
+          margin-top: 15px;
+        }
+         input {
+          padding: 8px 12px;
+          font-size: 14px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          width: 160px;
+          font-family: var(--mulish);
+        }
+        .search-form button {
+          padding: 8px 16px;
+          font-size: 14px;
+          background-color: var(--light-color);
+          color: var(--dark-color);
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: var(--main-transition);
+          font-family: var(--mulish);
+          font-weight: 700;
+        }
+        .search-form button:hover {
+          background-image: var(--linear-rainbow);
+          color: var(--light-color);
+          transition: var(--main-transition);
+        }
+    
+        .sphere {
+          position: absolute;
+          top: 15%;
+          right: 10%;
+          height: 220px;
+          width: 220px;
+          background-image: var(--circle-rainbow);
+          border: 3px solid var(--dark-color);
+          border-radius: 50%;
+          transition: all 0.4s;
+          box-shadow: 0px 0px var(--shadow);
+          z-index: 11;
+        }
+        .sphere:hover {
+          scale: 1.1;
+          box-shadow: 16px 16px var(--shadow);
+          transition: var(--main-transition);
+        }
+    
+        .table-section {
+          width: 90%;
+          max-width: 1200px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 10px;
+          max-height: 50vh;
+          overflow-y: auto;
+        }
+        .table-section p {
+          font-family: var(--mulish);
+          font-size: 14px;
+          margin: 0;
+          color: var(--light-color);
+        }
+        .table-container {
+          width: 100%;
+          overflow-x: auto;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          background-color: var(--dark-color);
+          color: var(--light-color);
+        }
+        table th, table td {
+          padding: 8px 12px;
+          border: 1px solid var(--mid-dark);
+          text-align: left;
+          font-family: var(--mulish);
+          font-size: 14px;
+        }
+        table th {
+          background-color: var(--mid-dark);
+          font-weight: 700;
+          text-transform: uppercase;
+        }
+        .pagination {
+          text-align: center;
+          margin: 10px 0;
+          font-family: var(--mulish);
+        }
+        .pagination a {
+          text-decoration: none;
+          color: var(--light-color);
+          margin: 0 10px;
+          font-size: 14px;
+          transition: var(--main-transition);
+        }
+        .pagination a:hover {
+          text-shadow: 0 0 5px var(--light-color);
+          font-weight: 700;
+        }
+        /* ==== Fin del CSS copiado ==== */
+      </style>   
+<head>
+    <title>Iniciar Sesión</title>
+</head>
+<body>
+    <h1>Iniciar Sesión</h1>
+    <form action="/login" method="post">
+        <label>Usuario:</label>
+        <input type="text" name="usuario" required>
+        <br>
+        <label>Contraseña:</label>
+        <input type="password" name="password" required>
+        <br>
+        <button type="submit">Ingresar</button>
+    </form>
+</body>
+</html>

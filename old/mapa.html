@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geolocalización Campus</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Estilos propios -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        #contenedor {
+            display: flex;
+            height: 100vh;
+        }
+        #sidebar {
+            width: 300px;
+            background-color: #f0f0f0;
+            padding: 15px;
+            overflow-y: auto;
+        }
+        #map {
+            flex-grow: 1;
+            height: 100%;
+        }
+        .panel {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            background-color: #fff;
+        }
+        h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .ubicacion-item {
+            padding: 8px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+        }
+        .ubicacion-item:hover {
+            background-color: #f5f5f5;
+        }
+        .ubicacion-item.active {
+            background-color: #e0f7fa;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .marker-alumno {
+            background-color: blue;
+            border-radius: 50%;
+            border: 2px solid white;
+            text-align: center;
+            line-height: 22px;
+            color: white;
+        }
+        .marker-profesor {
+            background-color: green;
+            border-radius: 50%;
+            border: 2px solid white;
+            text-align: center;
+            line-height: 22px;
+            color: white;
+        }
+        .marker-ubicacion {
+            background-color: red;
+            border-radius: 50%;
+            border: 2px solid white;
+            text-align: center;
+            line-height: 22px;
+            color: white;
+        }
+        .marker-clase {
+            background-color: purple;
+            border-radius: 50%;
+            border: 2px solid white;
+            text-align: center;
+            line-height: 22px;
+            color: white;
+        }
+        .leyenda {
+            padding: 6px 8px;
+            background: white;
+            background: rgba(255,255,255,0.8);
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            border-radius: 5px;
+            line-height: 24px;
+        }
+        .leyenda i {
+            width: 18px;
+            height: 18px;
+            float: left;
+            margin-right: 8px;
+            opacity: 0.7;
+        }
+        .distancia-info {
+            font-weight: bold;
+            margin-top: 5px;
+            color: #0066cc;
+        }
+    </style>
+</head>
+<body>
+    <div id="contenedor">
+        <div id="sidebar">
+            <h2>Geolocalización Campus</h2>
+            
+            <div class="panel">
+                <h3>Mi ubicación</h3>
+                <button id="btnUbicacion" class="btn">Usar mi ubicación actual</button>
+                <div id="miPosicion"></div>
+            </div>
+
+            <div class="panel">
+                <h3>Buscar servicios cercanos</h3>
+                <div class="form-group">
+                    <label for="radio">Radio de búsqueda (metros):</label>
+                    <input type="number" id="radio" value="500" min="50" max="5000">
+                </div>
+                <div class="form-group">
+                    <label for="tipoServicio">Tipo de servicio:</label>
+                    <select id="tipoServicio">
+                        <option value="todos">Todos</option>
+                        <option value="biblioteca">Biblioteca</option>
+                        <option value="cafeteria">Cafetería</option>
+                        <option value="deporte">Instalación deportiva</option>
+                        <option value="administrativo">Servicio administrativo</option>
+                    </select>
+                </div>
+                <button id="btnBuscarCercanos" class="btn">Buscar cercanos</button>
+            </div>
+
+            <div class="panel">
+                <h3>Calcular ruta peatonal</h3>
+                <div class="form-group">
+                    <label for="origenTipo">Tipo de origen:</label>
+                    <select id="origenTipo">
+                        <option value="alumno">Alumno</option>
+                        <option value="profesor">Profesor</option>
+                        <option value="mi_ubicacion">Mi ubicación actual</option>
+                    </select>
+                </div>
+                <div id="origenIdContainer" class="form-group">
+                    <label for="origenId">ID origen:</label>
+                    <input type="number" id="origenId" placeholder="ID origen">
+                </div>
+                <div class="form-group">
+                    <label for="destinoTipo">Tipo de destino:</label>
+                    <select id="destinoTipo">
+                        <option value="ubicacion">Ubicación</option>
+                        <option value="clase">Clase</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="destinoId">ID destino:</label>
+                    <input type="number" id="destinoId" placeholder="ID destino">
+                </div>
+                <button id="btnCalcularRuta" class="btn">Calcular ruta</button>
+            </div>
+
+            <div class="panel">
+                <h3>Actualizar mi ubicación</h3>
+                <div class="form-group">
+                    <label for="tipoUsuario">Tipo:</label>
+                    <select id="tipoUsuario">
+                        <option value="alumno">Alumno</option>
+                        <option value="profesor">Profesor</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="idUsuario">ID:</label>
+                    <input type="number" id="idUsuario" placeholder="Tu ID">
+                </div>
+                <button id="btnActualizarUbicacion" class="btn">Actualizar ubicación</button>
+                <div class="form-group" style="margin-top: 10px;">
+                    <input type="checkbox" id="chkActualizacionAutomatica" style="width: auto;">
+                    <label for="chkActualizacionAutomatica" style="display: inline;">Actualización automática</label>
+                </div>
+                <div id="estadoActualizacion" style="margin-top: 5px; font-size: 12px; color: #666;"></div>
+            </div>
+
+            <div class="panel">
+                <h3>Resultados</h3>
+                <div id="resultados"></div>
+            </div>
+        </div>
+        
+        <div id="map"></div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <script>
+        // Variables globales
+        let map;
+        let userMarker;
+        let marcadores = {
+            ubicaciones: L.layerGroup(),
+            alumnos: L.layerGroup(),
+            profesores: L.layerGroup(),
+            clases: L.layerGroup()
+        };
+        let rutaLayer;
+        let actualizacionAutomaticaInterval;
+        
+        // Coordenadas iniciales (Madrid)
+        const coordIniciales = [40.416, -3.703];
+        
+        // Inicializar mapa
+        function inicializarMapa() {
+            map = L.map('map').setView(coordIniciales, 15);
+            
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+            
+            // Añadir capas al mapa
+            Object.values(marcadores).forEach(layer => layer.addTo(map));
+            
+            // Añadir leyenda
+            const leyenda = L.control({position: 'bottomright'});
+            leyenda.onAdd = function(map) {
+                const div = L.DomUtil.create('div', 'leyenda');
+                div.innerHTML = `
+                    <div><i style="background: blue"></i> Alumnos</div>
+                    <div><i style="background: green"></i> Profesores</div>
+                    <div><i style="background: red"></i> Ubicaciones</div>
+                    <div><i style="background: purple"></i> Clases</div>
+                `;
+                return div;
+            };
+            leyenda.addTo(map);
+            
+            // Cargar datos iniciales
+            cargarDatos();
+
+            // Evento para detectar clicks en el mapa
+            map.on('click', function(e) {
+                // Si estamos en modo "Mi ubicación actual" para calcular ruta
+                if (document.getElementById('origenTipo').value === 'mi_ubicacion') {
+                    const lat = e.latlng.lat;
+                    const lng = e.latlng.lng;
+                    
+                    // Actualizar el marker de usuario
+                    if (userMarker) {
+                        userMarker.setLatLng([lat, lng]);
+                    } else {
+                        userMarker = L.marker([lat, lng], {
+                            icon: L.divIcon({
+                                html: '<i class="fa fa-map-marker-alt fa-2x"></i>',
+                                className: 'mi-ubicacion-marker',
+                                iconSize: [20, 20],
+                                iconAnchor: [10, 20]
+                            })
+                        }).addTo(map).bindPopup('Tu ubicación seleccionada');
+                    }
+                    
+                    // Mostrar la posición
+                    document.getElementById('miPosicion').innerHTML = `
+                        <p><strong>Latitud:</strong> ${lat.toFixed(6)}</p>
+                        <p><strong>Longitud:</strong> ${lng.toFixed(6)}</p>
+                    `;
+                }
+            });
+
+            // Configurar evento para cambio de tipo de origen
+            document.getElementById('origenTipo').addEventListener('change', function() {
+                const origenIdContainer = document.getElementById('origenIdContainer');
+                if (this.value === 'mi_ubicacion') {
+                    origenIdContainer.style.display = 'none';
+                } else {
+                    origenIdContainer.style.display = 'block';
+                }
+            });
+
+            // Configurar evento para actualización automática
+            document.getElementById('chkActualizacionAutomatica').addEventListener('change', function() {
+                if (this.checked) {
+                    iniciarActualizacionAutomatica();
+                } else {
+                    detenerActualizacionAutomatica();
+                }
+            });
+        }
+        
+        // Cargar todas las ubicaciones
+        function cargarDatos() {
+            // Cargar ubicaciones
+            fetch('/api/ubicaciones')
+                .then(response => response.json())
+                .then(data => {
+                    marcadores.ubicaciones.clearLayers();
+                    data.forEach(ub => {
+                        const marker = L.marker([ub.latitud, ub.longitud], {
+                            title: ub.nombre,
+                            icon: L.divIcon({
+                                html: '<i class="fa fa-building"></i>',
+                                className: 'marker-ubicacion',
+                                iconSize: [24, 24]
+                            })
+                        }).bindPopup(`
+                            <strong>${ub.nombre}</strong><br>
+                            Tipo: ${ub.tipo}<br>
+                            ${ub.direccion ? 'Dirección: ' + ub.direccion + '<br>' : ''}
+                            ${ub.descripcion ? 'Descripción: ' + ub.descripcion : ''}
+                            <hr>
+                            <button onclick="calcularRutaHacia('ubicacion', ${ub.id})">Ir aquí</button>
+                        `);
+                        marker.ubicacionId = ub.id;
+                        marker.addTo(marcadores.ubicaciones);
+                    });
+                })
+                .catch(error => console.error('Error cargando ubicaciones:', error));
+            
+            // Cargar alumnos
+            fetch('/api/alumnos/ubicaciones')
+                .then(response => response.json())
+                .then(data => {
+                    marcadores.alumnos.clearLayers();
+                    data.forEach(alumno => {
+                        const marker = L.marker([alumno.latitud, alumno.longitud], {
+                            title: `${alumno.first_name} ${alumno.last_name}`,
+                            icon: L.divIcon({
+                                html: '<i class="fa fa-user"></i>',
+                                className: 'marker-alumno',
+                                iconSize: [24, 24]
+                            })
+                        }).bindPopup(`
+                            <strong>${alumno.first_name} ${alumno.last_name}</strong><br>
+                            ID: ${alumno.id}
+                        `);
+                        marker.alumnoId = alumno.id;
+                        marker.addTo(marcadores.alumnos);
+                    });
+                })
+                .catch(error => console.error('Error cargando alumnos:', error));
+            
+            // Cargar profesores
+            fetch('/api/profesores/ubicaciones')
+                .then(response => response.json())
+                .then(data => {
+                    marcadores.profesores.clearLayers();
+                    data.forEach(prof => {
+                        const marker = L.marker([prof.latitud, prof.longitud], {
+                            title: prof.name,
+                            icon: L.divIcon({
+                                html: '<i class="fa fa-user-tie"></i>',
+                                className: 'marker-profesor',
+                                iconSize: [24, 24]
+                            })
+                        }).bindPopup(`
+                            <strong>${prof.name}</strong><br>
+                            ID: ${prof.id}
+                        `);
+                        marker.profesorId = prof.id;
+                        marker.addTo(marcadores.profesores);
+                    });
+                })
+                .catch(error => console.error('Error cargando profesores:', error));
+            
+            // Cargar clases
+            fetch('/api/clases/ubicaciones')
+                .then(response => response.json())
+                .then(data => {
+                    marcadores.clases.clearLayers();
+                    data.forEach(clase => {
+                        const marker = L.marker([clase.latitud, clase.longitud], {
+                            title: clase.name,
+                            icon: L.divIcon({
+                                html: '<i class="fa fa-chalkboard"></i>',
+                                className: 'marker-clase',
+                                iconSize: [24, 24]
+                            })
+                        }).bindPopup(`
+                            <strong>${clase.name}</strong><br>
+                            Profesor: ${clase.teacher_name}<br>
+                            ID: ${clase.id}
+                        `);
+                        marker.claseId = clase.id;
+                        marker.addTo(marcadores.clases);
+                    });
+                })
+                .catch(error => console.error('Error cargando clases:', error));
+        }
+        
+        // Buscar ubicaciones cercanas usando ST_DWithin
+        function buscarCercanos() {
+            if (!userMarker) {
+                alert('Primero debes establecer tu ubicación actual');
+                return;
+            }
+            
+            const radio = document.getElementById('radio').value || 500;
+            const tipoServicio = document.getElementById('tipoServicio').value;
+            const latlng = userMarker.getLatLng();
+            
+            // Usar el endpoint que utiliza ST_DWithin
+            fetch(`/api/ubicaciones/cercanas?lat=${latlng.lat}&lon=${latlng.lng}&radio=${radio}&tipo=${tipoServicio}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Mostrar resultados en el panel
+                    const resultadosDiv = document.getElementById('resultados');
+                    resultadosDiv.innerHTML = '<h4>Ubicaciones cercanas:</h4>';
+                    
+                    if (data.length === 0) {
+                        resultadosDiv.innerHTML += '<p>No se encontraron ubicaciones cercanas.</p>';
+                        return;
+                    }
+                    
+                    const lista = document.createElement('ul');
+                    lista.style.listStyle = 'none';
+                    lista.style.padding = '0';
+                    
+                    data.forEach(item => {
+                        const li = document.createElement('li');
+                        li.className = 'ubicacion-item';
+                        li.innerHTML = `
+                            <strong>${item.nombre}</strong><br>
+                            Tipo: ${item.tipo}<br>
+                            <span class="distancia-info">Distancia: ${Math.round(item.distancia)} metros</span>
+                        `;
+                        li.onclick = () => {
+                            // Resaltar los marcadores correspondientes
+                            marcadores.ubicaciones.eachLayer(marker => {
+                                if (marker.ubicacionId === item.id) {
+                                    marker.openPopup();
+                                    map.setView(marker.getLatLng(), 17);
+                                }
+                            });
+                            
+                            // Resaltar el elemento seleccionado
+                            document.querySelectorAll('.ubicacion-item').forEach(el => {
+                                el.classList.remove('active');
+                            });
+                            li.classList.add('active');
+                        };
+                        lista.appendChild(li);
+                    });
+                    
+                    resultadosDiv.appendChild(lista);
+                })
+                .catch(error => console.error('Error buscando cercanos:', error));
+        }
+        
+        // Usar la ubicación actual del usuario
+        function usarUbicacionActual() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+                        
+                        // Mostrar la posición
+                        document.getElementById('miPosicion').innerHTML = `
+                            <p><strong>Latitud:</strong> ${lat.toFixed(6)}</p>
+                            <p><strong>Longitud:</strong> ${lng.toFixed(6)}</p>
+                        `;
+                        
+                        // Añadir marcador al mapa
+                        if (userMarker) {
+                            userMarker.setLatLng([lat, lng]);
+                        } else {
+                            userMarker = L.marker([lat, lng], {
+                                icon: L.divIcon({
+                                    html: '<i class="fa fa-map-marker-alt fa-2x"></i>',
+                                    className: 'mi-ubicacion-marker',
+                                    iconSize: [20, 20],
+                                    iconAnchor: [10, 20]
+                                })
+                            }).addTo(map).bindPopup('Tu ubicación actual');
+                        }
+                        
+                        // Centrar el mapa
+                        map.setView([lat, lng], 16);
+                    },
+                    (error) => {
+                        let mensaje = "Error desconocido";
+                        switch(error.code) {
+                            case error.PERMISSION_DENIED:
+                                mensaje = "No has permitido acceder a tu ubicación.";
+                                break;
+                            case error.POSITION_UNAVAILABLE:
+                                mensaje = "Tu ubicación no está disponible.";
+                                break;
+                            case error.TIMEOUT:
+                                mensaje = "Tiempo de espera agotado para obtener la ubicación.";
+                                break;
+                        }
+                        alert(mensaje);
+                    }
+                );
+            } else {
+                alert("Tu navegador no soporta geolocalización.");
+            }
+        }
+        
+        // Actualizar ubicación del usuario en la base de datos
+        function actualizarUbicacion() {
+            if (!userMarker) {
+                alert('Primero debes establecer tu ubicación actual');
+                return;
+            }
+            
+            const tipo = document.getElementById('tipoUsuario').value;
+            const id = document.getElementById('idUsuario').value;
+            
+            if (!id) {
+                alert('Debes ingresar un ID');
+                return;
+            }
+            
+            const latlng = userMarker.getLatLng();
+            
+            // Llamamos a la API que utiliza ST_SetSRID y ST_MakePoint
+            fetch('/api/actualizar_ubicacion', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    lat: latlng.lat,
+                    lon: latlng.lng,
+                    tipo: tipo,
+                    id: parseInt(id)
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error en la solicitud');
+                }
+                return response.json();
+            })
+            .then(data => {
+                document.getElementById('estadoActualizacion').textContent = 'Última actualización: ' + new Date().toLocaleTimeString();
+                alert(data.mensaje || 'Ubicación actualizada correctamente');
+                cargarDatos(); // Recargar datos para ver los cambios
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error al actualizar ubicación: ' + error.message);
+            });
+        }
+        
+        // Calcular ruta entre dos puntos usando pgr_dijkstra
+        function calcularRuta() {
+            const origenTipo = document.getElementById('origenTipo').value;
+            let origenId = document.getElementById('origenId').value;
+            const destinoTipo = document.getElementById('destinoTipo').value;
+            const destinoId = document.getElementById('destinoId').value;
+            
+            if (origenTipo !== 'mi_ubicacion' && !origenId) {
+                alert('Debes ingresar ID de origen');
+                return;
+            }
+            
+            if (!destinoId) {
+                alert('Debes ingresar ID de destino');
+                return;
+            }
+            
+            // Si el origen es la ubicación actual del usuario
+            if (origenTipo === 'mi_ubicacion') {
+                if (!userMarker) {
+                    alert('Primero debes establecer tu ubicación actual');
+                    return;
+                }
+                
+                const latlng = userMarker.getLatLng();
+                
+                // Llamamos a una API especial para rutas desde coordenadas directas
+                fetch(`/api/ruta_desde_punto?lat=${latlng.lat}&lon=${latlng.lng}&destino_id=${destinoId}&tipo_destino=${destinoTipo}`)
+                    .then(response => procesarRespuestaRuta(response))
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Error al calcular ruta: ' + error.message);
+                    });
+            } else {
+                // Si el origen es un alumno o profesor con ID
+                fetch(`/api/ruta?origen_id=${origenId}&destino_id=${destinoId}&tipo_origen=${origenTipo}&tipo_destino=${destinoTipo}`)
+                    .then(response => procesarRespuestaRuta(response))
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Error al calcular ruta: ' + error.message);
+                    });
+            }
+        }
+        
+        // Procesar la respuesta de la API de rutas
+        function procesarRespuestaRuta(response) {
+            if (!response.ok) {
+                throw new Error('Error en la solicitud');
+            }
+            return response.json().then(data => {
+                // Limpiar ruta anterior si existe
+                if (rutaLayer) {
+                    map.removeLayer(rutaLayer);
+                }
+                
+                if (data.length === 0) {
+                    alert('No se encontró ruta entre los puntos seleccionados');
+                    return;
+                }
+                
+                // Crear puntos para la ruta
+                const puntos = data.map(punto => {
+                    const geom = JSON.parse(punto.geometry);
+                    return L.GeoJSON.coordsToLatLng(geom.coordinates);
+                });
+                
+                // Crear capa para la ruta
+                rutaLayer = L.polyline(puntos, {
+                    color: '#3388ff',
+                    weight: 6,
+                    opacity: 0.7
+                }).addTo(map);
+                
+                // Centrar mapa en la ruta
+                map.fitBounds(rutaLayer.getBounds(), {
+                    padding: [50, 50]
+                });
+                
+                // Mostrar información de la ruta
+                const distanciaTotal = data.reduce((acc, curr) => acc + curr.cost, 0);
+                document.getElementById('resultados').innerHTML = `
+                    <h4>Información de ruta:</h4>
+                    <p><strong>Distancia total:</strong> ${distanciaTotal.toFixed(2)} metros</p>
+                    <p><strong>Tiempo estimado:</strong> ${Math.ceil(distanciaTotal / 83.33)} minutos (caminando a 5 km/h)</p>
+                `;
+            });
+        }
+        
+        // Calcular ruta hacia un destino específico (usado desde popups)
+        function calcularRutaHacia(tipo, id) {
+            if (!userMarker) {
+                alert('Primero debes establecer tu ubicación actual');
+                return;
+            }
+            
+            // Configurar la interfaz para calcular desde mi ubicación
+            document.getElementById('origenTipo').value = 'mi_ubicacion';
+            document.getElementById('origenIdContainer').style.display = 'none';
+            document.getElementById('destinoTipo').value = tipo;
+            document.getElementById('destinoId').value = id;
+            
+            calcularRuta();
+        }
+        
+        // Iniciar actualización automática de posición
+        function iniciarActualizacionAutomatica() {
+            if (!document.getElementById('idUsuario').value) {
+                alert('Debes ingresar un ID de usuario para la actualización automática');
+                document.getElementById('chkActualizacionAutomatica').checked = false;
+                return;
+            }
+            
+            document.getElementById('estadoActualizacion').textContent = 'Actualización automática activada';
+            
+            // Actualizar inmediatamente
+            actualizarUbicacion();
+            
+            // Configurar actualización cada 30 segundos
+            actualizacionAutomaticaInterval = setInterval(() => {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        (position) => {
+                            const lat = position.coords.latitude;
+                            const lng = position.coords.longitude;
+                            
+                            // Actualizar marcador y datos de ubicación
+                            if (userMarker) {
+                                userMarker.setLatLng([lat, lng]);
+                            } else {
+                                userMarker = L.marker([lat, lng], {
+                                    icon: L.divIcon({
+                                        html: '<i class="fa fa-map-marker-alt fa-2x"></i>',
+                                        className: 'mi-ubicacion-marker',
+                                        iconSize: [20, 20],
+                                        iconAnchor: [10, 20]
+                                    })
+                                }).addTo(map);
+                            }
+                            
+                            // Mostrar la posición
+                            document.getElementById('miPosicion').innerHTML = `
+                                <p><strong>Latitud:</strong> ${lat.toFixed(6)}</p>
+                                <p><strong>Longitud:</strong> ${lng.toFixed(6)}</p>
+                            `;
+                            
+                            // Actualizar en la base de datos
+                            actualizarUbicacion();
+                        },
+                        (error) => {
+                            console.error('Error obteniendo ubicación:', error);
+                            detenerActualizacionAutomatica();
+                            alert('Error al obtener ubicación. Actualización automática detenida.');
+                        }
+                    );
+                }
+            }, 30000); // 30 segundos
+        }
+        
+        // Detener actualización automática
+        function detenerActualizacionAutomatica() {
+            if (actualizacionAutomaticaInterval) {
+                clearInterval(actualizacionAutomaticaInterval);
+                actualizacionAutomaticaInterval = null;
+                document.getElementById('estadoActualizacion').textContent = 'Actualización automática desactivada';
+            }
+        }
+        
+        // Configurar manejadores de eventos
+        document.addEventListener('DOMContentLoaded', function() {
+            inicializarMapa();
+            
+            document.getElementById('btnUbicacion').addEventListener('click', usarUbicacionActual);
+            document.getElementById('btnBuscarCercanos').addEventListener('click', buscarCercanos);
+            document.getElementById('btnCalcularRuta').addEventListener('click', calcularRuta);
+            document.getElementById('btnActualizarUbicacion').addEventListener('click', actualizarUbicacion);
+        });
+        
+        // Función para adaptar el consumo de rutas con Flask/Python
+        function calcularRutaConPython(origenLat, origenLng, destinoId, tipoDestino) {
+            fetch(`/api/python/ruta?origen_lat=${origenLat}&origen_lng=${origenLng}&destino_id=${destinoId}&tipo_destino=${tipoDestino}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error al calcular la ruta');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Limpiar ruta anterior si existe
+                    if (rutaLayer) {
+                        map.removeLayer(rutaLayer);
+                    }
+                    
+                    if (!data.ruta || data.ruta.length === 0) {
+                        alert('No se encontró ruta entre los puntos seleccionados');
+                        return;
+                    }
+                    
+                    // Crear puntos para la ruta desde el GeoJSON devuelto por Python
+                    const rutaGeojson = JSON.parse(data.ruta);
+                    const puntos = rutaGeojson.coordinates.map(coord => 
+                        L.latLng(coord[1], coord[0]) // Invertir coordenadas para Leaflet (lat, lng)
+                    );
+                    
+                    // Crear capa para la ruta
+                    rutaLayer = L.polyline(puntos, {
+                        color: '#3388ff',
+                        weight: 6,
+                        opacity: 0.7
+                    }).addTo(map);
+                    
+                    // Centrar mapa en la ruta
+                    map.fitBounds(rutaLayer.getBounds(), {
+                        padding: [50, 50]
+                    });
+                    
+                    // Mostrar información de la ruta
+                    document.getElementById('resultados').innerHTML = `
+                        <h4>Información de ruta:</h4>
+                        <p><strong>Distancia total:</strong> ${data.distancia.toFixed(2)} metros</p>
+                        <p><strong>Tiempo estimado:</strong> ${Math.ceil(data.distancia / 83.33)} minutos (caminando a 5 km/h)</p>
+                    `;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error al calcular ruta: ' + error.message);
+                });
+        }
+        
+        // Modificar la función buscarCercanos para usar la versión de Python/Flask
+        function buscarCercanos() {
+            if (!userMarker) {
+                alert('Primero debes establecer tu ubicación actual');
+                return;
+            }
+            
+            const radio = document.getElementById('radio').value || 500;
+            const tipoServicio = document.getElementById('tipoServicio').value;
+            const latlng = userMarker.getLatLng();
+            
+            // Usar el endpoint que utiliza la función de Python con ST_DWithin
+            fetch(`/api/python/ubicaciones_cercanas?lat=${latlng.lat}&lng=${latlng.lng}&radio=${radio}&tipo=${tipoServicio}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error al buscar ubicaciones cercanas');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Mostrar resultados en el panel
+                    const resultadosDiv = document.getElementById('resultados');
+                    resultadosDiv.innerHTML = '<h4>Ubicaciones cercanas:</h4>';
+                    
+                    if (data.length === 0) {
+                        resultadosDiv.innerHTML += '<p>No se encontraron ubicaciones cercanas.</p>';
+                        return;
+                    }
+                    
+                    const lista = document.createElement('ul');
+                    lista.style.listStyle = 'none';
+                    lista.style.padding = '0';
+                    
+                    data.forEach(item => {
+                        const li = document.createElement('li');
+                        li.className = 'ubicacion-item';
+                        li.innerHTML = `
+                            <strong>${item.nombre}</strong><br>
+                            Tipo: ${item.tipo}<br>
+                            <span class="distancia-info">Distancia: ${Math.round(item.distancia)} metros</span>
+                        `;
+                        li.onclick = () => {
+                            // Resaltar los marcadores correspondientes
+                            marcadores.ubicaciones.eachLayer(marker => {
+                                if (marker.ubicacionId === item.id) {
+                                    marker.openPopup();
+                                    map.setView(marker.getLatLng(), 17);
+                                }
+                            });
+                            
+                            // Resaltar el elemento seleccionado
+                            document.querySelectorAll('.ubicacion-item').forEach(el => {
+                                el.classList.remove('active');
+                            });
+                            li.classList.add('active');
+                        };
+                        lista.appendChild(li);
+                    });
+                    
+                    resultadosDiv.appendChild(lista);
+                })
+                .catch(error => console.error('Error buscando cercanos:', error));
+        }
+        
+        // Modificar función calcularRuta para usar Python/pgRouting
+        function calcularRuta() {
+            const origenTipo = document.getElementById('origenTipo').value;
+            let origenId = document.getElementById('origenId').value;
+            const destinoTipo = document.getElementById('destinoTipo').value;
+            const destinoId = document.getElementById('destinoId').value;
+            
+            if (origenTipo !== 'mi_ubicacion' && !origenId) {
+                alert('Debes ingresar ID de origen');
+                return;
+            }
+            
+            if (!destinoId) {
+                alert('Debes ingresar ID de destino');
+                return;
+            }
+            
+            // Si el origen es la ubicación actual del usuario
+            if (origenTipo === 'mi_ubicacion') {
+                if (!userMarker) {
+                    alert('Primero debes establecer tu ubicación actual');
+                    return;
+                }
+                
+                const latlng = userMarker.getLatLng();
+                calcularRutaConPython(latlng.lat, latlng.lng, destinoId, destinoTipo);
+            } else {
+                // Si el origen es un alumno o profesor con ID
+                fetch(`/api/python/ruta_entre_entidades?origen_id=${origenId}&destino_id=${destinoId}&tipo_origen=${origenTipo}&tipo_destino=${destinoTipo}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Error al calcular la ruta');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Limpiar ruta anterior si existe
+                        if (rutaLayer) {
+                            map.removeLayer(rutaLayer);
+                        }
+                        
+                        if (!data.ruta || data.ruta.length === 0) {
+                            alert('No se encontró ruta entre los puntos seleccionados');
+                            return;
+                        }
+                        
+                        // Crear puntos para la ruta desde el GeoJSON devuelto por Python
+                        const rutaGeojson = JSON.parse(data.ruta);
+                        const puntos = rutaGeojson.coordinates.map(coord => 
+                            L.latLng(coord[1], coord[0]) // Invertir coordenadas para Leaflet (lat, lng)
+                        );
+                        
+                        // Crear capa para la ruta
+                        rutaLayer = L.polyline(puntos, {
+                            color: '#3388ff',
+                            weight: 6,
+                            opacity: 0.7
+                        }).addTo(map);
+                        
+                        // Centrar mapa en la ruta
+                        map.fitBounds(rutaLayer.getBounds(), {
+                            padding: [50, 50]
+                        });
+                        
+                        // Mostrar información de la ruta
+                        document.getElementById('resultados').innerHTML = `
+                            <h4>Información de ruta:</h4>
+                            <p><strong>Distancia total:</strong> ${data.distancia.toFixed(2)} metros</p>
+                            <p><strong>Tiempo estimado:</strong> ${Math.ceil(data.distancia / 83.33)} minutos (caminando a 5 km/h)</p>
+                        `;
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Error al calcular ruta: ' + error.message);
+                    });
+            }
+        }
+        
+        // Modificar función actualizarUbicacion para usar Python
+        function actualizarUbicacion() {
+            if (!userMarker) {
+                alert('Primero debes establecer tu ubicación actual');
+                return;
+            }
+            
+            const tipo = document.getElementById('tipoUsuario').value;
+            const id = document.getElementById('idUsuario').value;
+            
+            if (!id) {
+                alert('Debes ingresar un ID');
+                return;
+            }
+            
+            const latlng = userMarker.getLatLng();
+            
+            // Llamamos a la API de Python que utiliza ST_SetSRID y ST_MakePoint
+            fetch('/api/python/actualizar_ubicacion', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    lat: latlng.lat,
+                    lng: latlng.lng,
+                    tipo: tipo,
+                    id: parseInt(id)
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error en la solicitud');
+                }
+                return response.json();
+            })
+            .then(data => {
+                document.getElementById('estadoActualizacion').textContent = 'Última actualización: ' + new Date().toLocaleTimeString();
+                alert(data.mensaje || 'Ubicación actualizada correctamente');
+                cargarDatos(); // Recargar datos para ver los cambios
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error al actualizar ubicación: ' + error.message);
+            });
+        }
+        
+        // Cargar datos con las funciones de Python
+        function cargarDatos() {
+            // Cargar ubicaciones
+            fetch('/api/python/ubicaciones')
+                .then(response => response.json())
+                .then(data => {
+                    marcadores.ubicaciones.clearLayers();
+                    data.forEach(ub => {
+                        const marker = L.marker([ub.latitud, ub.longitud], {
+                            title: ub.nombre,
+                            icon: L.divIcon({
+                                html: '<i class="fa fa-building"></i>',
+                                className: 'marker-ubicacion',
+                                iconSize: [24, 24]
+                            })
+                        }).bindPopup(`
+                            <strong>${ub.nombre}</strong><br>
+                            Tipo: ${ub.tipo}<br>
+                            ${ub.direccion ? 'Dirección: ' + ub.direccion + '<br>' : ''}
+                            ${ub.descripcion ? 'Descripción: ' + ub.descripcion : ''}
+                            <hr>
+                            <button onclick="calcularRutaHacia('ubicacion', ${ub.id})">Ir aquí</button>
+                        `);
+                        marker.ubicacionId = ub.id;
+                        marker.addTo(marcadores.ubicaciones);
+                    });
+                })
+                .catch(error => console.error('Error cargando ubicaciones:', error));
+            
+            // Cargar alumnos
+            fetch('/api/python/alumnos/ubicaciones')
+                .then(response => response.json())
+                .then(data => {
+                    marcadores.alumnos.clearLayers();
+                    data.forEach(alumno => {
+                        const marker = L.marker([alumno.latitud, alumno.longitud], {
+                            title: `${alumno.first_name} ${alumno.last_name}`,
+                            icon: L.divIcon({
+                                html: '<i class="fa fa-user"></i>',
+                                className: 'marker-alumno',
+                                iconSize: [24, 24]
+                            })
+                        }).bindPopup(`
+                            <strong>${alumno.first_name} ${alumno.last_name}</strong><br>
+                            ID: ${alumno.id}
+                        `);
+                        marker.alumnoId = alumno.id;
+                        marker.addTo(marcadores.alumnos);
+                    });
+                })
+                .catch(error => console.error('Error cargando alumnos:', error));
+            
+            // Cargar profesores
+            fetch('/api/python/profesores/ubicaciones')
+                .then(response => response.json())
+                .then(data => {
+                    marcadores.profesores.clearLayers();
+                    data.forEach(prof => {
+                        const marker = L.marker([prof.latitud, prof.longitud], {
+                            title: prof.name,
+                            icon: L.divIcon({
+                                html: '<i class="fa fa-user-tie"></i>',
+                                className: 'marker-profesor',
+                                iconSize: [24, 24]
+                            })
+                        }).bindPopup(`
+                            <strong>${prof.name}</strong><br>
+                            ID: ${prof.id}
+                        `);
+                        marker.profesorId = prof.id;
+                        marker.addTo(marcadores.profesores);
+                    });
+                })
+                .catch(error => console.error('Error cargando profesores:', error));
+            
+            // Cargar clases
+            fetch('/api/python/clases/ubicaciones')
+                .then(response => response.json())
+                .then(data => {
+                    marcadores.clases.clearLayers();
+                    data.forEach(clase => {
+                        const marker = L.marker([clase.latitud, clase.longitud], {
+                            title: clase.name,
+                            icon: L.divIcon({
+                                html: '<i class="fa fa-chalkboard"></i>',
+                                className: 'marker-clase',
+                                iconSize: [24, 24]
+                            })
+                        }).bindPopup(`
+                            <strong>${clase.name}</strong><br>
+                            Profesor: ${clase.teacher_name}<br>
+                            ID: ${clase.id}
+                        `);
+                        marker.claseId = clase.id;
+                        marker.addTo(marcadores.clases);
+                    });
+                })
+                .catch(error => console.error('Error cargando clases:', error));
+        }
+    </script>
+</body>
+</html>

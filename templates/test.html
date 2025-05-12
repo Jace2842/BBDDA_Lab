@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operaciones de Base de Datos</title>
+    <style>
+        /* Estilos base */
+        @import url("https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+
+        :root {
+            /* Nueva paleta de colores (basada en el segundo archivo) */
+            --dark-color: #2c3e50;
+            --mid-dark: #34495e;
+            --light-color: #ffffff;
+            --mid-light: #95a5a6;
+            --shadow: #0005;
+            --accent-color: #3498db;
+            --success-color: #27ae60;
+            --secondary-color: #f5f5f5;
+            --border-color: #ddd;
+            --mulish: "Mulish", sans-serif;
+            --work-sans: "Work Sans", sans-serif;
+            --main-transition: all 0.2s ease-in-out;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #f8f9fa;
+            color: #333;
+            font-family: var(--mulish);
+            padding: 20px; /* Añadido padding al body para espaciado general */
+        }
+
+        h1 {
+            font-family: var(--work-sans);
+            font-weight: 600;
+            font-size: 2.5em;
+            color: var(--dark-color);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            font-family: var(--work-sans);
+            font-size: 1.8em;
+            color: var(--mid-dark);
+            margin-bottom: 10px;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 5px;
+        }
+
+        p {
+            font-size: 1em;
+            color: var(--mid-light);
+            margin-bottom: 15px;
+        }
+
+        div {
+            width: 100%;
+            max-width: 900px; /* Limitando el ancho de los contenedores principales */
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        button {
+            padding: 10px 15px;
+            font-size: 1em;
+            font-weight: 600;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--main-transition);
+            font-family: var(--mulish);
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="file"] {
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            margin-right: 10px;
+            font-family: var(--mulish);
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        input[type="file"]:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+
+        #resultados {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            min-height: 100px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        #resultados h3 {
+            font-size: 1.5em;
+            color: var(--mid-dark);
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        #resultados pre {
+            font-family: monospace;
+            font-size: 0.9em;
+            white-space: pre-wrap;
+            color: #444;
+        }
+
+        /* Estilos específicos para los contenedores de cada sección */
+        div > h2 + p { /* Estilo para el párrafo que sigue al h2 dentro de un div */
+            margin-bottom: 20px;
+        }
+
+        div > h2 + p + button { /* Estilo para el primer botón después del párrafo */
+            margin-bottom: 15px;
+        }
+
+        /* Ajustes para inputs y botones en línea */
+        input[type="number"] + button,
+        input[type="file"] + button {
+            margin-top: 10px; /* Ajustar margen para que estén alineados verticalmente */
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            h2 {
+                font-size: 1.5em;
+            }
+            p {
+                font-size: 0.9em;
+            }
+            button, input[type="text"], input[type="number"], input[type="file"] {
+                font-size: 0.9em;
+                padding: 8px 12px;
+                margin-bottom: 10px;
+                margin-right: 0;
+                display: block; /* Hacer que los elementos se apilen en pantallas pequeñas */
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Operaciones de Base de Datos</h1>
+
+    <div style="margin-bottom: 20px;">
+        <h2>1. Mostrar Valores Iniciales</h2>
+        <p>Consultar todas las tablas para verificar los valores actuales</p>
+        <button onclick="ejecutarSQL('SELECT * FROM alumn LIMIT 10;', 'resultados')">Ver Alumnos</button>
+        <button onclick="ejecutarSQL('SELECT * FROM teacher LIMIT 10;', 'resultados')">Ver Profesores</button>
+        <button onclick="ejecutarSQL('SELECT * FROM course LIMIT 10;', 'resultados')">Ver Cursos</button>
+        <button onclick="ejecutarSQL('SELECT * FROM course_alumn_rel LIMIT 10;', 'resultados')">Ver Matrículas</button>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <h2>2. Acceso a Consultas</h2>
+        <p>Ejecución a través de esta interfaz web</p>
+        <input type="text" id="consultaSQL" style="width: 500px;" placeholder="Ingrese consulta SQL personalizada">
+        <button onclick="ejecutarSQL(document.getElementById('consultaSQL').value, 'resultados')">Ejecutar Consulta</button>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <h2>3. Visualización del Alumno</h2>
+        <p>Consultar datos de un alumno específico</p>
+        <input type="number" id="alumnoID" placeholder="ID del alumno" value="1000009">
+        <button onclick="consultarAlumno()">Consultar Alumno</button>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <h2>4. Visualización de Asignatura</h2>
+        <p>Encontrar asignatura donde el alumno no esté matriculado y que tenga notas de otros alumnos</p>
+        <input type="number" id="cursoID" placeholder="ID del cursoID" value="110	">
+        <button onclick="buscarCursoNoMatriculado()">Buscar Curso</button>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <h2>5. Matriculación del Alumno</h2>
+        <p>Matricular al alumno en la asignatura identificada</p>
+        <input type="number" id="matriculaAlumnoID" placeholder="ID del alumno" value="1000009">
+        <input type="number" id="matriculaCursoID" placeholder="ID del curso" value="110">
+        <button onclick="matricularAlumno()">Matricular Alumno</button>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <h2>6. Comprobación de la Media (Antes de la Nota)</h2>
+        <input type="number" id="mediaCursoID1" placeholder="ID del curso" value="110">
+        <button onclick="comprobarMediaAntes()">Comprobar Media Antes</button>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <h2>7. Asignación de Nota al Alumno</h2>
+        <input type="number" id="notaAlumnoID" placeholder="ID del alumno" value="1000009">
+        <input type="number" id="notaCursoID" placeholder="ID del curso" value="110">
+        <input type="number" id="notaValor" placeholder="Calificación" value="8.5" step="0.1">
+        <button onclick="asignarNota()">Asignar Nota</button>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <h2>8. Comprobación de la Media (Después de la Nota)</h2>
+        <input type="number" id="mediaCursoID2" placeholder="ID del curso" value="110">
+        <button onclick="comprobarMediaDespues()">Comprobar Media Después</button>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <h2>9. Auditoría (Tras Matriculación y Nota)</h2>
+        <input type="number" id="auditAlumnoID" placeholder="ID del alumno" value="1000009">
+        <button onclick="consultarAuditoria()">Consultar Auditoría</button>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <h2>10. Eliminación del Alumno</h2>
+        <input type="number" id="eliminarAlumnoID" placeholder="ID del alumno" value="1000009">
+        <button onclick="eliminarAlumno()">Eliminar Alumno</button>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <h2>11. Comprobación de la Media (Tras Eliminación)</h2>
+        <input type="number" id="mediaCursoID3" placeholder="ID del curso" value="110">
+        <button onclick="comprobarMediaDespuesEliminar()">Comprobar Media Tras Eliminación</button>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <h2>12. Auditoría (Tras Eliminación)</h2>
+        <input type="number" id="auditEliminarID" placeholder="ID del alumno" value="1000009">
+        <button onclick="consultarAuditoriaEliminacion()">Consultar Auditoría Eliminación</button>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <h2>13. Inserción desde Excel</h2>
+        <input type="file" id="excelFile" accept=".xlsx, .xls">
+        <button onclick="subirExcel()">Importar Excel</button>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <h2>14. Eliminar Último Alumno Insertado desde Excel</h2>
+        <button onclick="eliminarUltimoAlumno()">Eliminar Último Alumno</button>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <h2>15. Auditoría (Tras Inserción y Eliminación desde Excel)</h2>
+        <button onclick="consultarAuditoriaExcel()">Consultar Auditoría Excel</button>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <h2>16. Revisión en Elasticsearch</h2>
+        <input type="text" id="usuarioID" placeholder="ID de usuario" value="1">
+        <button onclick="consultarElasticsearch()">Consultar Elasticsearch</button>
+    </div>
+
+    <div id="resultados" style="margin-top: 30px; padding: 10px; border: 1px solid #ccc; min-height: 200px;">
+        <h3>Resultados:</h3>
+        <pre>Los resultados se mostrarán aquí...</pre>
+    </div>
+
+    <script>
+        // Función para ejecutar consultas SQL genéricas
+        function ejecutarSQL(sql, elementoResultado) {
+            fetch('/ejecutar_sql', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ consulta: sql }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById(elementoResultado).innerHTML = '<h3>Resultados:</h3><pre>' + JSON.stringify(data, null, 2) + '</pre>';
+            })
+            .catch((error) => {
+                document.getElementById(elementoResultado).innerHTML = '<h3>Error:</h3><pre>' + error + '</pre>';
+                return jsonify({"error": str(e)}), 500
+            });
+        
+        
+        }
+
+        // 3. Consultar un alumno específico
+        function consultarAlumno() {
+            const alumnoID = document.getElementById('alumnoID').value;
+            const sql = `SELECT id, first_name, last_name, street_address, birthday, saldo, nota FROM alumn WHERE id = ${alumnoID};`;
+            ejecutarSQL(sql, 'resultados');
+        }
+
+        // 4. Buscar curso no matriculado con notas
+        function buscarCursoNoMatriculado() {
+            const cursoID = document.getElementById('cursoID').value;
+            const sql = 
+            
+            `
+                SELECT * FROM course WHERE id =${cursoID}	
+            `;
+            ejecutarSQL(sql, 'resultados');
+        }
+
+        // 5. Matricular alumno en curso
+        function matricularAlumno() {
+            const alumnoID = document.getElementById('matriculaAlumnoID').value;
+            const cursoID = document.getElementById('matriculaCursoID').value;
+            const sql = `
+                INSERT INTO course_alumn_rel (alumn_id, course_id, calificacion, lastmodified) 
+                VALUES (${alumnoID}, ${cursoID}, NULL, NOW());
+            `;
+            ejecutarSQL(sql, 'resultados');
+        }
+
+        // 6. Comprobar media antes
+        function comprobarMediaAntes() {
+            const cursoID = document.getElementById('mediaCursoID1').value;
+            const sql = `
+                SELECT AVG(calificacion) AS media_antes 
+                FROM course_alumn_rel 
+                WHERE course_id = ${cursoID} AND calificacion IS NOT NULL;
+            `;
+            ejecutarSQL(sql, 'resultados');
+        }
+
+        // 7. Asignar nota
+        function asignarNota() {
+            const alumnoID = document.getElementById('notaAlumnoID').value;
+            const cursoID = document.getElementById('notaCursoID').value;
+            const nota = document.getElementById('notaValor').value;
+            const sql = `
+                UPDATE course_alumn_rel 
+                SET calificacion = ${nota}, lastmodified = NOW() 
+                WHERE alumn_id = ${alumnoID} AND course_id = ${cursoID};
+            `;
+            ejecutarSQL(sql, 'resultados');
+        }
+
+        // 8. Comprobar media después
+        function comprobarMediaDespues() {
+            const cursoID = document.getElementById('mediaCursoID2').value;
+            const sql = `
+                SELECT AVG(calificacion) AS media_despues 
+                FROM course_alumn_rel 
+                WHERE course_id = ${cursoID} AND calificacion IS NOT NULL;
+            `;
+            ejecutarSQL(sql, 'resultados');
+        }
+
+        // 9. Consultar auditoría
+        function consultarAuditoria() {
+            const alumnoID = document.getElementById('auditAlumnoID').value;
+            const sql = `
+                SELECT * FROM alumn_audit 
+                WHERE id = ${alumnoID} 
+                ORDER BY stamp DESC;
+            `;
+            ejecutarSQL(sql, 'resultados');
+        }
+
+        // 10. Eliminar alumno
+        function eliminarAlumno() {
+            const alumnoID = document.getElementById('eliminarAlumnoID').value;
+            const sql1 = `DELETE FROM course_alumn_rel WHERE alumn_id = ${alumnoID};`;
+            ejecutarSQL(sql1, 'resultados');
+            
+            // Esperar un momento antes de ejecutar la segunda consulta
+            setTimeout(() => {
+                const sql2 = `DELETE FROM alumn WHERE id = ${alumnoID};`;
+                ejecutarSQL(sql2, 'resultados');
+            }, 500);
+        }
+
+        // 11. Comprobar media después de eliminar
+        function comprobarMediaDespuesEliminar() {
+            const cursoID = document.getElementById('mediaCursoID3').value;
+            const sql = `
+                SELECT AVG(calificacion) AS media_tras_eliminacion 
+                FROM course_alumn_rel 
+                WHERE course_id = ${cursoID} AND calificacion IS NOT NULL;
+            `;
+            ejecutarSQL(sql, 'resultados');
+        }
+
+        // 12. Consultar auditoría tras eliminación
+        function consultarAuditoriaEliminacion() {
+            const alumnoID = document.getElementById('auditEliminarID').value;
+            const sql = `
+                SELECT * FROM alumn_audit 
+                WHERE id = ${alumnoID} 
+                ORDER BY stamp DESC;
+            `;
+            ejecutarSQL(sql, 'resultados');
+        }
+
+        // 13. Subir Excel
+        function subirExcel() {
+            const fileInput = document.getElementById('excelFile');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                alert('Por favor seleccione un archivo Excel');
+                return;
+            }
+            
+            const formData = new FormData();
+            formData.append('file', file);
+            
+            fetch('/import/alumnos/excel', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('resultados').innerHTML = '<h3>Resultados:</h3><pre>' + JSON.stringify(data, null, 2) + '</pre>';
+            })
+            .catch((error) => {
+                document.getElementById('resultados').innerHTML = '<h3>Error:</h3><pre>' + error + '</pre>';
+            });
+        }
+
+        // 14. Eliminar último alumno
+        function eliminarUltimoAlumno() {
+            const sql = `DELETE FROM alumn WHERE id = (SELECT MAX(id) FROM alumn);`;
+            ejecutarSQL(sql, 'resultados');
+        }
+
+        // 15. Consultar auditoría tras Excel
+        function consultarAuditoriaExcel() {
+            const sql = `SELECT * FROM alumn_audit ORDER BY stamp DESC LIMIT 10;`;
+            ejecutarSQL(sql, 'resultados');
+        }
+
+        // 16. Consultar Elasticsearch
+        function consultarElasticsearch() {
+            const usuarioID = document.getElementById('usuarioID').value;
+            fetch('/consultar_elasticsearch', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ 
+                    usuario_id: usuarioID 
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('resultados').innerHTML = '<h3>Resultados:</h3><pre>' + JSON.stringify(data, null, 2) + '</pre>';
+            })
+            .catch((error) => {
+                document.getElementById('resultados').innerHTML = '<h3>Error:</h3><pre>' + error + '</pre>';
+            });
+        }
+    </script>
+</body>
+</html>

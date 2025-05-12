@@ -19,3 +19,1748 @@
 2025-04-01 03:02:11,970 - INFO - Acceso a / con departamento: Finanzas
 2025-04-01 09:19:19,288 - INFO - Acceso a / con departamento: Ventas
 2025-04-01 09:19:24,516 - INFO - Acceso a / con departamento: Marketing
+2025-04-27 20:50:59,688 - INFO - Acceso a / con departamento: Ventas
+2025-04-27 20:52:01,611 - INFO - Acceso a / con departamento: Marketing
+2025-04-28 09:58:12,146 - INFO - Acceso a / con departamento: Ventas
+2025-04-28 09:58:32,122 - INFO - Acceso a / con departamento: Finanzas
+2025-04-28 10:14:38,527 - INFO - Acceso a / con departamento: Ventas
+2025-04-28 10:14:41,175 - INFO - Acceso a / con departamento: Ventas
+2025-04-28 10:14:42,482 - INFO - Acceso a / con departamento: Ventas
+2025-04-28 10:14:42,698 - INFO - Acceso a / con departamento: Ventas
+2025-05-05 09:22:35,584 - INFO - Acceso a / con departamento: Ventas
+2025-05-05 09:22:39,299 - INFO - Acceso a / con departamento: Marketing
+2025-05-10 19:15:47,263 - __main__ - WARNING - Redis no disponible. Se usará filesystem para sesiones.
+2025-05-10 19:15:51,409 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:N/A duration:4.076s]
+2025-05-10 19:15:51,409 - elastic_transport.node_pool - WARNING - Node <Urllib3HttpNode(http://localhost:9200)> has failed for 1 times in a row, putting on 1 second timeout
+2025-05-10 19:15:51,409 - elastic_transport.transport - WARNING - Retrying request after failure (attempt 0 of 3)
+Traceback (most recent call last):
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\util\connection.py", line 85, in create_connection
+    raise err
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\elastic_transport\_node\_http_urllib3.py", line 167, in perform_request
+    response = self.pool.urlopen(
+               ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\util\retry.py", line 449, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\util\util.py", line 39, in reraise
+    raise value
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connection.py", line 445, in request
+    self.endheaders()
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\http\client.py", line 1331, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\http\client.py", line 1091, in _send_output
+    self.send(msg)
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\http\client.py", line 1035, in send
+    self.connect()
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connection.py", line 276, in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connection.py", line 213, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x000001C75449C2C0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\elastic_transport\_transport.py", line 342, in perform_request
+    resp = node.perform_request(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\elastic_transport\_node\_http_urllib3.py", line 202, in perform_request
+    raise err from e
+elastic_transport.ConnectionError: Connection error caused by: NewConnectionError(<urllib3.connection.HTTPConnection object at 0x000001C75449C2C0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it)
+2025-05-10 19:15:55,604 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:N/A duration:4.100s]
+2025-05-10 19:15:55,604 - elastic_transport.node_pool - WARNING - Node <Urllib3HttpNode(http://localhost:9200)> has failed for 2 times in a row, putting on 2 second timeout
+2025-05-10 19:15:55,604 - elastic_transport.transport - WARNING - Retrying request after failure (attempt 1 of 3)
+Traceback (most recent call last):
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\util\connection.py", line 85, in create_connection
+    raise err
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\elastic_transport\_node\_http_urllib3.py", line 167, in perform_request
+    response = self.pool.urlopen(
+               ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\util\retry.py", line 449, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\util\util.py", line 39, in reraise
+    raise value
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connection.py", line 445, in request
+    self.endheaders()
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\http\client.py", line 1331, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\http\client.py", line 1091, in _send_output
+    self.send(msg)
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\http\client.py", line 1035, in send
+    self.connect()
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connection.py", line 276, in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connection.py", line 213, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x000001C76C7D0BF0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\elastic_transport\_transport.py", line 342, in perform_request
+    resp = node.perform_request(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\elastic_transport\_node\_http_urllib3.py", line 202, in perform_request
+    raise err from e
+elastic_transport.ConnectionError: Connection error caused by: NewConnectionError(<urllib3.connection.HTTPConnection object at 0x000001C76C7D0BF0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it)
+2025-05-10 19:15:55,606 - elastic_transport.node_pool - INFO - Resurrected node <Urllib3HttpNode(http://localhost:9200)> (force=False)
+2025-05-10 19:15:59,693 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:N/A duration:4.087s]
+2025-05-10 19:15:59,693 - elastic_transport.node_pool - WARNING - Node <Urllib3HttpNode(http://localhost:9200)> has failed for 3 times in a row, putting on 4 second timeout
+2025-05-10 19:15:59,693 - elastic_transport.transport - WARNING - Retrying request after failure (attempt 2 of 3)
+Traceback (most recent call last):
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\util\connection.py", line 85, in create_connection
+    raise err
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\elastic_transport\_node\_http_urllib3.py", line 167, in perform_request
+    response = self.pool.urlopen(
+               ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\util\retry.py", line 449, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\util\util.py", line 39, in reraise
+    raise value
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connection.py", line 445, in request
+    self.endheaders()
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\http\client.py", line 1331, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\http\client.py", line 1091, in _send_output
+    self.send(msg)
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\http\client.py", line 1035, in send
+    self.connect()
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connection.py", line 276, in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connection.py", line 213, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x000001C76CFA8980>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\elastic_transport\_transport.py", line 342, in perform_request
+    resp = node.perform_request(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\elastic_transport\_node\_http_urllib3.py", line 202, in perform_request
+    raise err from e
+elastic_transport.ConnectionError: Connection error caused by: NewConnectionError(<urllib3.connection.HTTPConnection object at 0x000001C76CFA8980>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it)
+2025-05-10 19:15:59,694 - elastic_transport.node_pool - INFO - Resurrected node <Urllib3HttpNode(http://localhost:9200)> (force=False)
+2025-05-10 19:16:03,769 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:N/A duration:4.075s]
+2025-05-10 19:16:03,769 - elastic_transport.node_pool - WARNING - Node <Urllib3HttpNode(http://localhost:9200)> has failed for 4 times in a row, putting on 8 second timeout
+2025-05-10 19:16:03,816 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:16:03,885 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-10 19:16:03,885 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-10 19:16:03,903 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-10 19:16:10,629 - __main__ - WARNING - Redis no disponible. Se usará filesystem para sesiones.
+2025-05-10 19:16:14,727 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:N/A duration:4.076s]
+2025-05-10 19:16:14,727 - elastic_transport.node_pool - WARNING - Node <Urllib3HttpNode(http://localhost:9200)> has failed for 1 times in a row, putting on 1 second timeout
+2025-05-10 19:16:14,727 - elastic_transport.transport - WARNING - Retrying request after failure (attempt 0 of 3)
+Traceback (most recent call last):
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\util\connection.py", line 85, in create_connection
+    raise err
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\elastic_transport\_node\_http_urllib3.py", line 167, in perform_request
+    response = self.pool.urlopen(
+               ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\util\retry.py", line 449, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\util\util.py", line 39, in reraise
+    raise value
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connection.py", line 445, in request
+    self.endheaders()
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\http\client.py", line 1331, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\http\client.py", line 1091, in _send_output
+    self.send(msg)
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\http\client.py", line 1035, in send
+    self.connect()
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connection.py", line 276, in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connection.py", line 213, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x00000205FFFCB860>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\elastic_transport\_transport.py", line 342, in perform_request
+    resp = node.perform_request(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\elastic_transport\_node\_http_urllib3.py", line 202, in perform_request
+    raise err from e
+elastic_transport.ConnectionError: Connection error caused by: NewConnectionError(<urllib3.connection.HTTPConnection object at 0x00000205FFFCB860>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it)
+2025-05-10 19:16:18,816 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:N/A duration:4.086s]
+2025-05-10 19:16:18,816 - elastic_transport.node_pool - WARNING - Node <Urllib3HttpNode(http://localhost:9200)> has failed for 2 times in a row, putting on 2 second timeout
+2025-05-10 19:16:18,816 - elastic_transport.transport - WARNING - Retrying request after failure (attempt 1 of 3)
+Traceback (most recent call last):
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\util\connection.py", line 85, in create_connection
+    raise err
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\elastic_transport\_node\_http_urllib3.py", line 167, in perform_request
+    response = self.pool.urlopen(
+               ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\util\retry.py", line 449, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\util\util.py", line 39, in reraise
+    raise value
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connection.py", line 445, in request
+    self.endheaders()
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\http\client.py", line 1331, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\http\client.py", line 1091, in _send_output
+    self.send(msg)
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\http\client.py", line 1035, in send
+    self.connect()
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connection.py", line 276, in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connection.py", line 213, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x00000205FFFCB920>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\elastic_transport\_transport.py", line 342, in perform_request
+    resp = node.perform_request(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\elastic_transport\_node\_http_urllib3.py", line 202, in perform_request
+    raise err from e
+elastic_transport.ConnectionError: Connection error caused by: NewConnectionError(<urllib3.connection.HTTPConnection object at 0x00000205FFFCB920>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it)
+2025-05-10 19:16:18,818 - elastic_transport.node_pool - INFO - Resurrected node <Urllib3HttpNode(http://localhost:9200)> (force=False)
+2025-05-10 19:16:22,924 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:N/A duration:4.106s]
+2025-05-10 19:16:22,925 - elastic_transport.node_pool - WARNING - Node <Urllib3HttpNode(http://localhost:9200)> has failed for 3 times in a row, putting on 4 second timeout
+2025-05-10 19:16:22,925 - elastic_transport.transport - WARNING - Retrying request after failure (attempt 2 of 3)
+Traceback (most recent call last):
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\util\connection.py", line 85, in create_connection
+    raise err
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\elastic_transport\_node\_http_urllib3.py", line 167, in perform_request
+    response = self.pool.urlopen(
+               ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\util\retry.py", line 449, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\util\util.py", line 39, in reraise
+    raise value
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connection.py", line 445, in request
+    self.endheaders()
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\http\client.py", line 1331, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\http\client.py", line 1091, in _send_output
+    self.send(msg)
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\http\client.py", line 1035, in send
+    self.connect()
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connection.py", line 276, in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connection.py", line 213, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x0000020586040290>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\elastic_transport\_transport.py", line 342, in perform_request
+    resp = node.perform_request(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jesus\AppData\Local\Programs\Python\Python312\Lib\site-packages\elastic_transport\_node\_http_urllib3.py", line 202, in perform_request
+    raise err from e
+elastic_transport.ConnectionError: Connection error caused by: NewConnectionError(<urllib3.connection.HTTPConnection object at 0x0000020586040290>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it)
+2025-05-10 19:16:22,926 - elastic_transport.node_pool - INFO - Resurrected node <Urllib3HttpNode(http://localhost:9200)> (force=False)
+2025-05-10 19:16:27,025 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:N/A duration:4.099s]
+2025-05-10 19:16:27,025 - elastic_transport.node_pool - WARNING - Node <Urllib3HttpNode(http://localhost:9200)> has failed for 4 times in a row, putting on 8 second timeout
+2025-05-10 19:16:27,059 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:16:27,088 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 19:16:27,092 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-10 19:18:44,923 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 19:18:45,027 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.082s]
+2025-05-10 19:18:45,036 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.009s]
+2025-05-10 19:18:45,077 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:18:45,130 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-10 19:18:45,130 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-10 19:18:45,144 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-10 19:18:47,725 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 19:18:47,749 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.012s]
+2025-05-10 19:18:47,752 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.003s]
+2025-05-10 19:18:47,781 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:18:47,803 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 19:18:47,809 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-10 19:19:26,603 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:19:26] "GET / HTTP/1.1" 200 -
+2025-05-10 19:19:26,927 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.209s]
+2025-05-10 19:19:26,928 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:19:29,067 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:19:29] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-10 19:19:29,208 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.012s]
+2025-05-10 19:19:29,208 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:19:30,966 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:19:30] "GET /login HTTP/1.1" 200 -
+2025-05-10 19:19:31,135 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.054s]
+2025-05-10 19:19:31,135 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:19:42,780 - __main__ - ERROR - Error en login: no such column: ultimo_acceso
+2025-05-10 19:19:42,782 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:19:42] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-05-10 19:19:42,787 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:19:42] "GET / HTTP/1.1" 200 -
+2025-05-10 19:19:42,956 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.053s]
+2025-05-10 19:19:42,956 - __main__ - INFO - Procesados 2 logs en Elasticsearch
+2025-05-10 19:19:45,798 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:19:45] "GET /login HTTP/1.1" 200 -
+2025-05-10 19:19:45,964 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.055s]
+2025-05-10 19:19:45,964 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:19:51,730 - __main__ - ERROR - Error en login: no such column: ultimo_acceso
+2025-05-10 19:19:51,732 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:19:51] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-05-10 19:19:51,738 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:19:51] "GET / HTTP/1.1" 200 -
+2025-05-10 19:19:51,914 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.058s]
+2025-05-10 19:19:51,914 - __main__ - INFO - Procesados 2 logs en Elasticsearch
+2025-05-10 19:19:54,737 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:19:54] "GET /login HTTP/1.1" 200 -
+2025-05-10 19:19:54,903 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.055s]
+2025-05-10 19:19:54,903 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:19:57,555 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:19:57] "GET /register HTTP/1.1" 200 -
+2025-05-10 19:19:57,812 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.054s]
+2025-05-10 19:19:57,812 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:20:11,193 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:20:11] "[31m[1mPOST /register HTTP/1.1[0m" 400 -
+2025-05-10 19:20:11,361 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.060s]
+2025-05-10 19:20:11,361 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:20:18,970 - __main__ - ERROR - Error en registro: table usuarios has no column named rol
+2025-05-10 19:20:18,972 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:20:18] "[35m[1mPOST /register HTTP/1.1[0m" 500 -
+2025-05-10 19:20:19,211 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.055s]
+2025-05-10 19:20:19,211 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:20:37,031 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:20:37] "[31m[1mPOST /register HTTP/1.1[0m" 400 -
+2025-05-10 19:20:37,291 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.065s]
+2025-05-10 19:20:37,291 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:20:43,992 - __main__ - ERROR - Error en registro: table usuarios has no column named rol
+2025-05-10 19:20:43,993 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:20:43] "[35m[1mPOST /register HTTP/1.1[0m" 500 -
+2025-05-10 19:20:44,260 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.058s]
+2025-05-10 19:20:44,260 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:20:59,743 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\logging\\__init__.py', reloading
+2025-05-10 19:21:00,545 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-10 19:21:03,398 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 19:21:03,422 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.012s]
+2025-05-10 19:21:03,427 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.004s]
+2025-05-10 19:21:03,459 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:21:03,483 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 19:21:03,489 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-10 19:21:55,908 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:21:55,909 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:21:55,909 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:21:56,977 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-10 19:21:59,530 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 19:21:59,554 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.010s]
+2025-05-10 19:21:59,559 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.005s]
+2025-05-10 19:21:59,593 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:21:59,618 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 19:21:59,622 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-10 19:22:05,360 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:22:05,360 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:22:05,360 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:22:05,991 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-10 19:22:08,583 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 19:22:08,604 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.008s]
+2025-05-10 19:22:08,607 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.003s]
+2025-05-10 19:22:08,637 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:22:08,661 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 19:22:08,663 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-10 19:22:23,289 - __main__ - ERROR - Error en registro: table usuarios has no column named rol
+2025-05-10 19:22:23,292 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:22:23] "[35m[1mPOST /register HTTP/1.1[0m" 500 -
+2025-05-10 19:22:23,539 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.062s]
+2025-05-10 19:22:23,539 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:23:48,902 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\werkzeug\\_internal.py', reloading
+2025-05-10 19:23:49,287 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-10 19:23:51,835 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 19:23:51,859 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.011s]
+2025-05-10 19:23:51,862 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.003s]
+2025-05-10 19:23:51,891 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:23:51,914 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 19:23:51,918 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-10 19:23:52,773 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:23:52,773 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:23:52,773 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:23:53,282 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-10 19:23:55,728 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 19:23:55,749 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.007s]
+2025-05-10 19:23:55,752 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.002s]
+2025-05-10 19:23:55,783 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:23:55,808 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 19:23:55,810 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-10 19:24:07,854 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:24:07,854 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:24:09,192 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-10 19:24:11,622 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 19:24:11,643 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.007s]
+2025-05-10 19:24:11,646 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.002s]
+2025-05-10 19:24:11,674 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:24:11,701 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 19:24:11,704 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-10 19:24:20,437 - __main__ - ERROR - Error en registro: table usuarios has no column named rol
+2025-05-10 19:24:20,438 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:24:20] "[35m[1mPOST /register HTTP/1.1[0m" 500 -
+2025-05-10 19:24:20,599 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.058s]
+2025-05-10 19:24:20,599 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:24:34,837 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:24:34] "GET /login HTTP/1.1" 200 -
+2025-05-10 19:24:35,061 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.052s]
+2025-05-10 19:24:35,061 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:24:38,965 - __main__ - ERROR - Error en login: no such column: ultimo_acceso
+2025-05-10 19:24:38,967 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:24:38] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-05-10 19:24:38,973 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:24:38] "GET / HTTP/1.1" 200 -
+2025-05-10 19:24:39,134 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.059s]
+2025-05-10 19:24:39,135 - __main__ - INFO - Procesados 2 logs en Elasticsearch
+2025-05-10 19:26:05,620 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 19:26:05,639 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.008s]
+2025-05-10 19:26:05,643 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.003s]
+2025-05-10 19:26:05,672 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:26:05,698 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-10 19:26:05,698 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-10 19:26:05,706 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-10 19:26:08,108 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 19:26:08,129 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.008s]
+2025-05-10 19:26:08,132 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.002s]
+2025-05-10 19:26:08,163 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:26:08,188 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 19:26:08,192 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-10 19:27:26,787 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\matplotlib\\__init__.py', reloading
+2025-05-10 19:27:27,752 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-10 19:27:30,356 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 19:27:30,381 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.012s]
+2025-05-10 19:27:30,384 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.003s]
+2025-05-10 19:27:30,418 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:27:30,443 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 19:27:30,446 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-10 19:27:50,364 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\flask\\json\\__init__.py', reloading
+2025-05-10 19:27:50,845 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-10 19:27:53,356 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 19:27:53,377 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.008s]
+2025-05-10 19:27:53,381 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.002s]
+2025-05-10 19:27:53,414 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:27:53,440 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 19:27:53,443 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-10 19:37:25,536 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 19:37:25,558 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.007s]
+2025-05-10 19:37:25,562 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.004s]
+2025-05-10 19:37:25,591 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:37:25,622 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-10 19:37:25,622 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-10 19:37:25,632 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-10 19:37:28,088 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 19:37:28,108 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-05-10 19:37:28,111 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.003s]
+2025-05-10 19:37:28,140 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:37:28,165 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 19:37:28,168 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-10 19:37:32,583 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:37:32] "GET / HTTP/1.1" 200 -
+2025-05-10 19:37:32,763 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.067s]
+2025-05-10 19:37:32,763 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:37:34,145 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:37:34] "GET /login HTTP/1.1" 200 -
+2025-05-10 19:37:34,306 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.060s]
+2025-05-10 19:37:34,306 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:37:39,957 - __main__ - ERROR - Error en login: no such column: ultimo_acceso
+2025-05-10 19:37:39,959 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:37:39] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-05-10 19:37:39,964 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:37:39] "GET / HTTP/1.1" 200 -
+2025-05-10 19:37:40,136 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.058s]
+2025-05-10 19:37:40,136 - __main__ - INFO - Procesados 2 logs en Elasticsearch
+2025-05-10 19:37:44,069 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:37:44] "GET /register HTTP/1.1" 200 -
+2025-05-10 19:37:44,245 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.058s]
+2025-05-10 19:37:44,245 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:37:58,130 - __main__ - ERROR - Error en registro: table usuarios has no column named rol
+2025-05-10 19:37:58,134 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:37:58] "[35m[1mPOST /register HTTP/1.1[0m" 500 -
+2025-05-10 19:37:58,306 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.058s]
+2025-05-10 19:37:58,306 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:38:06,889 - __main__ - ERROR - Error en registro: table usuarios has no column named rol
+2025-05-10 19:38:06,892 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:38:06] "[35m[1mPOST /register HTTP/1.1[0m" 500 -
+2025-05-10 19:38:07,066 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.065s]
+2025-05-10 19:38:07,066 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:38:13,072 - __main__ - ERROR - Error en registro: table usuarios has no column named rol
+2025-05-10 19:38:13,075 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:38:13] "[35m[1mPOST /register HTTP/1.1[0m" 500 -
+2025-05-10 19:38:13,235 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.056s]
+2025-05-10 19:38:13,235 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:38:21,014 - __main__ - ERROR - Error en registro: table usuarios has no column named rol
+2025-05-10 19:38:21,016 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:38:21] "[35m[1mPOST /register HTTP/1.1[0m" 500 -
+2025-05-10 19:38:21,243 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.050s]
+2025-05-10 19:38:21,243 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:40:01,831 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\create_tables.py', reloading
+2025-05-10 19:40:02,919 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-10 19:40:05,532 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 19:40:05,552 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.007s]
+2025-05-10 19:40:05,556 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.003s]
+2025-05-10 19:40:05,584 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:40:05,606 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 19:40:05,609 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-10 19:42:51,858 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\sql\\expression.py', reloading
+2025-05-10 19:42:51,861 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\sql\\_elements_constructors.py', reloading
+2025-05-10 19:42:51,869 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\sql\\functions.py', reloading
+2025-05-10 19:42:52,394 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-10 19:42:54,850 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 19:42:54,869 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.007s]
+2025-05-10 19:42:54,871 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.002s]
+2025-05-10 19:42:54,900 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:42:54,924 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 19:42:54,929 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-10 19:43:13,571 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\flask\\globals.py', reloading
+2025-05-10 19:43:14,317 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-10 19:43:16,920 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 19:43:16,939 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-05-10 19:43:16,942 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.003s]
+2025-05-10 19:43:16,970 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:43:16,992 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 19:43:16,995 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-10 19:43:22,239 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:43:22,239 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:43:22,239 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:43:23,371 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-10 19:43:25,798 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 19:43:25,817 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-05-10 19:43:25,821 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.003s]
+2025-05-10 19:43:25,850 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:43:25,875 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 19:43:25,877 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-10 19:44:09,738 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:44:09,738 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:44:09,738 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:44:10,308 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-10 19:44:12,914 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 19:44:12,936 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.007s]
+2025-05-10 19:44:12,939 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.002s]
+2025-05-10 19:44:12,972 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:44:12,994 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 19:44:12,996 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-10 19:44:19,270 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:44:19,271 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:44:19,271 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:44:20,356 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-10 19:44:22,796 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 19:44:22,816 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.007s]
+2025-05-10 19:44:22,819 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.003s]
+2025-05-10 19:44:22,849 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:44:22,872 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 19:44:22,875 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-10 19:44:25,499 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:44:25] "GET /register HTTP/1.1" 200 -
+2025-05-10 19:44:25,666 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.056s]
+2025-05-10 19:44:25,666 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:45:18,326 - __main__ - ERROR - Error en registro: 3 values for 2 columns
+2025-05-10 19:45:18,328 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:45:18] "[35m[1mPOST /register HTTP/1.1[0m" 500 -
+2025-05-10 19:45:18,492 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.061s]
+2025-05-10 19:45:18,492 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:45:25,442 - __main__ - ERROR - Error en registro: 3 values for 2 columns
+2025-05-10 19:45:25,444 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:45:25] "[35m[1mPOST /register HTTP/1.1[0m" 500 -
+2025-05-10 19:45:25,665 - __main__ - ERROR - Error en registro: 3 values for 2 columns
+2025-05-10 19:45:25,667 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:45:25] "[35m[1mPOST /register HTTP/1.1[0m" 500 -
+2025-05-10 19:45:25,688 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.057s]
+2025-05-10 19:45:25,689 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:45:25,859 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.060s]
+2025-05-10 19:45:25,859 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:46:19,456 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:46:19,457 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:46:19,457 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:46:20,490 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-10 19:46:23,011 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 19:46:23,030 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-05-10 19:46:23,033 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.002s]
+2025-05-10 19:46:23,064 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:46:23,089 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 19:46:23,092 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-10 19:46:25,812 - __main__ - ERROR - Error en registro: 3 values for 2 columns
+2025-05-10 19:46:25,815 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:46:25] "[35m[1mPOST /register HTTP/1.1[0m" 500 -
+2025-05-10 19:46:26,037 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.059s]
+2025-05-10 19:46:26,037 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:46:33,185 - __main__ - ERROR - Error en registro: 3 values for 2 columns
+2025-05-10 19:46:33,187 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:46:33] "[35m[1mPOST /register HTTP/1.1[0m" 500 -
+2025-05-10 19:46:33,387 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.056s]
+2025-05-10 19:46:33,387 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:47:53,900 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:47:53,900 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:47:53,901 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:47:54,655 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-10 19:47:57,117 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 19:47:57,136 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.007s]
+2025-05-10 19:47:57,139 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.003s]
+2025-05-10 19:47:57,170 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:47:57,192 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 19:47:57,195 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-10 19:48:07,445 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:48:07,446 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:48:07,446 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:48:08,577 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-10 19:48:11,045 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 19:48:11,064 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-05-10 19:48:11,067 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.004s]
+2025-05-10 19:48:11,098 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:48:11,121 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 19:48:11,125 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-10 19:48:20,717 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:48:20,717 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:48:20,717 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:48:21,482 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-10 19:48:23,895 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 19:48:23,912 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.005s]
+2025-05-10 19:48:23,915 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.003s]
+2025-05-10 19:48:23,943 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:48:23,966 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 19:48:23,969 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-10 19:48:28,112 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:48:28,113 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:48:28,113 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:48:29,356 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-10 19:48:31,835 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 19:48:31,855 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.007s]
+2025-05-10 19:48:31,859 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.004s]
+2025-05-10 19:48:31,890 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:48:31,914 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 19:48:31,917 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-10 19:48:32,894 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:48:32,894 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:48:32,895 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:48:33,262 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-10 19:48:35,773 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 19:48:35,790 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.005s]
+2025-05-10 19:48:35,793 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.003s]
+2025-05-10 19:48:35,824 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:48:35,849 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 19:48:35,853 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-10 19:48:35,997 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:48:35] "GET /register HTTP/1.1" 200 -
+2025-05-10 19:48:36,202 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.056s]
+2025-05-10 19:48:36,202 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:48:44,142 - __main__ - ERROR - Error en registro: 3 values for 2 columns
+2025-05-10 19:48:44,144 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:48:44] "[35m[1mPOST /register HTTP/1.1[0m" 500 -
+2025-05-10 19:48:44,303 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.054s]
+2025-05-10 19:48:44,304 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:49:01,996 - __main__ - ERROR - Error en registro: 3 values for 2 columns
+2025-05-10 19:49:01,998 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:49:01] "[35m[1mPOST /register HTTP/1.1[0m" 500 -
+2025-05-10 19:49:02,171 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.058s]
+2025-05-10 19:49:02,171 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:50:48,264 - __main__ - ERROR - Error en registro: 3 values for 2 columns
+2025-05-10 19:50:48,266 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:50:48] "[35m[1mPOST /register HTTP/1.1[0m" 500 -
+2025-05-10 19:50:48,447 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.056s]
+2025-05-10 19:50:48,447 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:52:00,293 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:52:00,293 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:52:00,675 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-10 19:52:03,158 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 19:52:03,178 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-05-10 19:52:03,181 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.004s]
+2025-05-10 19:52:03,215 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:52:03,238 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 19:52:03,241 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-10 19:52:09,920 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:52:09] "[31m[1mPOST /register HTTP/1.1[0m" 400 -
+2025-05-10 19:52:10,096 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.062s]
+2025-05-10 19:52:10,096 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:52:13,897 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:52:13] "[35m[1mPOST /register HTTP/1.1[0m" 201 -
+2025-05-10 19:52:14,105 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.054s]
+2025-05-10 19:52:14,105 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:52:15,918 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:52:15] "GET /login HTTP/1.1" 200 -
+2025-05-10 19:52:16,083 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.057s]
+2025-05-10 19:52:16,083 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:52:24,473 - __main__ - ERROR - Error en login: no such column: ultimo_acceso
+2025-05-10 19:52:24,475 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:52:24] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-05-10 19:52:24,483 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:52:24] "GET / HTTP/1.1" 200 -
+2025-05-10 19:52:24,725 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.056s]
+2025-05-10 19:52:24,726 - __main__ - INFO - Procesados 2 logs en Elasticsearch
+2025-05-10 19:53:37,032 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\flask\\templating.py', reloading
+2025-05-10 19:53:37,795 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-10 19:53:40,179 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 19:53:40,196 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.005s]
+2025-05-10 19:53:40,199 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.003s]
+2025-05-10 19:53:40,227 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:53:40,249 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 19:53:40,252 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-10 19:54:16,733 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:54:16,733 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:54:16,733 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:54:17,680 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-10 19:54:20,193 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 19:54:20,212 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-05-10 19:54:20,215 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.003s]
+2025-05-10 19:54:20,243 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:54:20,264 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 19:54:20,269 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-10 19:54:35,339 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\flask\\helpers.py', reloading
+2025-05-10 19:54:36,670 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-10 19:54:39,079 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 19:54:39,096 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.005s]
+2025-05-10 19:54:39,101 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.003s]
+2025-05-10 19:54:39,128 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:54:39,149 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 19:54:39,152 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-10 19:54:46,161 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:54:46,161 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:54:46,161 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:54:46,526 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-10 19:54:48,887 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 19:54:48,905 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-05-10 19:54:48,908 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.003s]
+2025-05-10 19:54:48,937 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:54:48,960 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 19:54:48,964 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-10 19:54:54,470 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:54:54,470 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:54:54,471 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:54:55,319 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-10 19:54:57,778 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 19:54:57,797 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-05-10 19:54:57,800 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.003s]
+2025-05-10 19:54:57,831 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:54:57,854 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 19:54:57,857 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-10 19:54:59,576 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:54:59] "GET /login HTTP/1.1" 200 -
+2025-05-10 19:54:59,737 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.054s]
+2025-05-10 19:54:59,737 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:55:07,759 - __main__ - ERROR - Error en login: no such column: ultimo_acceso
+2025-05-10 19:55:07,763 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:55:07] "POST /login HTTP/1.1" 200 -
+2025-05-10 19:55:07,957 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.051s]
+2025-05-10 19:55:07,957 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:55:15,349 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:55:15] "GET /login HTTP/1.1" 200 -
+2025-05-10 19:55:15,558 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.052s]
+2025-05-10 19:55:15,558 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:55:26,003 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:55:26,004 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:55:26,004 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:55:27,258 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-10 19:55:29,581 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 19:55:29,598 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-05-10 19:55:29,602 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.002s]
+2025-05-10 19:55:29,630 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:55:29,655 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 19:55:29,658 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-10 19:57:51,380 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:57:51,380 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:57:51,381 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 19:57:52,313 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-10 19:57:54,883 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 19:57:54,906 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-05-10 19:57:54,909 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.003s]
+2025-05-10 19:57:54,939 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 19:57:54,963 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 19:57:54,966 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-10 19:57:58,763 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:57:58] "GET /login HTTP/1.1" 200 -
+2025-05-10 19:57:58,950 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.056s]
+2025-05-10 19:57:58,950 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 19:58:04,631 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:58:04] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-05-10 19:58:04,637 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:58:04] "GET / HTTP/1.1" 200 -
+2025-05-10 19:58:04,850 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.055s]
+2025-05-10 19:58:04,850 - __main__ - INFO - Procesados 2 logs en Elasticsearch
+2025-05-10 19:58:24,561 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:58:24] "[32mGET /menu HTTP/1.1[0m" 302 -
+2025-05-10 19:58:24,567 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 19:58:24] "GET / HTTP/1.1" 200 -
+2025-05-10 19:58:24,770 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.059s]
+2025-05-10 19:58:24,770 - __main__ - INFO - Procesados 2 logs en Elasticsearch
+2025-05-10 20:10:09,944 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 20:10:09] "GET /login HTTP/1.1" 200 -
+2025-05-10 20:10:10,192 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.070s]
+2025-05-10 20:10:10,192 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 20:10:15,124 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 20:10:15] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-05-10 20:10:15,130 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 20:10:15] "GET / HTTP/1.1" 200 -
+2025-05-10 20:10:15,296 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.058s]
+2025-05-10 20:10:15,296 - __main__ - INFO - Procesados 2 logs en Elasticsearch
+2025-05-10 20:10:17,955 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 20:10:17] "GET /login HTTP/1.1" 200 -
+2025-05-10 20:10:18,113 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.058s]
+2025-05-10 20:10:18,113 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 20:10:25,327 - __main__ - ERROR - Error en login: no such column: ultimo_acceso
+2025-05-10 20:10:25,329 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 20:10:25] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-05-10 20:10:25,334 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 20:10:25] "GET / HTTP/1.1" 200 -
+2025-05-10 20:10:25,504 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.052s]
+2025-05-10 20:10:25,504 - __main__ - INFO - Procesados 2 logs en Elasticsearch
+2025-05-10 20:10:34,560 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 20:10:34] "[32mGET /menu HTTP/1.1[0m" 302 -
+2025-05-10 20:10:34,565 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 20:10:34] "GET / HTTP/1.1" 200 -
+2025-05-10 20:10:34,773 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.056s]
+2025-05-10 20:10:34,773 - __main__ - INFO - Procesados 2 logs en Elasticsearch
+2025-05-10 20:22:32,672 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 20:22:32,672 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 20:22:32,672 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 20:22:33,807 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-10 20:22:36,471 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 20:22:36,491 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-05-10 20:22:36,495 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.002s]
+2025-05-10 20:22:36,526 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 20:22:36,552 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 20:22:36,555 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-10 20:23:18,998 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 20:23:18,998 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 20:23:18,999 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-10 20:23:19,993 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-10 20:23:22,443 - __main__ - INFO - Redis conectado correctamente
+2025-05-10 20:23:22,464 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-05-10 20:23:22,468 - elastic_transport.transport - INFO - HEAD http://localhost:9200/logs_usuarios [status:200 duration:0.003s]
+2025-05-10 20:23:22,501 - __main__ - INFO - Motor SQLAlchemy configurado correctamente
+2025-05-10 20:23:22,525 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 20:23:22,530 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-10 20:23:37,926 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 20:23:37] "GET /login HTTP/1.1" 200 -
+2025-05-10 20:23:38,089 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.055s]
+2025-05-10 20:23:38,089 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 20:23:47,499 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 20:23:47] "GET /login HTTP/1.1" 200 -
+2025-05-10 20:23:47,663 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.050s]
+2025-05-10 20:23:47,664 - __main__ - INFO - Procesados 1 logs en Elasticsearch
+2025-05-10 20:23:55,546 - __main__ - ERROR - Error en login: no such column: ultimo_acceso
+2025-05-10 20:23:55,548 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 20:23:55] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-05-10 20:23:55,554 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 20:23:55] "GET / HTTP/1.1" 200 -
+2025-05-10 20:23:55,722 - elastic_transport.transport - INFO - PUT http://localhost:9200/logs_usuarios/_bulk [status:200 duration:0.053s]
+2025-05-10 20:23:55,723 - __main__ - INFO - Procesados 2 logs en Elasticsearch
+2025-05-11 15:24:59,873 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-11 15:24:59,873 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-11 15:24:59,884 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-11 15:25:01,539 - werkzeug - WARNING -  * Debugger is active!
+2025-05-11 15:25:01,543 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-11 15:25:42,237 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 15:25:42] "GET / HTTP/1.1" 200 -
+2025-05-11 15:25:44,237 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 15:25:44] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-05-11 15:25:44,292 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 15:25:44] "GET / HTTP/1.1" 200 -
+2025-05-11 15:25:45,431 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 15:25:45] "GET /login HTTP/1.1" 200 -
+2025-05-11 15:25:50,113 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 15:25:50] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-05-11 15:25:50,198 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 15:25:50] "GET /menu HTTP/1.1" 200 -
+2025-05-11 15:26:18,567 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 15:26:18] "GET /alumnos_url HTTP/1.1" 200 -
+2025-05-11 15:26:26,534 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 15:26:26] "GET /profesores_url HTTP/1.1" 200 -
+2025-05-11 15:28:40,195 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 15:28:40] "GET / HTTP/1.1" 200 -
+2025-05-11 15:29:08,282 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 15:29:08] "[33mGET /analizar_logs HTTP/1.1[0m" 404 -
+2025-05-11 15:29:20,328 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 15:29:20] "[33mGET /analisisr_logs HTTP/1.1[0m" 404 -
+2025-05-11 15:29:24,071 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 15:29:24] "[33mGET /analisis_logs HTTP/1.1[0m" 404 -
+2025-05-11 15:30:11,692 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 15:30:11] "GET /ver_redis HTTP/1.1" 200 -
+2025-05-11 15:31:54,883 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 15:31:54] "GET /ver_redis HTTP/1.1" 200 -
+2025-05-11 15:32:22,873 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 15:32:22] "GET /ver_redis HTTP/1.1" 200 -
+2025-05-11 15:32:33,587 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 15:32:33] "GET /alumnos_url HTTP/1.1" 200 -
+2025-05-11 15:32:34,696 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 15:32:34] "GET /alumnos_url?search_nombre=&search_apellido=&search_direccion=&search_birthday_inicio=&search_birthday_fin=&search_fecha_inicio=&search_fecha_fin= HTTP/1.1" 200 -
+2025-05-11 15:32:35,947 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 15:32:35] "GET /ver_redis HTTP/1.1" 200 -
+2025-05-11 15:32:51,222 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 15:32:51] "GET /profesores_url HTTP/1.1" 200 -
+2025-05-11 15:32:51,941 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 15:32:51] "GET /clases_url HTTP/1.1" 200 -
+2025-05-11 15:32:52,806 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 15:32:52] "GET /matriculados_url HTTP/1.1" 200 -
+2025-05-11 15:32:53,157 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 15:32:53] "GET /alumnos_audit_url HTTP/1.1" 200 -
+2025-05-11 15:33:12,444 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 15:33:12] "GET /teacher_audit_url HTTP/1.1" 200 -
+2025-05-11 15:33:14,362 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 15:33:14] "GET /course_audit_url HTTP/1.1" 200 -
+2025-05-11 15:33:15,906 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 15:33:15] "GET /matriculados_audit_url HTTP/1.1" 200 -
+2025-05-11 15:33:16,577 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 15:33:16] "GET /course_audit_url HTTP/1.1" 200 -
+2025-05-11 15:33:17,804 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 15:33:17] "GET /teacher_audit_url HTTP/1.1" 200 -
+2025-05-11 15:33:18,977 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 15:33:18] "GET /alumnos_audit_url HTTP/1.1" 200 -
+2025-05-11 15:33:20,770 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 15:33:20] "GET /matriculados_url HTTP/1.1" 200 -
+2025-05-11 15:33:24,141 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 15:33:24] "GET /matriculados_url HTTP/1.1" 200 -
+2025-05-11 15:33:24,147 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 15:33:24] "GET /alumnos_audit_url HTTP/1.1" 200 -
+2025-05-11 15:33:26,566 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 15:33:26] "GET /teacher_audit_url HTTP/1.1" 200 -
+2025-05-11 15:33:27,876 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 15:33:27] "GET /clases_url HTTP/1.1" 200 -
+2025-05-11 15:33:29,456 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 15:33:29] "GET /alumnos_audit_url HTTP/1.1" 200 -
+2025-05-11 17:11:16,061 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\base64.py', reloading
+2025-05-11 17:11:17,090 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-11 17:11:19,373 - werkzeug - WARNING -  * Debugger is active!
+2025-05-11 17:11:19,379 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-11 17:11:23,283 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-11 17:11:23,284 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-11 17:11:23,596 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-11 17:11:25,271 - werkzeug - WARNING -  * Debugger is active!
+2025-05-11 17:11:25,274 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-11 17:11:26,278 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\queue.py', reloading
+2025-05-11 17:11:26,536 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-11 17:11:28,168 - werkzeug - WARNING -  * Debugger is active!
+2025-05-11 17:11:28,171 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-11 17:11:29,162 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\threading.py', reloading
+2025-05-11 17:11:29,409 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-11 17:11:31,206 - werkzeug - WARNING -  * Debugger is active!
+2025-05-11 17:11:31,210 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-11 17:12:34,931 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\typing_extensions.py', reloading
+2025-05-11 17:12:35,601 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-11 17:12:37,201 - werkzeug - WARNING -  * Debugger is active!
+2025-05-11 17:12:37,205 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-11 17:15:08,221 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:15:08] "GET /alumnos_url HTTP/1.1" 200 -
+2025-05-11 17:15:09,754 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:15:09] "[33mGET /test HTTP/1.1[0m" 404 -
+2025-05-11 17:16:38,515 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-11 17:16:38,515 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-11 17:16:38,516 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-11 17:16:38,856 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-11 17:17:05,284 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-11 17:17:05,284 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-11 17:17:05,294 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-11 17:17:06,916 - werkzeug - WARNING -  * Debugger is active!
+2025-05-11 17:17:06,919 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-11 17:19:03,140 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:19:03] "GET /alumnos_url HTTP/1.1" 200 -
+2025-05-11 17:19:05,046 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:19:05] "GET /ver_redis HTTP/1.1" 200 -
+2025-05-11 17:19:08,022 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:19:08] "GET /test HTTP/1.1" 200 -
+2025-05-11 17:19:12,944 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:19:12] "GET /test HTTP/1.1" 200 -
+2025-05-11 17:19:15,261 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:19:15] "GET /test HTTP/1.1" 200 -
+2025-05-11 17:19:29,972 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-11 17:19:29,972 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-11 17:19:29,972 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-11 17:19:30,396 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-11 17:19:32,084 - werkzeug - WARNING -  * Debugger is active!
+2025-05-11 17:19:32,087 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-11 17:19:36,240 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:19:36] "GET /test HTTP/1.1" 200 -
+2025-05-11 17:19:39,175 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:19:39] "GET /test HTTP/1.1" 200 -
+2025-05-11 17:19:41,297 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:19:41] "GET /alumnos_url HTTP/1.1" 200 -
+2025-05-11 17:19:48,214 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:19:48] "GET /test HTTP/1.1" 200 -
+2025-05-11 17:19:49,767 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:19:49] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-05-11 17:19:49,810 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:19:49] "GET / HTTP/1.1" 200 -
+2025-05-11 17:19:51,450 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:19:51] "GET /login HTTP/1.1" 200 -
+2025-05-11 17:19:56,076 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:19:56] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-05-11 17:19:56,117 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:19:56] "GET /menu HTTP/1.1" 200 -
+2025-05-11 17:19:59,740 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:19:59] "GET /test HTTP/1.1" 200 -
+2025-05-11 17:20:13,401 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\test\\__init__.py', reloading
+2025-05-11 17:20:14,396 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-11 17:20:16,034 - werkzeug - WARNING -  * Debugger is active!
+2025-05-11 17:20:16,036 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-11 17:20:28,879 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:20:28] "GET /test HTTP/1.1" 200 -
+2025-05-11 17:20:56,724 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-11 17:20:56,724 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-11 17:20:56,724 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-11 17:20:57,312 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-11 17:20:58,899 - werkzeug - WARNING -  * Debugger is active!
+2025-05-11 17:20:58,902 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-11 17:21:33,348 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-11 17:21:33,349 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-11 17:21:33,349 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-11 17:21:34,181 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-11 17:21:35,743 - werkzeug - WARNING -  * Debugger is active!
+2025-05-11 17:21:35,746 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-11 17:21:39,345 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:21:39] "GET /test HTTP/1.1" 200 -
+2025-05-11 17:21:42,786 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:21:42] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-11 17:21:51,612 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:21:51] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-11 17:22:39,611 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:22:39] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-11 17:25:57,558 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:25:57] "GET /test HTTP/1.1" 200 -
+2025-05-11 17:26:18,209 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:26:18] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-11 17:26:33,344 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:26:33] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-11 17:27:12,536 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:27:12] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-11 17:27:43,767 - elastic_transport.transport - INFO - POST http://localhost:9200/logs_usuarios/_search [status:200 duration:0.444s]
+2025-05-11 17:27:43,810 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:27:43] "POST /consultar_elasticsearch HTTP/1.1" 200 -
+2025-05-11 17:27:44,859 - elastic_transport.transport - INFO - POST http://localhost:9200/logs_usuarios/_search [status:200 duration:0.027s]
+2025-05-11 17:27:44,896 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:27:44] "POST /consultar_elasticsearch HTTP/1.1" 200 -
+2025-05-11 17:27:45,133 - elastic_transport.transport - INFO - POST http://localhost:9200/logs_usuarios/_search [status:200 duration:0.059s]
+2025-05-11 17:27:45,173 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:27:45] "POST /consultar_elasticsearch HTTP/1.1" 200 -
+2025-05-11 17:27:45,344 - elastic_transport.transport - INFO - POST http://localhost:9200/logs_usuarios/_search [status:200 duration:0.065s]
+2025-05-11 17:27:45,386 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:27:45] "POST /consultar_elasticsearch HTTP/1.1" 200 -
+2025-05-11 17:27:48,300 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:27:48] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-11 17:28:27,347 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:28:27] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-11 17:28:55,086 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:28:55] "GET /ver_redis HTTP/1.1" 200 -
+2025-05-11 17:28:58,424 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:28:58] "GET /clases_url HTTP/1.1" 200 -
+2025-05-11 17:28:59,988 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 17:28:59] "GET /matriculados_url HTTP/1.1" 200 -
+2025-05-11 17:35:01,010 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\gis\\2-flask-solucion_gis_completo\\app.py', reloading
+2025-05-11 17:35:01,570 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-11 17:35:03,240 - werkzeug - WARNING -  * Debugger is active!
+2025-05-11 17:35:03,243 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-11 17:36:02,831 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\gis\\3-flask_geolocation_docker\\app.py', reloading
+2025-05-11 17:36:02,910 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\sql\\coercions.py', reloading
+2025-05-11 17:36:03,003 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\sql\\compiler.py', reloading
+2025-05-11 17:36:03,093 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\engine\\cursor.py', reloading
+2025-05-11 17:36:03,141 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\engine\\result.py', reloading
+2025-05-11 17:36:03,172 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\engine\\row.py', reloading
+2025-05-11 17:36:03,190 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\engine\\_py_row.py', reloading
+2025-05-11 17:36:03,226 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\sql\\selectable.py', reloading
+2025-05-11 17:36:03,586 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-11 17:36:05,296 - werkzeug - WARNING -  * Debugger is active!
+2025-05-11 17:36:05,301 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-11 17:55:43,509 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-11 17:55:43,510 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-11 17:55:43,510 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-11 17:55:44,658 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-11 17:55:46,664 - werkzeug - WARNING -  * Debugger is active!
+2025-05-11 17:55:46,670 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-11 18:11:47,253 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-11 18:11:47,254 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-11 18:11:47,637 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-11 18:14:57,466 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-11 18:14:57,467 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-11 18:14:57,476 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-11 18:14:59,079 - werkzeug - WARNING -  * Debugger is active!
+2025-05-11 18:14:59,082 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-11 18:15:05,105 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 18:15:05] "GET /matriculados_url HTTP/1.1" 200 -
+2025-05-11 18:15:06,636 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 18:15:06] "GET /alumnos_url HTTP/1.1" 200 -
+2025-05-11 18:15:08,038 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 18:15:08] "[33mGET /ver_mapa HTTP/1.1[0m" 404 -
+2025-05-11 18:15:10,543 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 18:15:10] "[33mGET /ver_mapa HTTP/1.1[0m" 404 -
+2025-05-11 18:15:12,844 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 18:15:12] "[33mGET /ver_mapa HTTP/1.1[0m" 404 -
+2025-05-11 18:15:56,656 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 18:15:56] "GET /alumnos_url HTTP/1.1" 200 -
+2025-05-11 18:15:57,775 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 18:15:57] "GET /mapa HTTP/1.1" 200 -
+2025-05-11 18:15:57,937 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 18:15:57] "GET /api/ubicaciones HTTP/1.1" 200 -
+2025-05-11 18:15:57,950 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 18:15:57] "GET /api/profesores/ubicaciones HTTP/1.1" 200 -
+2025-05-11 18:15:57,973 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 18:15:57] "GET /api/clases/ubicaciones HTTP/1.1" 200 -
+2025-05-11 18:15:58,840 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 18:15:58] "GET /api/alumnos/ubicaciones HTTP/1.1" 200 -
+2025-05-11 18:16:17,033 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 18:16:17] "GET /api/ubicaciones/cercanas?lat=40.4534236&lon=-3.9980585&radio=500 HTTP/1.1" 200 -
+2025-05-11 18:16:17,449 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 18:16:17] "GET /api/ubicaciones/cercanas?lat=40.4534236&lon=-3.9980585&radio=500 HTTP/1.1" 200 -
+2025-05-11 18:16:18,063 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 18:16:18] "GET /api/ubicaciones/cercanas?lat=40.4534236&lon=-3.9980585&radio=500 HTTP/1.1" 200 -
+2025-05-11 18:16:26,605 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 18:16:26] "GET /api/ubicaciones/cercanas?lat=40.4534236&lon=-3.9980585&radio=50000 HTTP/1.1" 200 -
+2025-05-11 18:17:44,247 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 18:17:44] "GET /test HTTP/1.1" 200 -
+2025-05-11 18:17:48,223 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 18:17:48] "GET /ver_redis HTTP/1.1" 200 -
+2025-05-11 18:17:50,872 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 18:17:50] "GET /mapa HTTP/1.1" 200 -
+2025-05-11 18:17:51,010 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 18:17:51] "GET /api/ubicaciones HTTP/1.1" 200 -
+2025-05-11 18:17:51,014 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 18:17:51] "GET /api/profesores/ubicaciones HTTP/1.1" 200 -
+2025-05-11 18:17:51,042 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 18:17:51] "GET /api/clases/ubicaciones HTTP/1.1" 200 -
+2025-05-11 18:17:51,254 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 18:17:51] "GET /api/alumnos/ubicaciones HTTP/1.1" 200 -
+2025-05-11 18:18:05,577 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 18:18:05] "GET /api/ubicaciones/cercanas?lat=40.4534236&lon=-3.9980585&radio=50000 HTTP/1.1" 200 -
+2025-05-11 18:18:10,467 - root - ERROR - Error al obtener ruta: column reference "cost" is ambiguous
+LINE 2:                     SELECT seq, node, edge, cost, agg_cost, 
+                                                    ^
+
+2025-05-11 18:18:10,509 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 18:18:10] "[35m[1mGET /api/ruta?origen_id=1&destino_id=3&tipo_origen=alumno&tipo_destino=ubicacion HTTP/1.1[0m" 500 -
+2025-05-11 18:18:13,501 - root - ERROR - Error al obtener ruta: column reference "cost" is ambiguous
+LINE 2:                     SELECT seq, node, edge, cost, agg_cost, 
+                                                    ^
+
+2025-05-11 18:18:13,538 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 18:18:13] "[35m[1mGET /api/ruta?origen_id=1&destino_id=3&tipo_origen=alumno&tipo_destino=ubicacion HTTP/1.1[0m" 500 -
+2025-05-11 18:19:18,457 - root - ERROR - Error al obtener ruta: column reference "cost" is ambiguous
+LINE 2:                     SELECT seq, node, edge, cost, agg_cost, 
+                                                    ^
+
+2025-05-11 18:19:18,498 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 18:19:18] "[35m[1mGET /api/ruta?origen_id=1&destino_id=3&tipo_origen=alumno&tipo_destino=clase HTTP/1.1[0m" 500 -
+2025-05-11 20:15:48,516 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 20:15:48] "GET /mapa HTTP/1.1" 200 -
+2025-05-11 20:15:48,656 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 20:15:48] "GET /api/ubicaciones HTTP/1.1" 200 -
+2025-05-11 20:15:48,665 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 20:15:48] "GET /api/profesores/ubicaciones HTTP/1.1" 200 -
+2025-05-11 20:15:48,686 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 20:15:48] "GET /api/clases/ubicaciones HTTP/1.1" 200 -
+2025-05-11 20:15:48,927 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 20:15:48] "GET /api/alumnos/ubicaciones HTTP/1.1" 200 -
+2025-05-11 20:20:32,041 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 20:20:32] "GET /mapa HTTP/1.1" 200 -
+2025-05-11 20:20:32,173 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 20:20:32] "GET /api/ubicaciones HTTP/1.1" 200 -
+2025-05-11 20:20:32,182 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 20:20:32] "GET /api/profesores/ubicaciones HTTP/1.1" 200 -
+2025-05-11 20:20:32,234 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 20:20:32] "GET /api/clases/ubicaciones HTTP/1.1" 200 -
+2025-05-11 20:20:32,564 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 20:20:32] "GET /api/alumnos/ubicaciones HTTP/1.1" 200 -
+2025-05-11 20:20:49,865 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 20:20:49] "POST /api/actualizar_ubicacion HTTP/1.1" 200 -
+2025-05-11 20:20:51,887 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 20:20:51] "GET /api/ubicaciones HTTP/1.1" 200 -
+2025-05-11 20:20:51,896 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 20:20:51] "GET /api/profesores/ubicaciones HTTP/1.1" 200 -
+2025-05-11 20:20:51,921 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 20:20:51] "GET /api/clases/ubicaciones HTTP/1.1" 200 -
+2025-05-11 20:20:52,090 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 20:20:52] "GET /api/alumnos/ubicaciones HTTP/1.1" 200 -
+2025-05-11 20:21:33,264 - root - ERROR - Error al obtener ruta: column reference "cost" is ambiguous
+LINE 2:                     SELECT seq, node, edge, cost, agg_cost, 
+                                                    ^
+
+2025-05-11 20:21:33,303 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 20:21:33] "[35m[1mGET /api/ruta?origen_id=1000009&destino_id=1&tipo_origen=alumno&tipo_destino=clase HTTP/1.1[0m" 500 -
+2025-05-11 21:15:29,555 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:15:29] "GET /alumnos_audit_url HTTP/1.1" 200 -
+2025-05-11 21:15:35,154 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:15:35] "GET /alumnos_audit_url HTTP/1.1" 200 -
+2025-05-11 21:15:36,115 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:15:36] "GET /course_audit_url HTTP/1.1" 200 -
+2025-05-11 21:15:41,544 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:15:41] "GET /alumnos_audit_url HTTP/1.1" 200 -
+2025-05-11 21:19:25,457 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:19:25] "GET /course_audit_url HTTP/1.1" 200 -
+2025-05-11 21:36:45,662 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:36:45] "GET /alumnos_audit_url HTTP/1.1" 200 -
+2025-05-11 21:36:50,923 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:36:50] "GET /alumnos_audit_url HTTP/1.1" 200 -
+2025-05-11 21:37:11,349 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:37:11] "GET /alumnos_url HTTP/1.1" 200 -
+2025-05-11 21:37:27,723 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:37:27] "GET /alumnos_url?search_nombre=&search_apellido=&search_direccion=&search_birthday_inicio=&search_birthday_fin=&search_fecha_inicio=2025-05-11&search_fecha_fin=2025-05-11 HTTP/1.1" 200 -
+2025-05-11 21:37:32,304 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:37:32] "GET /alumnos_url?search_nombre=&search_apellido=&search_direccion=&search_birthday_inicio=&search_birthday_fin=&search_fecha_inicio=2025-05-11&search_fecha_fin=2025-05-12 HTTP/1.1" 200 -
+2025-05-11 21:38:12,699 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:38:12] "GET /mapa HTTP/1.1" 200 -
+2025-05-11 21:38:12,845 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:38:12] "GET /api/ubicaciones HTTP/1.1" 200 -
+2025-05-11 21:38:12,853 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:38:12] "GET /api/profesores/ubicaciones HTTP/1.1" 200 -
+2025-05-11 21:38:12,890 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:38:12] "GET /api/clases/ubicaciones HTTP/1.1" 200 -
+2025-05-11 21:38:13,010 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:38:13] "GET /api/alumnos/ubicaciones HTTP/1.1" 200 -
+2025-05-11 21:38:56,180 - root - ERROR - Error al obtener ruta: column reference "cost" is ambiguous
+LINE 2:                     SELECT seq, node, edge, cost, agg_cost, 
+                                                    ^
+
+2025-05-11 21:38:56,217 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:38:56] "[35m[1mGET /api/ruta?origen_id=1000011&destino_id=1&tipo_origen=alumno&tipo_destino=ubicacion HTTP/1.1[0m" 500 -
+2025-05-11 21:39:19,502 - root - ERROR - Error al obtener ruta: column reference "cost" is ambiguous
+LINE 2:                     SELECT seq, node, edge, cost, agg_cost, 
+                                                    ^
+
+2025-05-11 21:39:19,540 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:39:19] "[35m[1mGET /api/ruta?origen_id=1&destino_id=2&tipo_origen=alumno&tipo_destino=ubicacion HTTP/1.1[0m" 500 -
+2025-05-11 21:48:01,650 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:48:01] "GET / HTTP/1.1" 200 -
+2025-05-11 21:48:03,906 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:48:03] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-05-11 21:48:03,948 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:48:03] "GET / HTTP/1.1" 200 -
+2025-05-11 21:48:06,169 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:48:06] "GET /login HTTP/1.1" 200 -
+2025-05-11 21:48:11,281 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:48:11] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-05-11 21:48:11,316 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:48:11] "GET /menu HTTP/1.1" 200 -
+2025-05-11 21:48:13,904 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:48:13] "GET /alumnos_url HTTP/1.1" 200 -
+2025-05-11 21:48:18,550 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:48:18] "GET /clases_url HTTP/1.1" 200 -
+2025-05-11 21:48:22,653 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:48:22] "GET /matriculados_url HTTP/1.1" 200 -
+2025-05-11 21:48:51,787 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:48:51] "GET /matriculados_url?search_alumn_id=1000007&search_course_id= HTTP/1.1" 200 -
+2025-05-11 21:49:28,124 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:49:28] "GET /alumnos_url HTTP/1.1" 200 -
+2025-05-11 21:49:29,885 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:49:29] "GET /profesores_url HTTP/1.1" 200 -
+2025-05-11 21:49:31,405 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:49:31] "GET /clases_url HTTP/1.1" 200 -
+2025-05-11 21:49:33,641 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:49:33] "GET /matriculados_url HTTP/1.1" 200 -
+2025-05-11 21:53:15,177 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:53:15] "GET /test HTTP/1.1" 200 -
+2025-05-11 21:53:16,738 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:53:16] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-11 21:53:37,587 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:53:37] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-11 21:54:45,897 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:54:45] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-11 21:54:49,506 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 21:54:49] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-11 21:56:36,497 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\proto.py', reloading
+2025-05-11 21:56:37,832 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-11 21:56:39,921 - werkzeug - WARNING -  * Debugger is active!
+2025-05-11 21:56:39,927 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-11 21:56:40,900 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\queue.py', reloading
+2025-05-11 21:56:40,902 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\threading.py', reloading
+2025-05-11 21:56:41,175 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-11 21:56:42,885 - werkzeug - WARNING -  * Debugger is active!
+2025-05-11 21:56:42,890 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-11 21:57:10,381 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\flask\\app.py', reloading
+2025-05-11 21:57:11,188 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-11 21:57:12,893 - werkzeug - WARNING -  * Debugger is active!
+2025-05-11 21:57:12,896 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-11 22:15:59,009 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-11 22:15:59,009 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-11 22:15:59,009 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-11 22:16:00,188 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-11 22:16:49,009 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-11 22:16:49,010 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-11 22:16:49,020 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-11 22:16:50,673 - werkzeug - WARNING -  * Debugger is active!
+2025-05-11 22:16:50,676 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-11 22:16:54,989 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:16:54] "GET /alumnos_url HTTP/1.1" 200 -
+2025-05-11 22:16:57,185 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:16:57] "GET /mapa HTTP/1.1" 200 -
+2025-05-11 22:16:57,232 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:16:57] "[35m[1mGET /api/python/ubicaciones HTTP/1.1[0m" 500 -
+2025-05-11 22:16:57,237 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:16:57] "[35m[1mGET /api/python/alumnos/ubicaciones HTTP/1.1[0m" 500 -
+2025-05-11 22:16:57,239 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:16:57] "[35m[1mGET /api/python/clases/ubicaciones HTTP/1.1[0m" 500 -
+2025-05-11 22:16:57,243 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:16:57] "[35m[1mGET /api/python/profesores/ubicaciones HTTP/1.1[0m" 500 -
+2025-05-11 22:17:15,762 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:17:15] "[35m[1mGET /api/python/ruta?origen_lat=40.4534236&origen_lng=-3.9980585&destino_id=1&tipo_destino=ubicacion HTTP/1.1[0m" 500 -
+2025-05-11 22:17:29,587 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:17:29] "[35m[1mGET /api/python/ruta?origen_lat=40.41953432413546&origen_lng=-3.712005615234375&destino_id=1&tipo_destino=ubicacion HTTP/1.1[0m" 500 -
+2025-05-11 22:17:44,323 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:17:44] "[35m[1mPOST /api/python/actualizar_ubicacion HTTP/1.1[0m" 500 -
+2025-05-11 22:17:48,297 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:17:48] "[35m[1mPOST /api/python/actualizar_ubicacion HTTP/1.1[0m" 500 -
+2025-05-11 22:17:51,217 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:17:51] "[35m[1mGET /api/python/ruta?origen_lat=40.41953432413546&origen_lng=-3.712005615234375&destino_id=1&tipo_destino=ubicacion HTTP/1.1[0m" 500 -
+2025-05-11 22:17:54,017 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:17:54] "[35m[1mGET /api/python/ubicaciones_cercanas?lat=40.41953432413546&lng=-3.712005615234375&radio=500&tipo=todos HTTP/1.1[0m" 500 -
+2025-05-11 22:17:54,765 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:17:54] "[35m[1mGET /api/python/ubicaciones_cercanas?lat=40.41953432413546&lng=-3.712005615234375&radio=500&tipo=todos HTTP/1.1[0m" 500 -
+2025-05-11 22:18:09,686 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:18:09] "[35m[1mGET /api/python/ubicaciones_cercanas?lat=40.47101921942994&lng=-3.692779541015625&radio=500&tipo=todos HTTP/1.1[0m" 500 -
+2025-05-11 22:18:16,038 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:18:16] "[35m[1mGET /api/python/ruta?origen_lat=40.47101921942994&origen_lng=-3.692779541015625&destino_id=1&tipo_destino=clase HTTP/1.1[0m" 500 -
+2025-05-11 22:18:22,996 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:18:22] "[35m[1mPOST /api/python/actualizar_ubicacion HTTP/1.1[0m" 500 -
+2025-05-11 22:18:26,005 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:18:26] "[35m[1mPOST /api/python/actualizar_ubicacion HTTP/1.1[0m" 500 -
+2025-05-11 22:18:30,905 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:18:30] "[35m[1mPOST /api/python/actualizar_ubicacion HTTP/1.1[0m" 500 -
+2025-05-11 22:20:51,982 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:20:51] "GET /mapa HTTP/1.1" 200 -
+2025-05-11 22:20:52,123 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:20:52] "GET /api/ubicaciones HTTP/1.1" 200 -
+2025-05-11 22:20:52,140 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:20:52] "GET /api/profesores/ubicaciones HTTP/1.1" 200 -
+2025-05-11 22:20:52,167 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:20:52] "GET /api/clases/ubicaciones HTTP/1.1" 200 -
+2025-05-11 22:20:52,552 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:20:52] "GET /api/alumnos/ubicaciones HTTP/1.1" 200 -
+2025-05-11 22:21:13,255 - root - ERROR - Error al actualizar ubicación: column "geom" of relation "teacher_audit" does not exist
+CONTEXT:  remote SQL command: INSERT INTO public.teacher_audit(operation, stamp, userid, id, name, lastmodified, nota, hash_password, geom) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+SQL statement "INSERT INTO teacher_audit (operation, stamp, userid, id, name, lastmodified, nota, hash_password, geom)
+        VALUES ('U', now(), current_user, NEW.id, NEW.name, NEW.lastmodified, NEW.nota, NEW.hash_password, NEW.geom)"
+PL/pgSQL function process_teacher_audit() line 6 at SQL statement
+
+2025-05-11 22:21:13,293 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:21:13] "[35m[1mPOST /api/actualizar_ubicacion HTTP/1.1[0m" 500 -
+2025-05-11 22:21:27,751 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:21:27] "POST /api/actualizar_ubicacion HTTP/1.1" 200 -
+2025-05-11 22:21:29,447 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:21:29] "GET /api/ubicaciones HTTP/1.1" 200 -
+2025-05-11 22:21:29,454 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:21:29] "GET /api/profesores/ubicaciones HTTP/1.1" 200 -
+2025-05-11 22:21:29,476 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:21:29] "GET /api/clases/ubicaciones HTTP/1.1" 200 -
+2025-05-11 22:21:29,623 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:21:29] "GET /api/alumnos/ubicaciones HTTP/1.1" 200 -
+2025-05-11 22:23:19,710 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-11 22:23:19,710 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-11 22:23:19,710 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-11 22:23:19,712 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-11 22:23:20,623 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-11 22:23:22,303 - werkzeug - WARNING -  * Debugger is active!
+2025-05-11 22:23:22,305 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-11 22:23:51,383 - root - ERROR - Error al obtener ruta: column reference "cost" is ambiguous
+LINE 2:                     SELECT seq, node, edge, cost, agg_cost, 
+                                                    ^
+
+2025-05-11 22:23:51,425 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:23:51] "[35m[1mGET /api/ruta?origen_id=1&destino_id=1&tipo_origen=alumno&tipo_destino=ubicacion HTTP/1.1[0m" 500 -
+2025-05-11 22:25:15,611 - root - ERROR - Error al obtener ruta: column reference "cost" is ambiguous
+LINE 2:                     SELECT seq, node, edge, cost, agg_cost, 
+                                                    ^
+
+2025-05-11 22:25:15,648 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:25:15] "[35m[1mGET /api/ruta?origen_id=1&destino_id=3&tipo_origen=alumno&tipo_destino=ubicacion HTTP/1.1[0m" 500 -
+2025-05-11 22:25:18,544 - root - ERROR - Error al obtener ruta: column reference "cost" is ambiguous
+LINE 2:                     SELECT seq, node, edge, cost, agg_cost, 
+                                                    ^
+
+2025-05-11 22:25:18,580 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:25:18] "[35m[1mGET /api/ruta?origen_id=1&destino_id=3&tipo_origen=alumno&tipo_destino=ubicacion HTTP/1.1[0m" 500 -
+2025-05-11 22:31:20,393 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\gis\\2-flask-solucion_gis_completo\\app.py', reloading
+2025-05-11 22:31:21,414 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-11 22:31:23,152 - werkzeug - WARNING -  * Debugger is active!
+2025-05-11 22:31:23,156 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-11 22:36:00,967 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\logging\\__init__.py', reloading
+2025-05-11 22:36:01,878 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-11 22:36:03,624 - werkzeug - WARNING -  * Debugger is active!
+2025-05-11 22:36:03,627 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-11 22:42:09,599 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:42:09] "GET / HTTP/1.1" 200 -
+2025-05-11 22:42:12,435 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:42:12] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-05-11 22:42:12,482 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:42:12] "GET / HTTP/1.1" 200 -
+2025-05-11 22:43:05,680 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:43:05] "GET /login HTTP/1.1" 200 -
+2025-05-11 22:43:15,517 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:43:15] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-05-11 22:43:15,599 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:43:15] "GET /menu HTTP/1.1" 200 -
+2025-05-11 22:43:27,221 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:43:27] "GET /alumnos_url HTTP/1.1" 200 -
+2025-05-11 22:43:53,974 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:43:53] "GET /export/alumnos/excel HTTP/1.1" 200 -
+2025-05-11 22:44:05,320 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:44:05] "GET /import/alumnos/excel HTTP/1.1" 200 -
+2025-05-11 22:44:22,783 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:44:22] "POST /import/alumnos/excel HTTP/1.1" 200 -
+2025-05-11 22:44:25,932 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:44:25] "GET /import/alumnos/excel HTTP/1.1" 200 -
+2025-05-11 22:44:50,274 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:44:50] "GET /alumnos_url?search_nombre=&search_apellido=García&search_direccion=&search_birthday_inicio=&search_birthday_fin=&search_fecha_inicio=&search_fecha_fin= HTTP/1.1" 200 -
+2025-05-11 22:45:16,079 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:45:16] "GET /profesores_url HTTP/1.1" 200 -
+2025-05-11 22:45:25,244 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:45:25] "GET /clases_url HTTP/1.1" 200 -
+2025-05-11 22:45:34,218 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:45:34] "GET /clases_url?search_nombre=curso&search_teacher_name=&search_nombre2=esp HTTP/1.1" 200 -
+2025-05-11 22:45:53,821 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:45:53] "GET /clases_url?search_nombre=curso&search_teacher_name=&search_nombre2=eng HTTP/1.1" 200 -
+2025-05-11 22:46:09,160 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:46:09] "GET /alumnos_audit_url HTTP/1.1" 200 -
+2025-05-11 22:47:15,387 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:47:15] "GET /alumnos_audit_url HTTP/1.1" 200 -
+2025-05-11 22:47:17,015 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:47:17] "GET /teacher_audit_url HTTP/1.1" 200 -
+2025-05-11 22:47:18,568 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:47:18] "GET /course_audit_url HTTP/1.1" 200 -
+2025-05-11 22:47:19,718 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:47:19] "GET /matriculados_audit_url HTTP/1.1" 200 -
+2025-05-11 22:47:21,177 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:47:21] "GET /ver_redis HTTP/1.1" 200 -
+2025-05-11 22:47:32,960 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:47:32] "GET /mapa HTTP/1.1" 200 -
+2025-05-11 22:47:33,108 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:47:33] "GET /api/ubicaciones HTTP/1.1" 200 -
+2025-05-11 22:47:33,120 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:47:33] "GET /api/profesores/ubicaciones HTTP/1.1" 200 -
+2025-05-11 22:47:33,150 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:47:33] "GET /api/clases/ubicaciones HTTP/1.1" 200 -
+2025-05-11 22:47:33,289 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:47:33] "GET /api/alumnos/ubicaciones HTTP/1.1" 200 -
+2025-05-11 22:49:07,902 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:49:07] "GET /alumnos_audit_url HTTP/1.1" 200 -
+2025-05-11 22:49:37,366 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:49:37] "GET /clases_url HTTP/1.1" 200 -
+2025-05-11 22:50:15,489 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 22:50:15] "GET /alumnos_audit_url HTTP/1.1" 200 -
+2025-05-11 23:10:08,661 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 23:10:08] "GET /matriculados_audit_url HTTP/1.1" 200 -
+2025-05-11 23:17:51,346 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 23:17:51] "GET /matriculados_url HTTP/1.1" 200 -
+2025-05-11 23:17:54,741 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 23:17:54] "GET /matriculados_audit_url HTTP/1.1" 200 -
+2025-05-11 23:18:41,381 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 23:18:41] "GET /matriculados_audit_url?search_userid=1000013&search_alumn_id=&search_course_id=&search_operation=&search_stamp= HTTP/1.1" 200 -
+2025-05-11 23:18:48,707 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 23:18:48] "GET /matriculados_audit_url?search_userid=1000013&search_alumn_id=&search_course_id=&search_operation=&search_stamp= HTTP/1.1" 200 -
+2025-05-11 23:18:52,771 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 23:18:52] "GET /matriculados_audit_url?search_userid=1000013&search_alumn_id=&search_course_id=&search_operation=&search_stamp= HTTP/1.1" 200 -
+2025-05-11 23:19:13,794 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 23:19:13] "GET /matriculados_audit_url?search_userid=&search_alumn_id=&search_course_id=11087&search_operation=&search_stamp= HTTP/1.1" 200 -
+2025-05-11 23:19:37,555 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 23:19:37] "GET /matriculados_url HTTP/1.1" 200 -
+2025-05-11 23:19:52,526 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 23:19:52] "GET /alumnos_audit_url HTTP/1.1" 200 -
+2025-05-11 23:19:53,784 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 23:19:53] "GET /matriculados_audit_url HTTP/1.1" 200 -
+2025-05-11 23:20:08,432 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 23:20:08] "GET /matriculados_url HTTP/1.1" 200 -
+2025-05-11 23:20:13,212 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 23:20:13] "GET /matriculados_url?search_alumn_id=1000013&search_course_id= HTTP/1.1" 200 -
+2025-05-11 23:20:19,067 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 23:20:19] "GET /alumnos_url HTTP/1.1" 200 -
+2025-05-11 23:20:25,330 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 23:20:25] "GET /matriculados_url HTTP/1.1" 200 -
+2025-05-11 23:20:32,009 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 23:20:32] "GET /matriculados_url?search_alumn_id=1000013&search_course_id= HTTP/1.1" 200 -
+2025-05-11 23:20:34,838 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 23:20:34] "GET /alumnos_audit_url HTTP/1.1" 200 -
+2025-05-11 23:20:37,632 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 23:20:37] "GET /matriculados_audit_url HTTP/1.1" 200 -
+2025-05-11 23:20:41,745 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 23:20:41] "GET /alumnos_url HTTP/1.1" 200 -
+2025-05-11 23:20:50,214 - werkzeug - INFO - 127.0.0.1 - - [11/May/2025 23:20:50] "GET /alumnos_url?search_nombre=1000013&search_apellido=&search_direccion=&search_birthday_inicio=&search_birthday_fin=&search_fecha_inicio=&search_fecha_fin= HTTP/1.1" 200 -
+2025-05-12 00:14:06,933 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 00:14:06] "GET /matriculados_url HTTP/1.1" 200 -
+2025-05-12 00:14:10,789 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 00:14:10] "GET /matriculados_url?search_alumn_id=1000013&search_course_id= HTTP/1.1" 200 -
+2025-05-12 00:18:33,120 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 00:18:33] "GET /matriculados_url?search_alumn_id=&search_course_id=110 HTTP/1.1" 200 -
+2025-05-12 00:18:36,693 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 00:18:36] "GET /matriculados_url?page=2 HTTP/1.1" 200 -
+2025-05-12 00:18:39,143 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 00:18:39] "GET /matriculados_url?page=3 HTTP/1.1" 200 -
+2025-05-12 00:18:41,644 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 00:18:41] "GET /matriculados_url?page=4 HTTP/1.1" 200 -
+2025-05-12 00:21:02,264 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 00:21:02] "GET /matriculados_url?search_alumn_id=1000012&search_course_id= HTTP/1.1" 200 -
+2025-05-12 00:35:58,276 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 00:35:58] "GET /matriculados_url?search_alumn_id=1000012&search_course_id= HTTP/1.1" 200 -
+2025-05-12 00:36:04,717 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 00:36:04] "GET /matriculados_audit_url HTTP/1.1" 200 -
+2025-05-12 00:36:23,839 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 00:36:23] "GET /clases_url HTTP/1.1" 200 -
+2025-05-12 00:36:29,548 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 00:36:29] "GET /clases_url?page=2 HTTP/1.1" 200 -
+2025-05-12 00:36:31,906 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 00:36:31] "GET /clases_url?page=3 HTTP/1.1" 200 -
+2025-05-12 00:36:34,508 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 00:36:34] "GET /clases_url?page=4 HTTP/1.1" 200 -
+2025-05-12 00:36:47,261 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 00:36:47] "GET /clases_url?search_nombre=Michelle+Ramos&search_teacher_name=&search_nombre2=esp HTTP/1.1" 200 -
+2025-05-12 00:36:57,941 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 00:36:57] "GET /clases_url?search_nombre=Michelle+Ramos&search_teacher_name=Natalie+Kelly%09&search_nombre2=esp HTTP/1.1" 200 -
+2025-05-12 00:37:11,680 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 00:37:11] "GET /clases_url?search_nombre=&search_teacher_name=Natalie+Kelly%09&search_nombre2=esp HTTP/1.1" 200 -
+2025-05-12 00:37:42,755 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 00:37:42] "GET /clases_url?search_nombre=&search_teacher_name=&search_nombre2=esp HTTP/1.1" 200 -
+2025-05-12 00:37:48,223 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 00:37:48] "GET /clases_url?search_nombre=&search_teacher_name=FGTRH&search_nombre2=esp HTTP/1.1" 200 -
+2025-05-12 00:38:11,931 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 00:38:11] "GET /clases_url?search_nombre=&search_teacher_name=Matthew+Foster%09&search_nombre2=esp HTTP/1.1" 200 -
+2025-05-12 00:39:26,999 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-12 00:39:26,999 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-12 00:39:28,093 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-12 00:39:30,311 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 00:39:30,317 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-12 00:39:31,302 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\queue.py', reloading
+2025-05-12 00:39:31,305 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\threading.py', reloading
+2025-05-12 00:39:31,555 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-12 00:39:33,104 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 00:39:33,108 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-12 00:48:06,044 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-12 00:48:06,044 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-12 00:48:06,044 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-12 00:48:06,285 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-12 00:48:07,919 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 00:48:07,923 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-12 00:48:18,234 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 00:48:18] "GET /clases_url?search_nombre=&search_teacher_name=Matthew+Foster%09&search_nombre2=esp HTTP/1.1" 200 -
+2025-05-12 00:48:20,748 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 00:48:20] "GET /clases_url HTTP/1.1" 200 -
+2025-05-12 00:48:31,063 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 00:48:31] "GET /clases_url?page=2 HTTP/1.1" 200 -
+2025-05-12 00:48:34,945 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 00:48:34] "GET /clases_url?page=4 HTTP/1.1" 200 -
+2025-05-12 00:48:44,496 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 00:48:44] "GET /clases_url?search_nombre=Michelle+Ramos%09&search_teacher_name=&search_nombre2=esp HTTP/1.1" 200 -
+2025-05-12 00:48:57,826 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 00:48:57] "GET /clases_url?search_nombre=Michelle+Ramos%09&search_teacher_name=Michelle+Ramos%09&search_nombre2=esp HTTP/1.1" 200 -
+2025-05-12 00:49:06,261 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 00:49:06] "GET /clases_url?search_nombre=Michelle&search_teacher_name=&search_nombre2=esp HTTP/1.1" 200 -
+2025-05-12 00:49:13,618 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 00:49:13] "GET /clases_url?search_nombre=Mic&search_teacher_name=&search_nombre2=esp HTTP/1.1" 200 -
+2025-05-12 00:52:41,222 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 00:52:41] "GET /clases_url?page=4 HTTP/1.1" 200 -
+2025-05-12 00:58:03,488 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-12 00:58:03,489 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-12 00:58:04,290 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-12 00:58:05,986 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 00:58:05,989 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-12 00:58:13,215 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 00:58:13] "GET /clases_url?page=4 HTTP/1.1" 200 -
+2025-05-12 00:58:22,047 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 00:58:22] "GET /clases_url HTTP/1.1" 200 -
+2025-05-12 00:58:23,014 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 00:58:23] "GET /clases_url HTTP/1.1" 200 -
+2025-05-12 00:58:23,214 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 00:58:23] "GET /clases_url HTTP/1.1" 200 -
+2025-05-12 00:58:35,574 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 00:58:35] "GET /clases_url?page=4 HTTP/1.1" 200 -
+2025-05-12 01:00:30,311 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-12 01:00:30,312 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-12 01:00:30,312 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-12 01:00:31,505 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-12 01:00:33,215 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 01:00:33,218 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-12 01:00:37,929 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:00:37] "GET /clases_url?page=2 HTTP/1.1" 200 -
+2025-05-12 01:00:46,132 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:00:46] "GET /clases_url?search_nombre=mi&search_teacher_name=&search_nombre2=esp HTTP/1.1" 200 -
+2025-05-12 01:01:08,834 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:01:08] "GET /clases_url?search_nombre=Michelle+Ramos&search_teacher_name=&search_nombre2=esp HTTP/1.1" 200 -
+2025-05-12 01:02:13,678 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:02:13] "GET /matriculados_audit_url HTTP/1.1" 200 -
+2025-05-12 01:02:25,161 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:02:25] "GET /matriculados_url HTTP/1.1" 200 -
+2025-05-12 01:02:37,429 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:02:37] "GET /matriculados_url?search_alumn_id=&search_course_id=110 HTTP/1.1" 200 -
+2025-05-12 01:08:42,517 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:08:42] "GET /matriculados_url?search_alumn_id=&search_course_id=110 HTTP/1.1" 200 -
+2025-05-12 01:08:51,858 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:08:51] "GET /matriculados_audit_url HTTP/1.1" 200 -
+2025-05-12 01:08:58,619 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:08:58] "GET /matriculados_url HTTP/1.1" 200 -
+2025-05-12 01:09:06,533 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:09:06] "GET /matriculados_url?search_alumn_id=9503&search_course_id= HTTP/1.1" 200 -
+2025-05-12 01:09:14,274 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:09:14] "GET /clases_url HTTP/1.1" 200 -
+2025-05-12 01:09:19,993 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:09:19] "GET /clases_url?search_nombre=Michelle+Ramos&search_teacher_name=&search_nombre2=esp HTTP/1.1" 200 -
+2025-05-12 01:11:33,217 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:11:33] "GET /clases_url?search_nombre=Michelle+Ramos&search_teacher_name=&search_nombre2=esp HTTP/1.1" 200 -
+2025-05-12 01:13:49,432 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:13:49] "GET /alumnos_audit_url HTTP/1.1" 200 -
+2025-05-12 01:13:52,846 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:13:52] "GET /matriculados_audit_url HTTP/1.1" 200 -
+2025-05-12 01:19:41,015 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\numpy\\_typing\\_scalars.py', reloading
+2025-05-12 01:19:41,040 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\numpy\\_typing\\_nbit_base.py', reloading
+2025-05-12 01:19:41,073 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\numpy\\_typing\\_nbit.py', reloading
+2025-05-12 01:19:41,605 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-12 01:19:43,251 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 01:19:43,255 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-12 01:20:05,035 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\elasticsearch\\4.-shutdownlimpio.py', reloading
+2025-05-12 01:20:05,043 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\elasticsearch_original\\4.-shutdownlimpio.py', reloading
+2025-05-12 01:20:05,535 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-12 01:20:07,153 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 01:20:07,157 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-12 01:23:06,401 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\sparse\\__init__.py', reloading
+2025-05-12 01:23:06,423 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\sparse\\_base.py', reloading
+2025-05-12 01:23:06,452 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\sparse\\_csr.py', reloading
+2025-05-12 01:23:06,475 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\sparse\\_csc.py', reloading
+2025-05-12 01:23:06,494 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\sparse\\_lil.py', reloading
+2025-05-12 01:23:06,822 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-12 01:23:08,489 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 01:23:08,493 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-12 01:23:50,298 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\orm\\context.py', reloading
+2025-05-12 01:23:50,345 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\sql\\dml.py', reloading
+2025-05-12 01:23:50,791 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-12 01:23:52,390 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 01:23:52,394 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-12 01:32:35,959 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\streamlit\\__init__.py', reloading
+2025-05-12 01:32:36,020 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\streamlit\\config.py', reloading
+2025-05-12 01:32:36,055 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\streamlit\\delta_generator_singletons.py', reloading
+2025-05-12 01:32:36,083 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\streamlit\\delta_generator.py', reloading
+2025-05-12 01:32:36,135 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\streamlit\\elements\\alert.py', reloading
+2025-05-12 01:32:36,152 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\streamlit\\elements\\widgets\\audio_input.py', reloading
+2025-05-12 01:32:36,171 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\streamlit\\elements\\balloons.py', reloading
+2025-05-12 01:32:36,191 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\streamlit\\elements\\bokeh_chart.py', reloading
+2025-05-12 01:32:36,213 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\streamlit\\elements\\widgets\\button.py', reloading
+2025-05-12 01:32:36,237 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\streamlit\\elements\\widgets\\button_group.py', reloading
+2025-05-12 01:32:36,260 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\streamlit\\elements\\widgets\\camera_input.py', reloading
+2025-05-12 01:32:36,283 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\streamlit\\elements\\widgets\\chat.py', reloading
+2025-05-12 01:32:36,301 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\streamlit\\elements\\widgets\\checkbox.py', reloading
+2025-05-12 01:32:36,316 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\streamlit\\elements\\code.py', reloading
+2025-05-12 01:32:36,332 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\streamlit\\elements\\widgets\\color_picker.py', reloading
+2025-05-12 01:32:36,580 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-12 01:32:38,322 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 01:32:38,325 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-12 01:40:28,282 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\gis\\2-flask-solucion_gis_completo\\app.py', reloading
+2025-05-12 01:40:29,431 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-12 01:40:31,113 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 01:40:31,116 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-12 01:40:32,105 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\queue.py', reloading
+2025-05-12 01:40:32,106 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\threading.py', reloading
+2025-05-12 01:40:32,342 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-12 01:40:33,952 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 01:40:33,956 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-12 01:41:23,211 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\sql\\selectable.py', reloading
+2025-05-12 01:41:24,280 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-12 01:41:25,839 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 01:41:25,843 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-12 01:45:19,548 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-12 01:45:19,549 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-12 01:45:20,468 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-12 01:45:22,139 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 01:45:22,143 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-12 01:45:43,719 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:45:43] "GET /matriculados_audit_url HTTP/1.1" 200 -
+2025-05-12 01:45:45,445 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\flask\\app.py', reloading
+2025-05-12 01:45:45,455 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\flask\\templating.py', reloading
+2025-05-12 01:45:45,467 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\jinja2\\environment.py', reloading
+2025-05-12 01:45:45,469 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\jinja2\\loaders.py', reloading
+2025-05-12 01:45:45,474 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:45:45] "[35m[1mGET /resumen_olap HTTP/1.1[0m" 500 -
+2025-05-12 01:45:45,570 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:45:45] "GET /resumen_olap?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2025-05-12 01:45:45,587 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:45:45] "GET /resumen_olap?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2025-05-12 01:45:45,612 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:45:45] "GET /resumen_olap?__debugger__=yes&cmd=resource&f=console.png&s=hjb6KoyTwJp2FlN4zXA4 HTTP/1.1" 200 -
+2025-05-12 01:45:45,618 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:45:45] "GET /resumen_olap?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2025-05-12 01:45:46,441 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-12 01:45:47,952 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 01:45:47,956 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-12 01:49:38,859 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:49:38] "GET /resumen_olap HTTP/1.1" 200 -
+2025-05-12 01:49:38,911 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:49:38] "[33mGET /static/style.css HTTP/1.1[0m" 404 -
+2025-05-12 01:50:01,316 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:50:01] "GET / HTTP/1.1" 200 -
+2025-05-12 01:50:06,901 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:50:06] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-05-12 01:50:06,958 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:50:06] "GET / HTTP/1.1" 200 -
+2025-05-12 01:50:11,066 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:50:11] "GET /login HTTP/1.1" 200 -
+2025-05-12 01:50:22,246 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:50:22] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-05-12 01:50:22,333 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:50:22] "GET /menu HTTP/1.1" 200 -
+2025-05-12 01:50:59,558 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:50:59] "GET /menu HTTP/1.1" 200 -
+2025-05-12 01:51:00,546 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:51:00] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-05-12 01:51:00,585 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:51:00] "GET / HTTP/1.1" 200 -
+2025-05-12 01:51:09,045 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:51:09] "GET /login HTTP/1.1" 200 -
+2025-05-12 01:51:16,009 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:51:16] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-05-12 01:51:16,049 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:51:16] "GET /menu HTTP/1.1" 200 -
+2025-05-12 01:51:22,442 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:51:22] "GET /register HTTP/1.1" 200 -
+2025-05-12 01:51:35,154 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:51:35] "[35m[1mPOST /register HTTP/1.1[0m" 201 -
+2025-05-12 01:51:37,210 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:51:37] "GET /login HTTP/1.1" 200 -
+2025-05-12 01:51:49,291 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:51:49] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-05-12 01:51:49,331 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:51:49] "GET /menu HTTP/1.1" 200 -
+2025-05-12 01:51:53,672 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:51:53] "GET /profesores_url HTTP/1.1" 200 -
+2025-05-12 01:51:56,835 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:51:56] "GET /matriculados_url HTTP/1.1" 200 -
+2025-05-12 01:51:58,640 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:51:58] "GET /clases_url HTTP/1.1" 200 -
+2025-05-12 01:58:45,575 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:58:45] "GET /profesores_url HTTP/1.1" 200 -
+2025-05-12 01:58:54,551 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:58:54] "GET /alumnos_url HTTP/1.1" 200 -
+2025-05-12 01:58:56,280 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 01:58:56] "GET /profesores_url HTTP/1.1" 200 -
+2025-05-12 03:10:35,747 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-12 03:10:37,204 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-12 03:10:42,246 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 03:10:42,250 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-12 03:10:43,250 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\queue.py', reloading
+2025-05-12 03:10:43,270 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\threading.py', reloading
+2025-05-12 03:10:43,511 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-12 03:10:45,013 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 03:10:45,016 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-12 08:34:43,200 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-12 08:34:43,203 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:34:43] "GET / HTTP/1.1" 200 -
+2025-05-12 08:34:43,783 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-12 08:34:45,933 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 08:34:45,938 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-12 08:34:46,004 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:34:46] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-12 08:34:46,825 - elastic_transport.transport - INFO - POST http://localhost:9200/logs_usuarios/_doc [status:201 duration:0.823s]
+2025-05-12 08:34:47,833 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\queue.py', reloading
+2025-05-12 08:34:47,836 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\threading.py', reloading
+2025-05-12 08:34:48,248 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-12 08:34:50,676 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 08:34:50,680 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-12 08:35:00,376 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:35:00] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-05-12 08:35:00,476 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:35:00] "GET / HTTP/1.1" 200 -
+2025-05-12 08:35:03,319 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:35:03] "GET /login HTTP/1.1" 200 -
+2025-05-12 08:35:13,534 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:35:13] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-05-12 08:35:13,696 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:35:13] "GET /menu HTTP/1.1" 200 -
+2025-05-12 08:35:20,532 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:35:20] "GET /alumnos_url HTTP/1.1" 200 -
+2025-05-12 08:35:31,908 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:35:31] "GET /alumnos_url?search_nombre=john&search_apellido=&search_direccion=&search_birthday_inicio=&search_birthday_fin=&search_fecha_inicio=&search_fecha_fin= HTTP/1.1" 200 -
+2025-05-12 08:35:52,661 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:35:52] "[31m[1mPOST /alumnos_url HTTP/1.1[0m" 403 -
+2025-05-12 08:36:33,034 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:36:33] "POST /alumnos_url HTTP/1.1" 200 -
+2025-05-12 08:36:40,631 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:36:40] "GET /profesores_url HTTP/1.1" 200 -
+2025-05-12 08:36:44,760 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:36:44] "GET /clases_url HTTP/1.1" 200 -
+2025-05-12 08:36:59,434 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:36:59] "GET /matriculados_url HTTP/1.1" 200 -
+2025-05-12 08:37:07,345 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:37:07] "GET /matriculados_url?search_alumn_id=&search_course_id=110 HTTP/1.1" 200 -
+2025-05-12 08:37:33,183 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:37:33] "GET /alumnos_audit_url HTTP/1.1" 200 -
+2025-05-12 08:37:44,833 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:37:44] "GET /ver_redis HTTP/1.1" 200 -
+2025-05-12 08:38:16,607 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:38:16] "GET /mapa HTTP/1.1" 200 -
+2025-05-12 08:38:16,884 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:38:16] "GET /api/ubicaciones HTTP/1.1" 200 -
+2025-05-12 08:38:16,891 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:38:16] "GET /api/profesores/ubicaciones HTTP/1.1" 200 -
+2025-05-12 08:38:16,949 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:38:16] "GET /api/clases/ubicaciones HTTP/1.1" 200 -
+2025-05-12 08:38:17,487 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:38:17] "GET /api/alumnos/ubicaciones HTTP/1.1" 200 -
+2025-05-12 08:39:27,637 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:39:27] "GET /resumen_olap HTTP/1.1" 200 -
+2025-05-12 08:39:27,708 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:39:27] "[33mGET /static/style.css HTTP/1.1[0m" 404 -
+2025-05-12 08:41:03,466 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:41:03] "GET /test HTTP/1.1" 200 -
+2025-05-12 08:41:07,509 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:41:07] "GET /alumnos_url HTTP/1.1" 200 -
+2025-05-12 08:41:10,673 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:41:10] "GET /export/alumnos/excel HTTP/1.1" 200 -
+2025-05-12 08:41:15,363 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:41:15] "GET /export/alumnos/pdf HTTP/1.1" 200 -
+2025-05-12 08:41:36,478 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:41:36] "GET /import/alumnos/excel HTTP/1.1" 200 -
+2025-05-12 08:41:51,765 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:41:51] "POST /import/alumnos/excel HTTP/1.1" 200 -
+2025-05-12 08:41:55,581 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:41:55] "GET /import/alumnos/excel HTTP/1.1" 200 -
+2025-05-12 08:42:16,484 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:42:16] "GET /alumnos_url?search_nombre=&search_apellido=ana&search_direccion=g&search_birthday_inicio=&search_birthday_fin=&search_fecha_inicio=&search_fecha_fin= HTTP/1.1" 200 -
+2025-05-12 08:42:37,374 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:42:37] "GET /alumnos_url?search_nombre=ana&search_apellido=García&search_direccion=&search_birthday_inicio=&search_birthday_fin=&search_fecha_inicio=&search_fecha_fin= HTTP/1.1" 200 -
+2025-05-12 08:45:39,311 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:45:39] "GET /alumnos_url HTTP/1.1" 200 -
+2025-05-12 08:45:48,075 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:45:48] "GET /import/alumnos/excel HTTP/1.1" 200 -
+2025-05-12 08:48:56,618 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:48:56] "GET /mapa HTTP/1.1" 200 -
+2025-05-12 08:48:56,902 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:48:56] "GET /api/ubicaciones HTTP/1.1" 200 -
+2025-05-12 08:48:56,903 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:48:56] "GET /api/profesores/ubicaciones HTTP/1.1" 200 -
+2025-05-12 08:48:57,046 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:48:57] "GET /api/clases/ubicaciones HTTP/1.1" 200 -
+2025-05-12 08:48:57,405 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:48:57] "GET /api/alumnos/ubicaciones HTTP/1.1" 200 -
+2025-05-12 08:49:52,863 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:49:52] "GET /import/alumnos/excel HTTP/1.1" 200 -
+2025-05-12 08:50:29,565 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:50:29] "GET /alumnos_url HTTP/1.1" 200 -
+2025-05-12 08:50:33,417 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:50:33] "GET /alumnos_url?search_nombre=&search_apellido=&search_direccion=&search_birthday_inicio=&search_birthday_fin=&search_fecha_inicio=&search_fecha_fin= HTTP/1.1" 200 -
+2025-05-12 08:50:36,018 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:50:36] "GET /ver_redis HTTP/1.1" 200 -
+2025-05-12 09:02:51,709 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:02:51] "GET /alumnos_url HTTP/1.1" 200 -
+2025-05-12 09:02:51,836 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:02:51] "GET /alumnos_url?search_nombre=ana&search_apellido=García&search_direccion=&search_birthday_inicio=&search_birthday_fin=&search_fecha_inicio=&search_fecha_fin= HTTP/1.1" 200 -
+2025-05-12 09:02:52,873 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:02:52] "GET /alumnos_url HTTP/1.1" 200 -
+2025-05-12 09:02:53,208 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:02:53] "GET /alumnos_audit_url HTTP/1.1" 200 -
+2025-05-12 09:02:53,298 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:02:53] "GET /matriculados_url?search_alumn_id=&search_course_id=110 HTTP/1.1" 200 -
+2025-05-12 09:02:54,471 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:02:54] "GET /matriculados_url HTTP/1.1" 200 -
+2025-05-12 09:02:54,989 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:02:54] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-05-12 09:02:55,047 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:02:55] "GET / HTTP/1.1" 200 -
+2025-05-12 09:03:54,863 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:03:54] "GET /login HTTP/1.1" 200 -
+2025-05-12 09:04:38,202 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:04:38] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-05-12 09:04:38,271 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:04:38] "GET /menu HTTP/1.1" 200 -
+2025-05-12 09:04:40,747 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:04:40] "GET /alumnos_url HTTP/1.1" 200 -
+2025-05-12 09:06:31,714 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:06:31] "GET /profesores_url HTTP/1.1" 200 -
+2025-05-12 09:06:32,484 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:06:32] "GET /clases_url HTTP/1.1" 200 -
+2025-05-12 09:06:33,549 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:06:33] "GET /matriculados_url HTTP/1.1" 200 -
+2025-05-12 09:06:33,977 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:06:33] "GET /alumnos_audit_url HTTP/1.1" 200 -
+2025-05-12 09:06:34,802 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:06:34] "GET /teacher_audit_url HTTP/1.1" 200 -
+2025-05-12 09:06:35,510 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:06:35] "GET /course_audit_url HTTP/1.1" 200 -
+2025-05-12 09:06:36,593 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:06:36] "GET /matriculados_audit_url HTTP/1.1" 200 -
+2025-05-12 09:10:50,619 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:10:50] "GET /test HTTP/1.1" 200 -
+2025-05-12 09:14:29,833 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:14:29] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-12 09:18:04,483 - elastic_transport.transport - INFO - POST http://localhost:9200/logs_usuarios/_search [status:200 duration:0.150s]
+2025-05-12 09:18:04,543 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:18:04] "POST /consultar_elasticsearch HTTP/1.1" 200 -
+2025-05-12 09:18:05,514 - elastic_transport.transport - INFO - POST http://localhost:9200/logs_usuarios/_search [status:200 duration:0.040s]
+2025-05-12 09:18:05,579 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:18:05] "POST /consultar_elasticsearch HTTP/1.1" 200 -
+2025-05-12 09:18:51,952 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:18:51] "GET /test HTTP/1.1" 200 -
+2025-05-12 09:19:20,267 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:19:20] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-12 09:19:24,354 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:19:24] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-12 09:19:24,447 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:19:24] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-12 09:19:24,621 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:19:24] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-12 09:25:10,126 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:25:10] "GET /test HTTP/1.1" 200 -
+2025-05-12 09:25:15,748 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:25:15] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-12 09:25:35,557 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:25:35] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-12 09:25:54,292 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:25:54] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-12 09:27:31,719 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:27:31] "GET /test HTTP/1.1" 200 -
+2025-05-12 09:27:39,097 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:27:39] "GET /test HTTP/1.1" 200 -
+2025-05-12 09:27:59,781 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:27:59] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-12 09:28:07,864 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:28:07] "[35m[1mPOST /ejecutar_sql HTTP/1.1[0m" 500 -
+2025-05-12 09:28:08,509 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:28:08] "[35m[1mPOST /ejecutar_sql HTTP/1.1[0m" 500 -
+2025-05-12 09:28:08,703 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:28:08] "[35m[1mPOST /ejecutar_sql HTTP/1.1[0m" 500 -
+2025-05-12 09:28:08,889 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:28:08] "[35m[1mPOST /ejecutar_sql HTTP/1.1[0m" 500 -
+2025-05-12 09:28:52,807 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:28:52] "GET /matriculados_audit_url HTTP/1.1" 200 -
+2025-05-12 09:29:50,583 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:29:50] "GET /mapa HTTP/1.1" 200 -
+2025-05-12 09:29:50,819 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:29:50] "GET /api/ubicaciones HTTP/1.1" 200 -
+2025-05-12 09:29:50,834 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:29:50] "GET /api/profesores/ubicaciones HTTP/1.1" 200 -
+2025-05-12 09:29:50,894 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:29:50] "GET /api/clases/ubicaciones HTTP/1.1" 200 -
+2025-05-12 09:29:51,139 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:29:51] "GET /api/alumnos/ubicaciones HTTP/1.1" 200 -
+2025-05-12 09:30:58,992 - root - ERROR - Error al obtener ruta: column reference "cost" is ambiguous
+LINE 2:                     SELECT seq, node, edge, cost, agg_cost, 
+                                                    ^
+
+2025-05-12 09:30:59,147 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:30:59] "[35m[1mGET /api/ruta?origen_id=1000011&destino_id=1&tipo_origen=alumno&tipo_destino=ubicacion HTTP/1.1[0m" 500 -
+2025-05-12 09:31:32,633 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:31:32] "POST /api/actualizar_ubicacion HTTP/1.1" 200 -
+2025-05-12 09:31:34,603 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:31:34] "GET /api/ubicaciones HTTP/1.1" 200 -
+2025-05-12 09:31:34,632 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:31:34] "GET /api/profesores/ubicaciones HTTP/1.1" 200 -
+2025-05-12 09:31:34,659 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:31:34] "GET /api/clases/ubicaciones HTTP/1.1" 200 -
+2025-05-12 09:31:34,870 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:31:34] "GET /api/alumnos/ubicaciones HTTP/1.1" 200 -
+2025-05-12 09:33:21,104 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:33:21] "GET /api/ubicaciones/cercanas?lat=40.4619264&lon=-3.6929536&radio=500 HTTP/1.1" 200 -
+2025-05-12 09:33:27,758 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:33:27] "GET /api/ubicaciones/cercanas?lat=40.4619264&lon=-3.6929536&radio=50000 HTTP/1.1" 200 -
+2025-05-12 09:38:10,489 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-12 09:38:10,516 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-12 09:38:10,518 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-12 09:38:11,702 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-12 09:38:17,135 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 09:38:17,139 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-12 09:38:18,134 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\queue.py', reloading
+2025-05-12 09:38:18,158 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\threading.py', reloading
+2025-05-12 09:38:18,522 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-12 09:38:21,168 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 09:38:21,173 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-12 09:39:50,802 - root - ERROR - Error al obtener ruta: column reference "cost" is ambiguous
+LINE 2:                     SELECT seq, node, edge, cost, agg_cost, 
+                                                    ^
+
+2025-05-12 09:39:50,861 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:39:50] "[35m[1mGET /api/ruta?origen_id=1000009&destino_id=1&tipo_origen=alumno&tipo_destino=ubicacion HTTP/1.1[0m" 500 -
+2025-05-12 09:41:36,348 - root - ERROR - Error al obtener ruta: column reference "cost" is ambiguous
+LINE 2:                     SELECT seq, node, edge, cost, agg_cost, 
+                                                    ^
+
+2025-05-12 09:41:36,402 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:41:36] "[35m[1mGET /api/ruta?origen_id=1000009&destino_id=1&tipo_origen=alumno&tipo_destino=ubicacion HTTP/1.1[0m" 500 -
+2025-05-12 09:41:54,572 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-12 09:41:54,593 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-12 09:41:54,594 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-12 09:41:55,130 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-12 09:41:57,884 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 09:41:57,889 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-12 09:42:00,132 - root - ERROR - Error al obtener ruta: column reference "cost" is ambiguous
+LINE 2:                     SELECT seq, node, edge, cost, agg_cost, 
+                                                    ^
+
+2025-05-12 09:42:00,186 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:42:00] "[35m[1mGET /api/ruta?origen_id=1000009&destino_id=1&tipo_origen=alumno&tipo_destino=ubicacion HTTP/1.1[0m" 500 -
+2025-05-12 09:42:44,161 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:42:44] "GET /mapa HTTP/1.1" 200 -
+2025-05-12 09:42:44,447 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:42:44] "GET /api/ubicaciones HTTP/1.1" 200 -
+2025-05-12 09:42:44,485 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:42:44] "GET /api/profesores/ubicaciones HTTP/1.1" 200 -
+2025-05-12 09:42:44,531 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:42:44] "GET /api/clases/ubicaciones HTTP/1.1" 200 -
+2025-05-12 09:42:44,722 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:42:44] "GET /api/alumnos/ubicaciones HTTP/1.1" 200 -
+2025-05-12 09:42:59,172 - root - ERROR - Error al obtener ruta: column reference "cost" is ambiguous
+LINE 2:                     SELECT seq, node, edge, cost, agg_cost, 
+                                                    ^
+
+2025-05-12 09:42:59,225 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:42:59] "[35m[1mGET /api/ruta?origen_id=1000009&destino_id=1&tipo_origen=alumno&tipo_destino=ubicacion HTTP/1.1[0m" 500 -
+2025-05-12 09:51:37,786 - root - ERROR - Error al obtener ruta: column reference "cost" is ambiguous
+LINE 2:                     SELECT seq, node, edge, cost, agg_cost, 
+                                                    ^
+
+2025-05-12 09:51:37,845 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:51:37] "[35m[1mGET /api/ruta?origen_id=1&destino_id=1&tipo_origen=alumno&tipo_destino=ubicacion HTTP/1.1[0m" 500 -
+2025-05-12 09:58:19,552 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:58:19] "GET /test HTTP/1.1" 200 -
+2025-05-12 09:58:27,625 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:58:27] "[35m[1mPOST /ejecutar_sql HTTP/1.1[0m" 500 -
+2025-05-12 09:58:28,783 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:58:28] "[35m[1mPOST /ejecutar_sql HTTP/1.1[0m" 500 -
+2025-05-12 09:58:28,971 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:58:28] "[35m[1mPOST /ejecutar_sql HTTP/1.1[0m" 500 -
+2025-05-12 09:58:29,152 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:58:29] "[35m[1mPOST /ejecutar_sql HTTP/1.1[0m" 500 -
+2025-05-12 09:59:03,501 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:59:03] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-12 09:59:17,181 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:59:17] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-12 09:59:24,820 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:59:24] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-12 10:01:02,098 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:01:02] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-12 10:01:22,789 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:01:22] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-12 10:01:29,237 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:01:29] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-12 10:01:44,811 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:01:44] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-12 10:02:22,578 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:02:22] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-12 10:02:25,366 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:02:25] "GET /test HTTP/1.1" 200 -
+2025-05-12 10:02:28,245 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:02:28] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-12 10:02:42,880 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:02:42] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-12 10:02:56,103 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:02:56] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-12 10:06:39,504 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:06:39] "[31m[1mPOST /ejecutar_sql HTTP/1.1[0m" 403 -
+2025-05-12 10:06:40,007 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:06:40] "[31m[1mPOST /ejecutar_sql HTTP/1.1[0m" 403 -
+2025-05-12 10:07:42,629 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:07:42] "[31m[1mPOST /ejecutar_sql HTTP/1.1[0m" 403 -
+2025-05-12 10:07:43,141 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:07:43] "[31m[1mPOST /ejecutar_sql HTTP/1.1[0m" 403 -
+2025-05-12 10:07:51,482 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:07:51] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-12 10:08:59,487 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:08:59] "GET /matriculados_audit_url HTTP/1.1" 200 -
+2025-05-12 10:09:09,274 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:09:09] "GET /test HTTP/1.1" 200 -
+2025-05-12 10:10:18,927 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:10:18] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-12 10:11:01,425 - elastic_transport.transport - INFO - POST http://localhost:9200/logs_usuarios/_search [status:200 duration:0.118s]
+2025-05-12 10:11:01,483 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:11:01] "POST /consultar_elasticsearch HTTP/1.1" 200 -
+2025-05-12 10:13:14,578 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:13:14] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-12 10:15:55,874 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\elasticsearch_Lab.py', reloading
+2025-05-12 10:15:56,877 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-12 10:15:59,246 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 10:15:59,251 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-12 10:16:02,772 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\insert.py', reloading
+2025-05-12 10:16:03,600 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-12 10:16:06,209 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 10:16:06,214 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-12 10:19:20,399 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:19:20] "GET /alumnos_url HTTP/1.1" 200 -
+2025-05-12 10:19:20,803 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:19:20] "GET /alumnos_url HTTP/1.1" 200 -
+2025-05-12 10:19:25,018 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:19:25] "GET /profesores_url HTTP/1.1" 200 -
+2025-05-12 10:19:27,217 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:19:27] "GET /clases_url HTTP/1.1" 200 -
+2025-05-12 10:20:40,126 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:20:40] "GET /test HTTP/1.1" 200 -
+2025-05-12 10:20:46,379 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:20:46] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-12 10:20:55,130 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:20:55] "[35m[1mPOST /ejecutar_sql HTTP/1.1[0m" 500 -
+2025-05-12 10:21:07,615 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:21:07] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-12 10:21:25,565 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:21:25] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-12 10:21:29,908 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:21:29] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-12 10:21:37,800 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:21:37] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-12 10:21:41,663 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:21:41] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-12 10:22:19,456 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:22:19] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-12 10:22:50,467 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:22:50] "POST /ejecutar_sql HTTP/1.1" 200 -
+2025-05-12 10:23:10,783 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:23:10] "GET /alumnos_audit_url HTTP/1.1" 200 -
+2025-05-12 10:23:14,523 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:23:14] "GET /alumnos_audit_url HTTP/1.1" 200 -
+2025-05-12 10:23:22,917 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:23:22] "GET /alumnos_audit_url?search_nombre=ana&search_apellido=&search_direccion=&search_operation= HTTP/1.1" 200 -
+2025-05-12 10:23:37,928 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:23:37] "GET /alumnos_url HTTP/1.1" 200 -
+2025-05-12 10:23:40,797 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:23:40] "GET /import/alumnos/excel HTTP/1.1" 200 -
+2025-05-12 10:23:56,115 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:23:56] "POST /import/alumnos/excel HTTP/1.1" 200 -
+2025-05-12 10:23:58,401 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:23:58] "GET /import/alumnos/excel HTTP/1.1" 200 -
+2025-05-12 10:24:02,525 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:24:02] "GET /alumnos_audit_url HTTP/1.1" 200 -
+2025-05-12 10:24:05,820 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:24:05] "GET /alumnos_audit_url?page=2 HTTP/1.1" 200 -
+2025-05-12 10:24:36,207 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:24:36] "GET /mapa HTTP/1.1" 200 -
+2025-05-12 10:24:36,456 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:24:36] "GET /api/ubicaciones HTTP/1.1" 200 -
+2025-05-12 10:24:36,479 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:24:36] "GET /api/profesores/ubicaciones HTTP/1.1" 200 -
+2025-05-12 10:24:36,530 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:24:36] "GET /api/clases/ubicaciones HTTP/1.1" 200 -
+2025-05-12 10:24:36,857 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:24:36] "GET /api/alumnos/ubicaciones HTTP/1.1" 200 -
+2025-05-12 10:25:50,578 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:25:50] "GET /clases_url HTTP/1.1" 200 -
+2025-05-12 10:28:59,315 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:28:59] "GET /course_audit_url HTTP/1.1" 200 -
+2025-05-12 10:29:00,504 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:29:00] "GET /teacher_audit_url HTTP/1.1" 200 -
+2025-05-12 10:29:10,139 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:29:10] "GET /resumen_olap HTTP/1.1" 200 -
+2025-05-12 10:29:10,222 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:29:10] "[33mGET /static/style.css HTTP/1.1[0m" 404 -
+2025-05-12 10:30:34,625 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:30:34] "GET /resumen_olap HTTP/1.1" 200 -
+2025-05-12 10:30:34,714 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:30:34] "[33mGET /static/style.css HTTP/1.1[0m" 404 -
+2025-05-12 10:30:38,287 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:30:38] "GET /mapa HTTP/1.1" 200 -
+2025-05-12 10:30:38,549 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:30:38] "GET /api/ubicaciones HTTP/1.1" 200 -
+2025-05-12 10:30:38,555 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:30:38] "GET /api/profesores/ubicaciones HTTP/1.1" 200 -
+2025-05-12 10:30:38,592 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:30:38] "GET /api/clases/ubicaciones HTTP/1.1" 200 -
+2025-05-12 10:30:38,800 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:30:38] "GET /api/alumnos/ubicaciones HTTP/1.1" 200 -
+2025-05-12 10:37:30,435 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\gis\\2-flask-solucion_gis_completo\\app.py', reloading
+2025-05-12 10:37:31,476 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-12 10:37:34,006 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 10:37:34,011 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-12 10:37:59,489 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\gis\\3-flask_geolocation_docker\\app.py', reloading
+2025-05-12 10:38:00,486 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-12 10:38:03,048 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 10:38:03,053 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-12 10:53:55,652 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-12 10:53:55,653 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:53:55] "GET /alumnos_url HTTP/1.1" 200 -
+2025-05-12 10:53:56,384 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-12 10:53:59,073 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 10:53:59,077 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-12 10:53:59,675 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:53:59] "GET /profesores_url HTTP/1.1" 200 -
+2025-05-12 10:53:59,836 - elastic_transport.transport - INFO - POST http://localhost:9200/logs_usuarios/_doc [status:201 duration:0.163s]
+2025-05-12 10:54:00,844 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\queue.py', reloading
+2025-05-12 10:54:00,846 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\threading.py', reloading
+2025-05-12 10:54:01,434 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-12 10:54:03,987 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 10:54:03,992 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-12 10:54:05,354 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:54:05] "GET /clases_url HTTP/1.1" 200 -
+2025-05-12 10:54:11,619 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:54:11] "GET /alumnos_url HTTP/1.1" 200 -
+2025-05-12 10:54:14,893 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:54:14] "GET /export/alumnos/excel HTTP/1.1" 200 -
+2025-05-12 10:54:25,086 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:54:25] "GET /teacher_audit_url HTTP/1.1" 200 -
+2025-05-12 10:54:26,684 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:54:26] "GET /alumnos_audit_url HTTP/1.1" 200 -
+2025-05-12 10:54:37,846 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:54:37] "GET /ver_redis HTTP/1.1" 200 -
+2025-05-12 10:54:54,196 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:54:54] "GET /test HTTP/1.1" 200 -
+2025-05-12 10:55:08,095 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:55:08] "GET /mapa HTTP/1.1" 200 -
+2025-05-12 10:55:08,414 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:55:08] "GET /api/ubicaciones HTTP/1.1" 200 -
+2025-05-12 10:55:08,452 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:55:08] "GET /api/profesores/ubicaciones HTTP/1.1" 200 -
+2025-05-12 10:55:08,466 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:55:08] "GET /api/clases/ubicaciones HTTP/1.1" 200 -
+2025-05-12 10:55:08,685 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:55:08] "GET /api/alumnos/ubicaciones HTTP/1.1" 200 -
+2025-05-12 15:51:09,388 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 15:51:09] "GET / HTTP/1.1" 200 -
+2025-05-12 15:51:12,784 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 15:51:12] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-05-12 15:51:12,864 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 15:51:12] "GET / HTTP/1.1" 200 -
+2025-05-12 15:51:14,170 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 15:51:14] "GET /login HTTP/1.1" 200 -
+2025-05-12 15:51:18,685 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 15:51:18] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-05-12 15:51:18,725 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 15:51:18] "GET /menu HTTP/1.1" 200 -
+2025-05-12 15:51:38,108 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 15:51:38] "GET /profesores_url HTTP/1.1" 200 -
+2025-05-12 15:51:38,907 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 15:51:38] "GET /alumnos_url HTTP/1.1" 200 -
+2025-05-12 20:13:31,623 - werkzeug - INFO -  * Detected change in 'c:\\Users\\jesus\\Desktop\\BBDDA_Lab\\Lab1.py', reloading
+2025-05-12 20:13:32,272 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-12 20:13:37,557 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 20:13:37,561 - werkzeug - INFO -  * Debugger PIN: 504-231-414
+2025-05-12 20:13:38,553 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\queue.py', reloading
+2025-05-12 20:13:38,581 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jesus\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\threading.py', reloading
+2025-05-12 20:13:38,930 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
